@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Ether</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="media/etherfav.svg">
+    <meta name="theme-color" content="#4B4F9C" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#4B4F9C" media="(prefers-color-scheme: dark)">
+</head>
+<body>
+    <div class="header">
+            <div class="ttabs">
+                <a href="index.html" style="width: 100%;">
+                    <img class="logo" src="media/etherw.svg">
+                </a>
+            </div>
+    </div>
+    <div class="box">
+        <div class="sidebar sleft">
+            <span class="sh sleft">Популярное</span>
+            <a href="watch.html?v=rtvi" class="sbut sleft">
+                <img class="sbuticon" src="cdn/rtvi.svg">
+                <span>RTVI</span>
+            </a>
+            <a href="watch.html?v=m24" class="sbut sleft">
+                <img class="sbuticon" src="cdn/m24w.svg">
+                <span>Москва 24</span>
+            </a>
+            <a href="watch.html?v=bbc" class="sbut sleft">
+                <img class="sbuticon" src="cdn/bbc.svg">
+                <span>BBC</span>
+            </a>
+            <div class="footer sleft">
+                <a href="about.html" class="about">О сайте</a>
+                <span class="quickinfo">Ether, 2025</span>
+            </div>
+        </div>
+        <div class="vcontent">
+            <div class="vcolumn">
+                <iframe id="playerFrame" src="playerjs.html?file=" 
+                        type="text/html" 
+                        frameborder="0" 
+                        allowfullscreen 
+                        width="800" 
+                        height="450"></iframe>
+                <div class="vmenu">
+                    <span class="vtitle" id="vtitle"></span>
+                    <span class="vdesc" id="vdesc"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const channelId = params.get('v');
+
+            const channels = {
+                'ntv': {
+                    title: 'НТВ',
+                    description: 'Российский телеканал, который специализируется на новостях, криминальных расследованиях и детективных сериалах. Среди его заметных программ — информационные выпуски "Сегодня", аналитическое шоу "Итоги недели", а также популярные проекты, такие как "Следствие вели…" и "Маска".',
+                    player: 'https://streaming.televizor-24-tochka.ru/live/7.m3u8'
+                },
+                'rtvi': {
+                    title: 'RTVI',
+                    description: 'Международный русскоязычный телеканал, вещающий на страны Европы, Северной Америки и Израиль. Канал предлагает информационно-аналитические программы, а также документальные фильмы и ток-шоу, направленные на русскоязычную аудиторию за пределами России. Среди известных программ — "Вы держитесь", "Большой Newstalk", "Новые Итоги", "Американское Утро", "Дежурный по Америке".',
+                    player: 'http://tvin.su/players/wms.php?target=http://89.23.113.170:8081/iptv/rtvi-channel/playlist.m3u8',
+                    isDirectUrl: true
+                },
+                'm24': {
+                    title: 'Москва 24',
+                    description: 'Московский круглосуточный информационный телеканал, освещающий события, происходящие в столице России. Основной контент — оперативные новости, репортажи, аналитические обзоры и передачи, посвященные жизни города, транспорту, культурным событиям и городским проектам. Значимые программы включают "Москва Едет" и "Это Москва".',
+                    player: 'https://www.m24.ru/tv',
+                    isDirectUrl: true
+                },
+                'spb6': {
+                    title: 'Санкт-Петербург',
+                    description: 'Региональный телеканал, освещающий события и жизнь Санкт-Петербурга. В эфире представлены новостные выпуски, аналитические программы, документальные фильмы, культурные и исторические передачи, посвященные городу. Среди популярных программ — "Новости" и "Утро в Петербурге".',
+                    player: 'https://playercdn.cdnvideo.ru/aloha/players/auto_player1.html?clid=4f2trzpmbn&plid=0eb352f9-1854-4744-baf8-86957e93e5e2',
+                    isDirectUrl: true
+                },
+                'cgtn': {
+                    title: 'CGTN на русском',
+                    description: 'Русскоязычный канал китайской международной медиасети CGTN. Канал предлагает новости, аналитические программы и документальные фильмы о Китае, а также освещает международные события с китайской точки зрения. Заметные программы включают "Репортаж из Китая" и "Фокус на Азию".',
+                    player: 'https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master.m3u8'
+                },
+                'rt': {
+                    title: 'RT (Russia Today)',
+                    description: 'Международная медиасеть, вещающая на нескольких языках. RT предоставляет новости, аналитические и документальные программы, предлагая альтернативный взгляд на глобальные события. Известные программы включают "World Today" и "RT Documentary".',
+                    player: 'https://rumble.com/live-hls-dvr/33aw1a/playlist.m3u8'
+                },
+                'cnn': {
+                    title: 'CNN',
+                    description: 'Американский новостной канал, который вещает по всему миру. Его эфир состоит из круглосуточных новостей, аналитических ток-шоу и репортажей. Среди знаковых программ — "Anderson Cooper 360°" и "The Situation Room with Wolf Blitzer".',
+                    player: 'https://raw.githubusercontent.com/CODERX24/tv/refs/heads/master/CNN.m3u8'
+                },
+                'fox': {
+                    title: 'FOX News',
+                    description: 'Американский новостной канал, известный своим консервативным подходом к освещению событий. FOX News предлагает новости и ток-шоу. Среди популярных программ — "Fox & Friends" и "The Five".',
+                    player: 'http://23.237.104.106:8080/USA_FOX_NEWS/index.m3u8'
+                },
+                'bbc': {
+                    title: 'BBC',
+                    description: 'Британская общественная телерадиокорпорация. Ее каналы предлагают широкий спектр контента: новости, документальные фильмы, образовательные программы и сериалы. Значимые программы включают "BBC News at Six" и документальные проекты, например, "Планета Земля".',
+                    player: 'https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8'
+                },
+                'eu': {
+                    title: 'Euronews',
+                    description: 'Многоязычный европейский новостной канал. Он предоставляет круглосуточные новости, аналитику и репортажи о событиях в Европе и по всему миру. Отличается форматом, где часто новости подаются без диктора. Значимые программы — "Global Conversation" и "No Comment".',
+                    player: 'https://a-cdn.klowdtv.com/live3/euronews_720p/playlist.m3u8'
+                },
+                'alj': {
+                    title: 'Al Jazeera',
+                    description: 'Международная медиасеть из Катара, которая предлагает новости, аналитику и документальные фильмы с акцентом на события на Ближнем Востоке. Известные программы — "Inside Story" и "Head to Head".',
+                    player: 'https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8'
+                },
+                'tnt': {
+                    title: 'ТНТ',
+                    description: 'Российский развлекательный телеканал, который фокусируется на комедийных сериалах, юмористических шоу и реалити-проектах. Среди самых известных программ — "Универ", "Танцы" и "Comedy Club".',
+                    player: 'https://streaming.televizor-24-tochka.ru/live/23.m3u8'
+                },
+                'viva': {
+                    title: 'VIVA Russia',
+                    description: 'Российский музыкальный телеканал. Его эфир составляют музыкальные клипы, чарты и программы о современной музыке.',
+                    player: 'https://goodgame.ru/player?180805#autoplay',
+                    isDirectUrl: true
+                },
+                'etvplus': {
+                    title: 'ETV+',
+                    description: 'Эстонский общественный телеканал на русском языке. Он предлагает информационные, культурные, образовательные и развлекательные программы для русскоязычного населения Эстонии. Среди известных программ — новостной блок "Актуальная камера".',
+                    player: 'https://live.err.ee/live/etvpluss.m3u8'
+                },
+                'per': {
+                    title: 'Перец International',
+                    description: 'Международный развлекательный канал, ориентированный на русскоязычную аудиторию. Он транслирует развлекательные шоу, юмористические программы и реалити-шоу.',
+                    player: 'https://cdn4.skygo.mn/live/disk1/Che/HLSv3-FTA/Che.m3u8'
+                },
+                'mtv': {
+                    title: 'MTV Live',
+                    description: 'Международный музыкальный телеканал. Он транслирует концерты, музыкальные клипы и фестивали в высоком качестве, ориентируясь исключительно на музыкальный контент.',
+                    player: 'https://fl4.moveonjoy.com/MTV_LIVE/index.m3u8'
+                },
+                'his': {
+                    title: 'History Channel',
+                    description: 'Международный канал, посвященный истории. Он транслирует документальные фильмы, сериалы и реалити-шоу об исторических событиях. Среди популярных проектов — "Поиск сокровищ" и "Проект «Синяя книга»".',
+                    player: 'https://fl1.moveonjoy.com/history_channel/index.m3u8'
+                },
+                'ch4': {
+                    title: 'Channel 4',
+                    description: 'Британский общественный телеканал, известный своим инновационным и порой провокационным контентом. Среди его программ — документальные фильмы, комедийные и драматические сериалы. Значимые проекты — "The Great British Bake Off" и "Gogglebox".',
+                    player: 'https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS8/channel4.m3u8'
+                }
+            };
+
+            const video = channels[channelId] || {
+                title: 'Ошибка',
+                description: 'Не выбран телеканал',
+                player: '',
+                isDirectUrl: false
+            };
+
+            const playerFrame = document.getElementById('playerFrame');
+            if (video.isDirectUrl) {
+                playerFrame.src = video.player;
+            } else {
+                playerFrame.src = `playerjs.html?file=${encodeURIComponent(video.player)}`;
+            }
+            
+            document.getElementById('vtitle').textContent = video.title;
+            document.getElementById('vdesc').textContent = video.description;
+        });
+    </script>
+</body>
+</html>
