@@ -244,6 +244,10 @@ a {
     background-color: #D80B22;
 }
 
+#fd {
+    background-color: #182851;
+}
+
 #rt {
     background-color: #77BC1F;
 }
@@ -316,6 +320,26 @@ a {
     background-color: #C00F0F;
 }
 
+#belsat {
+    background-color: #033A58;
+}
+
+#ch1p1 {
+    background-color: #C8183D;
+}
+
+#ch24 {
+    background-color: #D11831;
+}
+
+#ch2p2 {
+    background-color: #F15022;
+}
+
+#stb {
+    background-color: #FF0143;
+}
+
 #mtv {
     background-color: #D42E42;
 }
@@ -368,6 +392,22 @@ a {
     background-color: #9509EB;
 }
 
+#zahid {
+    background-color: #4788C8;
+}
+
+#ch11 {
+    background-color: #233253;
+}
+
+#mis {
+    background-color: #04B2F2;
+}
+
+#tvr {
+    background-color: #CF3476;
+}
+
 .vcontent {
     display: flex;
     flex-direction: row;
@@ -402,6 +442,10 @@ a {
     flex-direction: column;
     padding-left: 40px;
     width: 410px;
+}
+
+.hidden {
+    display: none !important;
 }
 
 @media screen and (max-width: 1120px) {

@@ -52,9 +52,17 @@
                         </div>
                         <div class="row2">
                             <a href="watch.html?v=ont" class="tvplate" id="ont"><img src="cdn/ont.svg" style="width: 100%;"></a>
-                            <a href="watch.html?v=stv" class="tvplate" id="stv"><img src="cdn/stv.svg" style="width: 80%;"></a>
+                            <a href="watch.html?v=stv" class="tvplate" id="stv"><img src="cdn/stv.svg" style="width: 70%;"></a>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="row2">
+                            <a href="watch.html?v=fd" class="tvplate geoban" id="fd"><img src="cdn/fd.svg" style="width: 80%;"></a>
+                            <a href="watch.html?v=tvr" class="tvplate geoban" id="tvr"><img src="cdn/tvr.svg"></a>
+                        </div>
+                        <div class="row2">
                             <a href="watch.html?v=cgtn" class="tvplate" id="cgtn"><img src="cdn/cgtn.svg"></a>
+                        </div>
                     </div>
                 </div>
                 <h2>На других языках</h2>
@@ -79,6 +87,11 @@
                     </div>
                     <div class="row2">
                         <a href="watch.html?v=alj" class="tvplate" id="alj"><img src="cdn/alj.svg"></a>
+                        <a href="watch.html?v=belsat" class="tvplate geoban geobanby" id="belsat"><img src="cdn/belsat.svg"></a>
+                    </div>
+                    <div class="row2">
+                        <a href="watch.html?v=1p1" class="tvplate geoban" id="ch1p1"><img src="cdn/1p1.svg"></a>
+                        <a href="watch.html?v=ch24" class="tvplate geoban" id="ch24"><img src="cdn/ch24.svg"></a>
                     </div>
                 </div>
                 <h1>Развлекательные телеканалы</h1>
@@ -100,9 +113,14 @@
                        <a href="watch.html?v=bel3" class="tvplate" id="bel3"><img src="cdn/bel3.svg"></a>
                     </div>
                     <div class="row2">
+                        <a href="watch.html?v=2p2" class="tvplate geoban" id="ch2p2"><img src="cdn/2p2.svg"></a>
+                        <a href="watch.html?v=stb" class="tvplate geoban" id="stb"><img src="cdn/stb.svg" style="width: 50%;"></a>
+                    </div>
+                    <div class="row2">
                         <a href="watch.html?v=mtv" class="tvplate" id="mtv"><img src="cdn/mtv.svg"></a>
                         <a href="watch.html?v=his" class="tvplate" id="his"><img src="cdn/his.svg"></a>
                     </div>
+                </div>
                     <div class="row2">
                         <a href="watch.html?v=zdf" class="tvplate" id="zdf"><img src="cdn/zdf.svg"></a>
                         <a href="watch.html?v=ch4" class="tvplate" id="ch4"><img src="cdn/4.svg"></a>
@@ -132,16 +150,73 @@
                         </div>
                     </div>
                 </div>
-                <h2>Беларусь и Украина</h2>
+                <h2>СНГ</h2>
                 <div class="column">
                     <div class="row">
                         <div class="row2">
                             <a href="watch.html?v=bel4" class="tvplate" id="bel4"><img src="cdn/bel4.svg"></a>
+                            <a href="watch.html?v=zahid" class="tvplate geoban" id="zahid"><img src="cdn/zahid.svg"></a>
+                        </div>
+                        <div class="row2">
+                            <a href="watch.html?v=ch11" class="tvplate geoban" id="ch11"><img src="cdn/ch11.svg"></a>
+                            <a href="watch.html?v=mis" class="tvplate geoban" id="mis"><img src="cdn/mis.svg"></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToHideRU = document.querySelectorAll('.geoban');
+            const elementsToHideBY = document.querySelectorAll('.geobanby');
+            
+            console.log('Проверяю ваш IP-адрес...');
+            
+            // Шаг 1: Получение IP-адреса пользователя
+            fetch('https://api.ipify.org/?format=json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Не удалось получить IP-адрес.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const userIP = data.ip;
+                    console.log(`Ваш IP-адрес: ${userIP}`);
+                    
+                    // Шаг 2: Получение кода страны по IP-адресу
+                    return fetch(`http://ip-api.com/json/${userIP}?fields=countryCode`);
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Не удалось получить данные о местоположении.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const countryCode = data.countryCode;
+                    
+                    // Шаг 3: Скрытие элементов на основе кода страны
+                    if (countryCode === 'RU') {
+                        elementsToHideRU.forEach(element => {
+                            element.classList.add('hidden');
+                        });
+                        console.log('Обнаружен российский IP-адрес. Элемент скрыт.');
+                    } else if (countryCode === 'BY') {
+                        elementsToHideBY.forEach(element => {
+                            element.classList.add('hidden');
+                        });
+                        console.log('Обнаружен беларусский IP-адрес. Элемент скрыт.');
+                    } else {
+                        console.log(`Обнаружен IP-адрес из страны ${countryCode}. Элементы видны.`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    console.log('Ошибка при определении IP. Элементы остаются видимыми.');
+                });
+        });
+    </script>
 </body>
 </html>
