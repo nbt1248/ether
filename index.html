@@ -185,8 +185,8 @@
                     const userIP = data.ip;
                     console.log(`Ваш IP-адрес: ${userIP}`);
                     
-                    // Шаг 2: Получение кода страны по IP-адресу
-                    return fetch(`https://ip-api.com/json/${userIP}?fields=countryCode`);
+                    // Шаг 2: Получение кода страны по IP-адресу с использованием ipwhois.io
+                    return fetch(`https://ipwho.is/${userIP}`);
                 })
                 .then(response => {
                     if (!response.ok) {
@@ -195,7 +195,7 @@
                     return response.json();
                 })
                 .then(data => {
-                    const countryCode = data.countryCode;
+                    const countryCode = data.country_code;
                     
                     // Шаг 3: Скрытие элементов на основе кода страны
                     if (countryCode === 'RU') {
