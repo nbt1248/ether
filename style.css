@@ -235,6 +235,14 @@ a {
     background-color: #00B0C8;
 }
 
+#ont {
+    background-color: #FFCC01;
+}
+
+#stv {
+    background-color: #D80B22;
+}
+
 #rt {
     background-color: #77BC1F;
 }
@@ -255,6 +263,10 @@ a {
     background-color: #0172F0;
 }
 
+#ard {
+    background-color: #062650;
+}
+
 #alj {
     background-color: #FA9000;
 }
@@ -271,12 +283,20 @@ a {
     background-color: #FCF218;
 }
 
+#fmus {
+    background-color: #FE740E;
+}
+
 #etvplus {
     background-color: #DE10C5;
 }
 
 #per {
     background-color: #D70B04;
+}
+
+#bel2 {
+    background-color: #C00F0F;
 }
 
 #mtv {
@@ -293,6 +313,10 @@ a {
 
 #ch4 {
     background-color: #AAFF89;
+}
+
+#zdf {
+    background-color: #FA7D19;
 }
 
 .vcontent {
