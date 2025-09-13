@@ -206,6 +206,7 @@ a {
 .column {
     display: flex;
     flex-direction: column;
+    gap: 1em;
 }
 
 .tvplate {
@@ -295,7 +296,23 @@ a {
     background-color: #D70B04;
 }
 
+#bel1 {
+    background-color: #C00F0F;
+}
+
 #bel2 {
+    background-color: #C00F0F;
+}
+
+#bel3 {
+    background-color: #C00F0F;
+}
+
+#bel4 {
+    background-color: #C00F0F;
+}
+
+#bel24 {
     background-color: #C00F0F;
 }
 
@@ -317,6 +334,38 @@ a {
 
 #zdf {
     background-color: #FA7D19;
+}
+
+#sar24 {
+    background-color: #3FABE3;
+}
+
+#seim {
+    background-color: #FF7B00;
+}
+
+#k24 {
+    background-color: #224B83;
+}
+
+#chgtrk {
+    background-color: #4FA63B;
+}
+
+#otv {
+    background-color: #041947;
+}
+
+#aist {
+    background-color: #000;
+}
+
+#tvk {
+    background-color: #333333;
+}
+
+#otvprim {
+    background-color: #9509EB;
 }
 
 .vcontent {
@@ -562,6 +611,7 @@ a {
 .column {
     display: flex;
     flex-direction: column;
+    gap: 1em;
 }
 
 h1 {
