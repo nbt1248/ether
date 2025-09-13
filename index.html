@@ -186,7 +186,7 @@
                     console.log(`Ваш IP-адрес: ${userIP}`);
                     
                     // Шаг 2: Получение кода страны по IP-адресу
-                    return fetch(`http://ip-api.com/json/${userIP}?fields=countryCode`);
+                    return fetch(`https://ip-api.com/json/${userIP}?fields=countryCode`);
                 })
                 .then(response => {
                     if (!response.ok) {
