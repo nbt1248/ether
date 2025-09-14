@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <title>Ether - Смотреть телевидение онлайн</title>
-    <meta name="description" content="Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!">
+    <title data-key="page_title">Ether - Смотреть телевидение онлайн</title>
+    <meta name="description" data-key="page_description" content="Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!">
     <meta property="og:image" content="/media/cover.png">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="media/etherfav.svg">
@@ -21,23 +21,19 @@
     </div>
     <div class="box">
         <div class="sidebar sleft">
-            <span class="sh sleft">Популярное</span>
+            <span class="sh sleft" data-key="sidebar_popular">Популярное</span>
             <a href="watch.html?v=rtvi" class="sbut sleft">
                 <img class="sbuticon" src="cdn/rtvi.svg">
                 <span>RTVI</span>
             </a>
             <a href="watch.html?v=m24" class="sbut sleft">
                 <img class="sbuticon" src="cdn/m24w.svg">
-                <span>Москва 24</span>
+                <span data-key="moscow24">Москва 24</span>
             </a>
             <a href="watch.html?v=bbc" class="sbut sleft">
                 <img class="sbuticon" src="cdn/bbc.svg">
                 <span>BBC</span>
             </a>
-            <div class="footer sleft">
-                <a href="about.html" class="about">О сайте</a>
-                <span class="quickinfo">Ether, 2025</span>
-            </div>
         </div>
         <div class="vcontent">
             <div class="vcolumn">
@@ -54,276 +50,1030 @@
             </div>
         </div>
     </div>
+    <div class="footer">
+        <div class="langs">
+            <a href="#" onclick="changeLanguage('ru')"><img src="media/ru.svg"></a>
+            <a href="#" onclick="changeLanguage('by')"><img src="media/by.svg"></a>
+            <a href="#" onclick="changeLanguage('uk')"><img src="media/uk.svg"></a>
+            <a href="#" onclick="changeLanguage('en')"><img src="media/en.svg"></a>
+        </div>
+        <div class="row">
+            <a href="about.html" class="about" data-key="about_link">О сайте</a>
+            <span class="quickinfo">Ether, 2025</span>
+        </div>
+    </div>
+
     <script>
+        // Словарь переводов (синхронизирован с другими страницами)
+        const translations = {
+            'ru': {
+                'page_title': 'Ether - Смотреть телевидение онлайн',
+                'page_description': 'Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!',
+                'sidebar_popular': 'Популярное',
+                'moscow24': 'Москва 24',
+                'about_link': 'О сайте',
+                'language_switch': 'Переключить язык можно на любой другой странице'
+            },
+            'by': {
+                'page_title': 'Ether - Глядзець тэлебачанне онлайн',
+                'page_description': 'Ether - гэта бясплатны плэер IPTV. Даступна ўжо больш за 40 каналаў. Усе трансляцыі выкарыстоўваюць афіцыйныя крыніцы. Глядзіце тэлебачанне? Ether лепш!',
+                'sidebar_popular': 'Папулярнае',
+                'moscow24': 'Масква 24',
+                'about_link': 'Пра сайт',
+                'language_switch': 'Пераключыць мову можна на любой іншай старонцы'
+            },
+            'uk': {
+                'page_title': 'Ether - Дивитися телебачення онлайн',
+                'page_description': 'Ether - це безкоштовний плеєр IPTV. Доступно вже понад 40 каналів. Всі трансляції використовують офіційні джерела. Дивитесь телебачення? Ether краще!',
+                'sidebar_popular': 'Популярне',
+                'moscow24': 'Москва 24',
+                'about_link': 'Про сайт',
+                'language_switch': 'Переключити мову можна на будь-якій іншій сторінці'
+            },
+            'en': {
+                'page_title': 'Ether - Watch TV online',
+                'page_description': 'Ether is a free IPTV player. Already more than 40 channels available. All broadcasts use official sources. Watch TV? Ether is better!',
+                'sidebar_popular': 'Popular',
+                'moscow24': 'Moscow 24',
+                'about_link': 'About',
+                'language_switch': 'You can switch language on any other page'
+            }
+        };
+
+        // Функция смены языка (синхронизирована с другими страницами)
+        function changeLanguage(lang) {
+            // Сохраняем выбор языка в localStorage для синхронизации между страницами
+            localStorage.setItem('selectedLanguage', lang);
+            
+            // Обновляем язык документа
+            document.documentElement.lang = lang;
+            
+            // Обновляем все элементы с атрибутом data-key
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'META' && element.name === 'description') {
+                        element.content = translations[lang][key];
+                    } else if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Обновляем переводы для текущего канала
+            updateChannelTranslations(lang);
+        }
+
+        // Функция обновления переводов для канала
+        function updateChannelTranslations(lang) {
+            const params = new URLSearchParams(window.location.search);
+            const channelId = params.get('v');
+            
+            if (channelId && window.channelTranslations && window.channelTranslations[channelId]) {
+                const channelTrans = window.channelTranslations[channelId][lang] || 
+                                   window.channelTranslations[channelId]['en'];
+                
+                const titleTv = document.getElementById('vtitle');
+                const descriptionTv = document.getElementById('vdesc');
+                
+                if (titleTv && channelTrans.title) {
+                    titleTv.textContent = channelTrans.title;
+                }
+                if (descriptionTv && channelTrans.description) {
+                    descriptionTv.textContent = channelTrans.description;
+                }
+            }
+        }
+
+        // Инициализация языка при загрузке страницы
         document.addEventListener('DOMContentLoaded', () => {
+            // Используем тот же механизм определения языка, что и на других страницах
+            const savedLanguage = localStorage.getItem('selectedLanguage');
+            const browserLanguage = navigator.language.substring(0, 2);
+            const defaultLanguage = savedLanguage || (['ru', 'by', 'uk', 'en'].includes(browserLanguage) ? browserLanguage : 'ru');
+            
+            // Устанавливаем язык
+            changeLanguage(defaultLanguage);
+            
+            // Оригинальный код для загрузки канала
+            const channels = {
+                'ntv': { player: 'https://streaming.televizor-24-tochka.ru/live/7.m3u8' },
+                'rtvi': { player: 'https://server.musical.uz/tv/rtvi/index.m3u8?token=e243491dccbf2b714dde97004e4afc3190fac512-4d78301118543037ba48a4da67359efd-1757855350-1757844550' },
+                'm24': { player: 'https://www.m24.ru/tv', isDirectUrl: true },
+                'spb6': { player: 'https://playercdn.cdnvideo.ru/aloha/players/auto_player1.html?clid=4f2trzpmbn&plid=0eb352f9-1854-4744-baf8-86957e93e5e2', isDirectUrl: true },
+                'ont': { player: 'https://stream.dc.beltelecom.by/ont/ont/playlist.m3u8' },
+                'stv': { player: 'https://ctv.dc.beltelecom.by/ctv/ctv.stream/playlist.m3u8' },
+                'fd': { player: 'https://freedom.cdn-01.cosmonova.net.ua/mobile-app/main/freedom/master.m3u8' },
+                'tvr': { player: 'https://wl.tvrain.tv/transcode/ngrp:ses_all/playlist.m3u8' },
+                'bel1': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus1.smil/playlist.m3u8' },
+                'bel2': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus2/playlist.m3u8' },
+                'bel3': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus3/playlist.m3u8' },
+                'bel24': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus24/playlist.m3u8' },
+                'cgtn': { player: 'https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master.m3u8' },
+                'rt': { player: 'https://rumble.com/live-hls-dvr/33aw1a/playlist.m3u8' },
+                'cnn': { player: 'https://raw.githubusercontent.com/CODERX24/tv/refs/heads/master/CNN.m3u8' },
+                'fox': { player: 'https://stream.livenewsplay.com:9443/hls/foxnews/foxsd.m3u8' },
+                'bbc': { player: 'https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8' },
+                'eu': { player: 'https://a-cdn.klowdtv.com/live3/euronews_720p/playlist.m3u8' },
+                'alj': { player: 'https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8' },
+                'ard': { player: 'https://viamotionhsi.netplus.ch/live/eds/daserstehd/browser-HLS8/daserstehd.m3u8' },
+                'belsat': { player: 'https://www.youtube.com/embed/YA9ukP4k_Fk', isDirectUrl: true },
+                '1p1': { player: 'https://www.youtube.com/embed/lnrp2S2L6qk', isDirectUrl: true },
+                'ch24': { player: 'https://embed-player.dyvy.tv/?channel=24-kanal&autoplay=true&mode=compact&provider-id=777905', isDirectUrl: true },
+                'tnt': { player: 'https://streaming.televizor-24-tochka.ru/live/23.m3u8' },
+                'viva': { player: 'https://goodgame.ru/player?180805#autoplay', isDirectUrl: true },
+                'etvplus': { player: 'https://live.err.ee/live/etvpluss.m3u8' },
+                'per': { player: 'https://cdn4.skygo.mn/live/disk1/Che/HLSv3-FTA/Che.m3u8' },
+                '2p2': { player: 'https://s.tivix.co/Y4SBSL_tbyvH9mun6_QSQw/238/1757820902/index.m3u8' },
+                'stb': { player: 'https://s.xittv.net/9Co5BFrmhNZeZyRXayVWpg/101/1757820746/index.m3u8' },
+                'mtv': { player: 'https://fl4.moveonjoy.com/MTV_LIVE/index.m3u8' },
+                'his': { player: 'https://fl1.moveonjoy.com/history_channel/index.m3u8' },
+                'ch4': { player: 'https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS8/channel4.m3u8' },
+                'zdf': { player: 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8' },
+                'match': { player: 'https://edge01p.mediavitrina.ru/hls-livef1/matchtv/tracks-v3a1/mono.m3u8?token=v2.orNRE6SdvXUeh9ti8ytub5wE052VgvDcF8QNGJASmig.blcmrvR2pMIHAhyDOQzr1Mm7SdDh6u8oQ2OqJ_kA244.1758485219.ad69e00cd56834796f279d2cd18c065f' },
+                'bel5': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5/playlist.m3u8' },
+                'sar24': { player: 'https://ok.ru/videoembed/5102355095276', isDirectUrl: true },
+                'seim': { player: 'https://vk.com/video_ext.php?oid=-84923713&id=456248329&hash=f4211f48f9f734c3', isDirectUrl: true },
+                'k24': { player: 'https://ok.ru/videoembed/4157442498242?nochat=1&mute=0', isDirectUrl: true },
+                'chgtrk': { player: 'https://player.facecast.io/chgtrk', isDirectUrl: true },
+                'otv': { player: 'https://vd.obltv.ru/player/video.html', isDirectUrl: true },
+                'aist': { player: 'https://live2-aisttv.cdnvideo.ru/aisttv2/aisttv.sdp/playlist.m3u8' },
+                'tvk': { player: 'https://air.tvk6.ru/tvk24/tracks-v2a1/mono.m3u8' },
+                'otvprim': { player: 'https://ok.ru/videoembed/3503444925978', isDirectUrl: true },
+                'bel4': { player: 'https://live.dc.beltelecom.by/vtv/bt4.stream/playlist.m3u8' },
+                'zahid': { player: 'https://live-1zahid-1.mw-01.cosmonova-broadcast.tv/player', isDirectUrl: true },
+                'ch11': { player: 'https://live-11tv-dp.cosmonova.net.ua/online.php', isDirectUrl: true },
+                'mis': { player: 'https://live.1tv.od.ua/stream1/channel1/playlist.m3u8' },
+            };
+
+            // Переводы для каналов (глобальная переменная для доступа из changeLanguage)
+            window.channelTranslations = {
+                'ntv': {
+                    'ru': {
+                        title: 'НТВ',
+                        description: 'Российский телеканал, который специализируется на новостях, криминальных расследованиях и детективных сериалах. Среди его заметных программ — информационные выпуски "Сегодня", аналитическое шоу "Итоги недели", а также популярные проекты, такие как "Следствие вели…" и "Маска".',
+                    },
+                    'by': {
+                        title: 'НТВ',
+                        description: 'Расійскі тэлеканал, які спецыялізуецца на навінах, крымінальных расследаваннях і дэтэктыўных серыялах. Сярод яго вядомых праграм — інфармацыйныя выпускі "Сёння", аналітычнае шоу "Вынікі тыдня", а таксама папулярныя праекты, такія як "Следства вялі..." і "Маска".',
+                    },
+                    'uk': {
+                        title: 'НТВ',
+                        description: 'Російський телеканал, що спеціалізується на новинах, кримінальних розслідуваннях і детективних серіалах. Серед його помітних програм — інформаційні випуски "Сегодня", аналітичне шоу "Итоги недели", а також популярні проєкти, такі як "Следствие вели..." і "Маска".',
+                    },
+                    'en': {
+                        title: 'NTV',
+                        description: 'A Russian TV channel specializing in news, crime investigations, and detective series. Its notable programs include the news reports "Segodnya," the analytical show "Itogi Nedeli," and popular projects like "Sledstviye veli..." and "Maska."',
+                    },
+                },
+                'rtvi': {
+                    'ru': {
+                        title: 'RTVI',
+                        description: 'Международный русскоязычный телеканал, вещающий на страны Европы, Северной Америки и Израиль. Канал предлагает информационно-аналитические программы, а также документальные фильмы и ток-шоу, направленные на русскоязычную аудиторию за пределами России. Среди известных программ — "Вы держитесь", "Большой Newstalk", "Новые Итоги", "Американское Утро", "Дежурный по Америке".',
+                    },
+                    'by': {
+                        title: 'RTVI',
+                        description: 'Міжнародны рускамоўны тэлеканал, які вяшчае на краіны Еўропы, Паўночнай Амерыкі і Ізраіль. Канал прапануе інфармацыйна-аналітычныя праграмы, а таксама дакументальныя фільмы і ток-шоу, накіраваныя на рускамоўную аўдыторыю за межамі Расіі. Сярод вядомых праграм — "Вы трымаецеся", "Вялікі Newstalk", "Новыя вынікі", "Амерыканская раніца", "Дзяжурны па Амерыцы".',
+                    },
+                    'uk': {
+                        title: 'RTVI',
+                        description: 'Міжнародний російськомовний телеканал, що транслює на країни Європи, Північної Америки та Ізраїль. Канал пропонує інформаційно-аналітичні програми, а також документальні фільми та ток-шоу, спрямовані на російськомовну аудиторію за межами Росії. Серед відомих програм — "Ви тримаєтеся", "Великий Newstalk", "Нові підсумки", "Американський ранок", "Черговий по Америці".',
+                    },
+                    'en': {
+                        title: 'RTVI',
+                        description: 'An international Russian-language TV channel broadcasting to Europe, North America, and Israel. The channel offers news and analysis programs, as well as documentaries and talk shows aimed at the Russian-speaking audience outside of Russia. Notable programs include "Vy Derzhites", "Bolshoy Newstalk", "Novye Itogi", "Amerikanskoe Utro" and "Dezhurnyi po Amerike"',
+                    },
+                },
+                'm24': {
+                    'ru': {
+                        title: 'Москва 24',
+                        description: 'Московский круглосуточный информационный телеканал, освещающий события, происходящие в столице России. Основной контент — оперативные новости, репортажи, аналитические обзоры и передачи, посвященные жизни города, транспорту, культурным событиям и городским проектам. Значимые программы включают "Москва Едет" и "Это Москва".',
+                    },
+                    'by': {
+                        title: 'Масква 24',
+                        description: 'Маскоўскі кругласутачны інфармацыйны тэлеканал, які асвятляе падзеі, што адбываюцца ў сталіцы Расіі. Асноўны кантэнт — аператыўныя навіны, рэпартажы, аналітычныя агляды і перадачы, прысвечаныя жыццю горада, транспарту, культурным падзеям і гарадскім праектам. Значныя праграмы ўключаюць "Масква Едзе" і "Гэта Масква".',
+                    },
+                    'uk': {
+                        title: 'Москва 24',
+                        description: 'Московський цілодобовий інформаційний телеканал, що висвітлює події, які відбуваються в столиці Росії. Основний контент — оперативні новини, репортажі, аналітичні огляди та передачі, присвячені життю міста, транспорту, культурним подіям та міським проєктам. Значущі програми включають "Москва Їде" і "Це Москва".',
+                    },
+                    'en': {
+                        title: 'Moscow 24',
+                        description: 'A round-the-clock Moscow news channel covering events in the Russian capital. Its main content includes breaking news, reports, analytical reviews, and programs dedicated to city life, transport, cultural events, and urban projects. Significant programs include "Moscow Is Going" and "This Is Moscow."',
+                    },
+                },
+                'spb6': {
+                    'ru': {
+                        title: 'Санкт-Петербург',
+                        description: 'Региональный телеканал, освещающий события и жизнь Санкт-Петербурга. В эфире представлены новостные выпуски, аналитические программы, документальные фильмы, культурные и исторические передачи, посвященные городу. Среди популярных программ — "Новости" и "Утро в Петербурге".',
+                    },
+                    'by': {
+                        title: 'Санкт-Пецярбург',
+                        description: 'Рэгіянальны тэлеканал, які асвятляе падзеі і жыццё Санкт-Пецярбурга. У эфіры прадстаўлены навінавыя выпускі, аналітычныя праграмы, дакументальныя фільмы, культурныя і гістарычныя перадачы, прысвечаныя гораду. Сярод папулярных праграм — "Навіны" і "Раніца ў Пецярбургу".',
+                    },
+                    'uk': {
+                        title: 'Санкт-Петербург',
+                        description: 'Регіональний телеканал, що висвітлює події та життя Санкт-Петербурга. В ефірі представлені новинні випуски, аналітичні програми, документальні фільми, культурні та історичні передачі, присвячені місту. Серед популярних програм — "Новини" і "Ранок у Петербурзі".',
+                    },
+                    'en': {
+                        title: 'Saint Petersburg',
+                        description: 'A regional TV channel covering events and life in St. Petersburg. The broadcast features news releases, analytical programs, documentaries, cultural, and historical shows dedicated to the city. Popular programs include "News" and "Morning in Petersburg."',
+                    },
+                },
+                'ont': {
+                    'ru': {
+                        title: 'ОНТ',
+                        description: 'Белорусский государственный телеканал, который предлагает разнообразный контент. Его эфир включает новостные выпуски, аналитические программы, документальные фильмы, а также развлекательные шоу и концерты. Среди популярных проектов — информационная программа "Наши новости", утренняя передача "Наше утро", а также различные музыкальные шоу и адаптации международных форматов.',
+                    },
+                    'by': {
+                        title: 'АНТ',
+                        description: 'Беларускі дзяржаўны тэлеканал, які прапануе разнастайны кантэнт. Яго эфір уключае навінавыя выпускі, аналітычныя праграмы, дакументальныя фільмы, а таксама забаўляльныя шоу і канцэрты. Сярод папулярных праектаў — інфармацыйная праграма "Нашы навіны", ранішняя перадача "Наш ранак", а таксама розныя музычныя шоу і адаптацыі міжнародных фарматаў.',
+                    },
+                    'uk': {
+                        title: 'ОНТ',
+                        description: 'Білоруський державний телеканал, який пропонує різноманітний контент. Його ефір включає новинні випуски, аналітичні програми, документальні фільми, а також розважальні шоу та концерти. Серед популярних проєктів — інформаційна програма "Наші новини", ранкова передача "Наш ранок", а також різні музичні шоу та адаптації міжнародних форматів.',
+                    },
+                    'en': {
+                        title: 'ONT',
+                        description: 'A Belarusian state TV channel that offers a variety of content. Its broadcast includes news releases, analytical programs, documentaries, as well as entertainment shows and concerts. Popular projects include the news program "Our News," the morning show "Our Morning," and various music shows and adaptations of international formats.',
+                    },
+                },
+                'stv': {
+                    'ru': {
+                        title: 'СТВ',
+                        description: 'Белорусский государственный телеканал, который специализируется на новостях, аналитических программах и общественно-политическом контенте. СТВ освещает события в Беларуси и мире, предлагая информационные выпуски, ток-шоу, документальные проекты и развлекательные программы. Среди известных программ — информационно-аналитическая программа "24 часа" и утреннее шоу "Утро. Студия хорошего настроения".',
+                    },
+                    'by': {
+                        title: 'СТБ',
+                        description: 'Беларускі дзяржаўны тэлеканал, які спецыялізуецца на навінах, аналітычных праграмах і грамадска-палітычным кантэнце. СТБ асвятляе падзеі ў Беларусі і свеце, прапаноўваючы інфармацыйныя выпускі, ток-шоу, дакументальныя праекты і забаўляльныя праграмы. Сярод вядомых праграм — інфармацыйна-аналітычная праграма "24 гадзіны" і ранішняе шоу "Раніца. Студыя добрага настрою".',
+                    },
+                    'uk': {
+                        title: 'СТВ',
+                        description: 'Білоруський державний телеканал, який спеціалізується на новинах, аналітичних програмах та суспільно-політичному контенті. СТВ висвітлює події в Білорусі та світі, пропонуючи інформаційні випуски, ток-шоу, документальні проєкти та розважальні програми. Серед відомих програм — інформаційно-аналітична програма "24 години" та ранкове шоу "Ранок. Студія гарного настрою".',
+                    },
+                    'en': {
+                        title: 'STV',
+                        description: 'A Belarusian state TV channel that specializes in news, analytical programs, and socio-political content. STV covers events in Belarus and worldwide, offering news releases, talk shows, documentaries, and entertainment programs. Well-known programs include the news and analysis show "24 Hours" and the morning show "Morning. Studio of Good Mood."',
+                    },
+                },
+                'fd': {
+                    'ru': {
+                        title: 'Freeдом',
+                        description: '«Freedom» — это украинский русскоязычный информационный телеканал, который был создан в 2022 году на базе единого телемарафона «Єдині новини». Его основная задача — доносить информацию о событиях в Украине, ее позиции и борьбе против российской агрессии до русскоязычной аудитории за пределами Украины. Канал транслирует новости, аналитику, интервью и документальные фильмы, разоблачая российскую пропаганду и рассказывая правду о войне.',
+                    },
+                    'by': {
+                        title: 'Freedom',
+                        description: '«Freedom» — гэта ўкраінскі рускамоўны інфармацыйны тэлеканал, які быў створаны ў 2022 годзе на базе адзінага тэлемарафона «Єдині новини». Яго асноўная задача — даносіць інфармацыю аб падзеях ва Украіне, яе пазіцыі і барацьбе супраць расійскай агрэсіі да рускамоўнай аўдыторыі за межамі Украіны. Канал транслюе навіны, аналітыку, інтэрв’ю і дакументальныя фільмы, выкрываючы расійскую прапаганду і расказваючы праўду пра вайну.',
+                    },
+                    'uk': {
+                        title: 'Freeдом',
+                        description: '«Freedom» — це український російськомовний інформаційний телеканал, який був створений у 2022 році на базі єдиного телемарафону «Єдині новини». Його основне завдання — доносити інформацію про події в Україні, її позиції та боротьбу проти російської агресії до російськомовної аудиторії за межами України. Канал транслює новини, аналітику, інтерв’ю та документальні фільми, викриваючи російську пропаганду і розповідаючи правду про війну.',
+                    },
+                    'en': {
+                        title: 'Freedom',
+                        description: '“Freedom” is a Ukrainian Russian-language news channel created in 2022 on the basis of the single TV marathon "United News." Its main task is to deliver information about events in Ukraine, its position, and the fight against Russian aggression to the Russian-speaking audience outside of Ukraine. The channel broadcasts news, analysis, interviews, and documentaries, exposing Russian propaganda and telling the truth about the war.',
+                    },
+                },
+                'tvr': {
+                    'ru': {
+                        title: 'Дождь',
+                        description: '«Дождь» — российский независимый информационный телеканал. Его эфир состоит из новостных программ, аналитических передач, журналистских расследований и прямых трансляций общественно-политических событий. Канал известен своей критической позицией и освещением тем, которые редко обсуждаются на государственном телевидении. В настоящее время «Дождь» вещает из-за рубежа, преимущественно через интернет-платформы.',
+                    },
+                    'by': {
+                        title: 'Дождж',
+                        description: '«Дождж» — расійскі незалежны інфармацыйны тэлеканал. Яго эфір складаецца з навінавых праграм, аналітычных перадач, журналісцкіх расследаванняў і прамых трансляцый грамадска-палітычных падзей. Канал вядомы сваёй крытычнай пазіцыяй і асвятленнем тэм, якія рэдка абмяркоўваюцца на дзяржаўным тэлебачанні. У цяперашні час «Дождж» вяшчае з-за мяжы, пераважна праз інтэрнэт-платформы.',
+                    },
+                    'uk': {
+                        title: 'Дождь',
+                        description: '«Дождь» — російський незалежний інформаційний телеканал. Його ефір складається з новинних програм, аналітичних передач, журналістських розслідувань і прямих трансляцій суспільно-політичних подій. Канал відомий своєю критичною позицією і висвітленням тем, які рідко обговорюються на державному телебаченні. Зараз «Дождь» мовить з-за кордону, переважно через інтернет-платформи.',
+                    },
+                    'en': {
+                        title: 'Dozhd',
+                        description: 'Dozhd (TV Rain) is a Russian independent news channel. Its broadcast consists of news programs, analytical shows, journalistic investigations, and live broadcasts of socio-political events. The channel is known for its critical stance and coverage of topics rarely discussed on state television. Currently, Dozhd broadcasts from abroad, primarily through internet platforms.',
+                    },
+                },
+                'bel1': {
+                    'ru': {
+                        title: 'Беларусь 1',
+                        description: '«Беларусь 1» — главный государственный телеканал страны, который является основным источником новостей и информации для широкой аудитории. В его эфире преобладают новостные выпуски, информационно-аналитические программы, а также документальные проекты и прямые трансляции значимых государственных событий. Канал также транслирует популярные сериалы, фильмы и крупные спортивные мероприятия.',
+                    },
+                    'by': {
+                        title: 'Беларусь 1',
+                        description: '«Беларусь 1» — галоўны дзяржаўны тэлеканал краіны, які з’яўляецца асноўнай крыніцай навін і інфармацыі для шырокай аўдыторыі. У яго эфіры пераважаюць навінавыя выпускі, інфармацыйна-аналітычныя праграмы, а таксама дакументальныя праекты і прамыя трансляцыі значных дзяржаўных падзей. Канал таксама транслюе папулярныя серыялы, фільмы і буйныя спартыўныя мерапрыемствы.',
+                    },
+                    'uk': {
+                        title: 'Білорусь 1',
+                        description: '«Білорусь 1» — головний державний телеканал країни, який є основним джерелом новин та інформації для широкої аудиторії. В його ефірі переважають новинні випуски, інформаційно-аналітичні програми, а також документальні проєкти та прямі трансляції значущих державних подій. Канал також транслює популярні серіали, фільми та великі спортивні заходи.',
+                    },
+                    'en': {
+                        title: 'Belarus 1',
+                        description: 'Belarus 1 is the main state television channel of the country, which is the primary source of news and information for a wide audience. Its broadcast is dominated by news releases, news and analysis programs, as well as documentaries and live broadcasts of significant state events. The channel also broadcasts popular series, films, and major sports events.',
+                    },
+                },
+                'bel2': {
+                    'ru': {
+                        title: 'Беларусь 2',
+                        description: '«Беларусь 2» — развлекательный телеканал, ориентированный на молодежную аудиторию и тех, кто ищет легкий и позитивный контент. Его программа состоит из сериалов, художественных и документальных фильмов, а также юмористических и музыкальных шоу. Главная цель канала — развлекать и предлагать разнообразный контент для отдыха.',
+                    },
+                    'by': {
+                        title: 'Беларусь 2',
+                        description: '«Беларусь 2» — забаўляльны тэлеканал, арыентаваны на маладзёжную аўдыторыю і тых, хто шукае лёгкі і пазітыўны кантэнт. Яго праграма складаецца з серыялаў, мастацкіх і дакументальных фільмаў, а таксама гумарыстычных і музычных шоў. Галоўная мэта канала — забаўляць і прапаноўваць разнастайны кантэнт для адпачынку.',
+                    },
+                    'uk': {
+                        title: 'Білорусь 2',
+                        description: '«Білорусь 2» — розважальний телеканал, орієнтований на молодіжну аудиторію і тих, хто шукає легкий і позитивний контент. Його програма складається з серіалів, художніх і документальних фільмів, а також гумористичних і музичних шоу. Головна мета каналу — розважати і пропонувати різноманітний контент для відпочинку.',
+                    },
+                    'en': {
+                        title: 'Belarus 2',
+                        description: 'Belarus 2 is an entertainment channel aimed at a youth audience and those looking for light and positive content. Its programming consists of TV series, feature and documentary films, as well as comedy and music shows. The main goal of the channel is to entertain and offer diverse content for relaxation.',
+                    },
+                },
+                'bel3': {
+                    'ru': {
+                        title: 'Беларусь 3',
+                        description: '«Беларусь 3» — это первый белорусский социокультурный телеканал. Его эфир посвящен истории, культуре и искусству Беларуси. Здесь можно найти документальные фильмы, посвященные истории страны, трансляции спектаклей и концертов, образовательные программы, а также проекты о выдающихся деятелях культуры и искусства. Канал создан для тех, кто интересуется историей и культурным наследием Беларуси.',
+                    },
+                    'by': {
+                        title: 'Беларусь 3',
+                        description: '«Беларусь 3» — гэта першы беларускі сацыякультурны тэлеканал. Яго эфір прысвечаны гісторыі, культуры і мастацтву Беларусі. Тут можна знайсці дакументальныя фільмы, прысвечаныя гісторыі краіны, трансляцыі спектакляў і канцэртаў, адукацыйныя праграмы, а таксама праекты пра выдатных дзеячаў культуры і мастацтва. Канал створаны для тых, хто цікавіцца гісторыяй і культурнай спадчынай Беларусі.',
+                    },
+                    'uk': {
+                        title: 'Білорусь 3',
+                        description: '«Білорусь 3» — це перший білоруський соціокультурний телеканал. Його ефір присвячений історії, культурі та мистецтву Білорусі. Тут можна знайти документальні фільми, присвячені історії країни, трансляції спектаклів та концертів, освітні програми, а також проєкти про видатних діячів культури та мистецтва. Канал створений для тих, хто цікавиться історією та культурною спадщиною Білорусі.',
+                    },
+                    'en': {
+                        title: 'Belarus 3',
+                        description: 'Belarus 3 is the first Belarusian socio-cultural television channel. Its broadcast is dedicated to the history, culture, and art of Belarus. Here you can find documentaries about the country\'s history, broadcasts of plays and concerts, educational programs, and projects about prominent figures in culture and art. The channel was created for those interested in the history and cultural heritage of Belarus.',
+                    },
+                },
+                'bel5': {
+                    'ru': {
+                        title: 'Беларусь 5',
+                        description: '«Беларусь 5» — главный государственный спортивный телеканал Беларуси. В эфире доминируют трансляции внутренних соревнований: матчи футбольной Высшей лиги, хоккейные поединки, а также биатлон, легкая атлетика и другие виды спорта. Канал также транслирует международные соревнования с участием белорусских спортсменов, чемпионаты Европы и мира, обзоры и спортивные аналитические программы. Основная цель — освещение и популяризация спорта в Республике Беларусь.',
+                    },
+                    'by': {
+                        title: 'Беларусь 5',
+                        description: '«Беларусь 5» — галоўны дзяржаўны спартыўны тэлеканал Беларусі. У эфіры дамінуюць трансляцыі ўнутраных спаборніцтваў: матчы футбольнай Вышэйшай лігі, хакейныя паядынкі, а таксама біятлон, лёгкая атлетыка і іншыя віды спорту. Канал таксама трансліруе міжнародныя спаборніцтвы з удзелам беларускіх спартсменаў, чэмпіянаты Еўропы і свету, агляды і спартыўныя аналітычныя праграмы. Галоўная мэта — асвятленне і папулярызацыя спорту ў Рэспубліцы Беларусь.',
+                    },
+                    'uk': {
+                        title: 'Білорусь 5',
+                        description: '«Білорусь 5» — головний державний спортивний телеканал Білорусі. В ефірі домінують трансляції внутрішніх змагань: матчі футбольної Вищої ліги, хокейні поєдинки, а також біатлон, легка атлетика та інші види спорту. Канал також транслює міжнародні змагання за участю білоруських спортсменів, чемпіонати Європи та світу, огляди та спортивні аналітичні програми. Основна мета — висвітлення та популяризація спорту в Республіці Білорусь.',
+                    },
+                    'en': {
+                        title: 'Belarus 5',
+                        description: 'Belarus 5 is the main state sports television channel of Belarus. Its broadcast is dominated by coverage of domestic competitions: matches of the football Higher League, hockey games, as well as biathlon, athletics, and other sports. The channel also broadcasts international competitions with the participation of Belarusian athletes, European and World Championships, reviews, and sports analytical programs. The main goal is the coverage and promotion of sports in the Republic of Belarus.',
+                    },
+                },
+                'bel24': {
+                    'ru': {
+                        title: 'Беларусь 24',
+                        description: '«Беларусь 24» — международный спутниковый телеканал, который вещает за пределами Беларуси. Его основная задача — информировать русскоязычную аудиторию по всему миру о событиях в стране, ее культуре и обществе. Эфир «Беларусь 24» состоит из новостных блоков, аналитических передач, а также лучших документальных и художественных фильмов, произведенных в Беларуси.',
+                    },
+                    'by': {
+                        title: 'Беларусь 24',
+                        description: '«Беларусь 24» — міжнародны спадарожнікавы тэлеканал, які вяшчае за межамі Беларусі. Яго асноўная задача — інфармаваць рускамоўную аўдыторыю па ўсім свеце аб падзеях у краіне, яе культуры і грамадстве. Эфір «Беларусь 24» складаецца з навінавых блокаў, аналітычных перадач, а таксама лепшых дакументальных і мастацкіх фільмаў, вырабленых у Беларусі.',
+                    },
+                    'uk': {
+                        title: 'Білорусь 24',
+                        description: '«Білорусь 24» — міжнародний супутниковий телеканал, який мовить за межами Білорусі. Його основне завдання — інформувати російськомовну аудиторію по всьому світу про події в країні, її культуру та суспільство. Ефір «Білорусь 24» складається з новинних блоків, аналітичних передач, а також кращих документальних і художніх фільмів, вироблених у Білорусі.',
+                    },
+                    'en': {
+                        title: 'Belarus 24',
+                        description: 'Belarus 24 is an international satellite TV channel that broadcasts outside Belarus. Its main goal is to inform the Russian-speaking audience worldwide about events in the country, its culture, and society. The broadcast of "Belarus 24" consists of news blocks, analytical programs, as well as the best documentaries and feature films produced in Belarus.',
+                    },
+                },
+                'cgtn': {
+                    'ru': {
+                        title: 'CGTN на русском',
+                        description: 'Русскоязычный канал китайской международной медиасети CGTN. Канал предлагает новости, аналитические программы и документальные фильмы о Китае, а также освещает международные события с китайской точки зрения. Заметные программы включают "Репортаж из Китая" и "Фокус на Азию".',
+                    },
+                    'by': {
+                        title: 'CGTN на рускай',
+                        description: 'Рускамоўны канал кітайскай міжнароднай медыя-сеткі CGTN. Канал прапануе навіны, аналітычныя праграмы і дакументальныя фільмы пра Кітай, а таксама асвятляе міжнародныя падзеі з кітайскага пункту гледжання. Заўважныя праграмы ўключаюць "Рэпартаж з Кітая" і "Фокус на Азію".',
+                    },
+                    'uk': {
+                        title: 'CGTN російською',
+                        description: 'Російськомовний канал китайської міжнародної медіамережі CGTN. Канал пропонує новини, аналітичні програми та документальні фільми про Китай, а також висвітлює міжнародні події з китайської точки зору. Помітні програми включають "Репортаж з Китаю" і "Фокус на Азію".',
+                    },
+                    'en': {
+                        title: 'CGTN Russian',
+                        description: 'A Russian-language channel of the Chinese international media network CGTN. The channel offers news, analytical programs, and documentaries about China, as well as covering international events from a Chinese perspective. Notable programs include "Report from China" and "Focus on Asia."',
+                    },
+                },
+                'rt': {
+                    'ru': {
+                        title: 'RT (Russia Today)',
+                        description: 'Международная медиасеть, вещающая на нескольких языках. RT предоставляет новости, аналитические и документальные программы, предлагая альтернативный взгляд на глобальные события. Известные программы включают "World Today" и "RT Documentary".',
+                    },
+                    'by': {
+                        title: 'RT (Russia Today)',
+                        description: 'Міжнародная медыя-сетка, якая вяшчае на некалькіх мовах. RT прадастаўляе навіны, аналітычныя і дакументальныя праграмы, прапаноўваючы альтэрнатыўны погляд на глабальныя падзеі. Вядомыя праграмы ўключаюць "World Today" і "RT Documentary".',
+                    },
+                    'uk': {
+                        title: 'RT (Russia Today)',
+                        description: 'Міжнародна медіамережа, що мовить на кількох мовах. RT надає новини, аналітичні та документальні програми, пропонуючи альтернативний погляд на глобальні події. Відомі програми включають "World Today" і "RT Documentary".',
+                    },
+                    'en': {
+                        title: 'RT (Russia Today)',
+                        description: 'An international media network broadcasting in several languages. RT provides news, analytical, and documentary programs, offering an alternative perspective on global events. Well-known programs include "World Today" and "RT Documentary."',
+                    },
+                },
+                'cnn': {
+                    'ru': {
+                        title: 'CNN',
+                        description: 'Американский новостной канал, который вещает по всему миру. Его эфир состоит из круглосуточных новостей, аналитических ток-шоу и репортажей. Среди знаковых программ — "Anderson Cooper 360°" и "The Situation Room with Wolf Blitzer".',
+                    },
+                    'by': {
+                        title: 'CNN',
+                        description: 'Амерыканскі навінавы канал, які вяшчае па ўсім свеце. Яго эфір складаецца з кругласутачных навін, аналітычных ток-шоў і рэпартажаў. Сярод знакавых праграм — "Anderson Cooper 360°" і "The Situation Room with Wolf Blitzer".',
+                    },
+                    'uk': {
+                        title: 'CNN',
+                        description: 'Американський новинний канал, який мовить по всьому світу. Його ефір складається з цілодобових новин, аналітичних ток-шоу та репортажів. Серед знакових програм — "Anderson Cooper 360°" і "The Situation Room with Wolf Blitzer".',
+                    },
+                    'en': {
+                        title: 'CNN',
+                        description: 'An American news channel that broadcasts worldwide. Its programming consists of 24-hour news, analytical talk shows, and reports. Iconic programs include "Anderson Cooper 360°" and "The Situation Room with Wolf Blitzer."',
+                    },
+                },
+                'fox': {
+                    'ru': {
+                        title: 'FOX News',
+                        description: 'Американский новостной канал, известный своим консервативным подходом к освещению событий. FOX News предлагает новости и ток-шоу. Среди популярных программ — "Fox & Friends" и "The Five".',
+                    },
+                    'by': {
+                        title: 'FOX News',
+                        description: 'Амерыканскі навінавы канал, вядомы сваім кансерватыўным падыходам да асвятлення падзей. FOX News прапануе навіны і ток-шоу. Сярод папулярных праграм — "Fox & Friends" і "The Five".',
+                    },
+                    'uk': {
+                        title: 'FOX News',
+                        description: 'Американський новинний канал, відомий своїм консервативним підходом до висвітлення подій. FOX News пропонує новини та ток-шоу. Серед популярних програм — "Fox & Friends" і "The Five".',
+                    },
+                    'en': {
+                        title: 'FOX News',
+                        description: 'An American news channel known for its conservative approach to covering events. FOX News offers news and talk shows. Popular programs include "Fox & Friends" and "The Five."',
+                    },
+                },
+                'bbc': {
+                    'ru': {
+                        title: 'BBC',
+                        description: 'Британская общественная телерадиокорпорация. Ее каналы предлагают широкий спектр контента: новости, документальные фильмы, образовательные программы и сериалы. Значимые программы включают "BBC News at Six" и документальные проекты, например, "Планета Земля".',
+                    },
+                    'by': {
+                        title: 'BBC',
+                        description: 'Брытанская грамадская тэлерадыёкарпарацыя. Яе каналы прапануюць шырокі спектр кантэнту: навіны, дакументальныя фільмы, адукацыйныя праграмы і серыялы. Значныя праграмы ўключаюць "BBC News at Six" і дакументальныя праекты, напрыклад, "Планета Зямля".',
+                    },
+                    'uk': {
+                        title: 'BBC',
+                        description: 'Британська громадська телерадіокорпорація. Її канали пропонують широкий спектр контенту: новини, документальні фільми, освітні програми та серіали. Значущі програми включають "BBC News at Six" і документальні проєкти, наприклад, "Планета Земля".',
+                    },
+                    'en': {
+                        title: 'BBC',
+                        description: 'A British public broadcaster. Its channels offer a wide range of content: news, documentaries, educational programs, and TV series. Notable programs include "BBC News at Six" and documentary projects, such as "Planet Earth."',
+                    },
+                },
+                'eu': {
+                    'ru': {
+                        title: 'Euronews',
+                        description: 'Многоязычный европейский новостной канал. Он предоставляет круглосуточные новости, аналитику и репортажи о событиях в Европе и по всему миру. Отличается форматом, где часто новости подаются без диктора. Значимые программы — "Global Conversation" и "No Comment".',
+                    },
+                    'by': {
+                        title: 'Euronews',
+                        description: 'Шматмоўны еўрапейскі навінавы канал. Ён прадастаўляе кругласутачныя навіны, аналітыку і рэпартажы пра падзеі ў Еўропе і па ўсім свеце. Адрозніваецца фарматам, дзе часта навіны падаюцца без дыктара. Значныя праграмы — "Global Conversation" і "No Comment".',
+                    },
+                    'uk': {
+                        title: 'Euronews',
+                        description: 'Багатомовний європейський новинний канал. Він надає цілодобові новини, аналітику та репортажі про події в Європі та по всьому світу. Відрізняється форматом, де часто новини подаються без диктора. Значущі програми — "Global Conversation" і "No Comment".',
+                    },
+                    'en': {
+                        title: 'Euronews',
+                        description: 'A multilingual European news channel. It provides round-the-clock news, analysis, and reports on events in Europe and worldwide. It is distinguished by a format where news is often presented without a narrator. Notable programs are "Global Conversation" and "No Comment."',
+                    },
+                },
+                'alj': {
+                    'ru': {
+                        title: 'Al Jazeera',
+                        description: 'Международная медиасеть из Катара, которая предлагает новости, аналитику и документальные фильмы с акцентом на события на Ближнем Востоке. Известные программы — "Inside Story" и "Head to Head".',
+                    },
+                    'by': {
+                        title: 'Al Jazeera',
+                        description: 'Міжнародная медыя-сетка з Катара, якая прапануе навіны, аналітыку і дакументальныя фільмы з акцэнтам на падзеі на Блізкім Усходзе. Вядомыя праграмы — "Inside Story" і "Head to Head".',
+                    },
+                    'uk': {
+                        title: 'Al Jazeera',
+                        description: 'Міжнародна медіамережа з Катару, яка пропонує новини, аналітику та документальні фільми з акцентом на події на Близькому Сході. Відомі програми — "Inside Story" і "Head to Head".',
+                    },
+                    'en': {
+                        title: 'Al Jazeera',
+                        description: 'An international media network from Qatar that offers news, analysis, and documentaries with a focus on events in the Middle East. Well-known programs include "Inside Story" and "Head to Head."',
+                    },
+                },
+                'ard': {
+                    'ru': {
+                        title: 'Das Erste',
+                        description: 'Немецкий общественный телеканал, являющийся основным каналом медиаконцерна ARD. Das Erste предлагает разнообразный контент, включая новости, текущие события, спортивные трансляции, документальные фильмы, развлекательные шоу и художественные сериалы. Среди известных программ — новостная передача "Tagesschau", политическое ток-шоу "Hart aber fair", а также популярные криминальные сериалы, такие как "Tatort".',
+                    },
+                    'by': {
+                        title: 'Das Erste',
+                        description: 'Нямецкі грамадскі тэлеканал, які з’яўляецца асноўным каналам медыяканцэрна ARD. Das Erste прапануе разнастайны кантэнт, уключаючы навіны, бягучыя падзеі, спартыўныя трансляцыі, дакументальныя фільмы, забаўляльныя шоу і мастацкія серыялы. Сярод вядомых праграм — навінавая перадача "Tagesschau", палітычнае ток-шоу "Hart aber fair", а таксама папулярныя крымінальныя серыялы, такія як "Tatort".',
+                    },
+                    'uk': {
+                        title: 'Das Erste',
+                        description: 'Німецький суспільний телеканал, що є основним каналом медіаконцерну ARD. Das Erste пропонує різноманітний контент, включаючи новини, поточні події, спортивні трансляції, документальні фільми, розважальні шоу та художні серіали. Серед відомих програм — новинна передача "Tagesschau", політичне ток-шоу "Hart aber fair", а також популярні кримінальні серіали, такі як "Tatort".',
+                    },
+                    'en': {
+                        title: 'Das Erste',
+                        description: 'A German public television channel, which is the main channel of the media group ARD. Das Erste offers a variety of content, including news, current affairs, sports broadcasts, documentaries, entertainment shows, and feature series. Notable programs include the news broadcast "Tagesschau," the political talk show "Hart aber fair," and popular crime series such as "Tatort."',
+                    },
+                },
+                'belsat': {
+                    'ru': {
+                        title: 'Belsat',
+                        description: 'Belsat TV — независимый телеканал, который был создан как альтернатива государственному телевидению в Беларуси. Он вещает на белорусском и русском языках. Основное направление — это новости, документальные фильмы, культурные и общественно-политические программы, которые рассказывают о жизни в Беларуси, ее истории, культуре и политических процессах. Канал финансируется Польским телевидением и ориентирован на белорусскую аудиторию как внутри страны, так и за ее пределами.',
+                    },
+                    'by': {
+                        title: 'Белсат',
+                        description: 'Белсат ТБ — незалежны тэлеканал, які быў створаны як альтэрнатыва дзяржаўнаму тэлебачанню ў Беларусі. Ён вяшчае на беларускай і рускай мовах. Асноўны напрамак — гэта навіны, дакументальныя фільмы, культурныя і грамадска-палітычныя праграмы, якія распавядаюць пра жыццё ў Беларусі, яе гісторыю, культуру і палітычныя працэсы. Канал фінансуецца Польскім тэлебачаннем і арыентаваны на беларускую аўдыторыю як унутры краіны, так і за яе межамі.',
+                    },
+                    'uk': {
+                        title: 'Белсат',
+                        description: 'Белсат ТБ — незалежний телеканал, який був створений як альтернатива державному телебаченню в Білорусі. Він мовить білоруською та російською мовами. Основний напрямок — це новини, документальні фільми, культурні та суспільно-політичні програми, які розповідають про життя в Білорусі, її історію, культуру та політичні процеси. Канал фінансується Польським телебаченням і орієнтований на білоруську аудиторію як всередині країни, так і за її межами.',
+                    },
+                    'en': {
+                        title: 'Belsat',
+                        description: 'Belsat TV is an independent television channel that was created as an alternative to state television in Belarus. It broadcasts in Belarusian and Russian languages. Its main focus is on news, documentaries, cultural, and socio-political programs that cover life in Belarus, its history, culture, and political processes. The channel is funded by Polish Television and is aimed at the Belarusian audience both within and outside the country.',
+                    },
+                },
+                '1p1': {
+                    'ru': {
+                        title: '1+1',
+                        description: 'Один из крупнейших и наиболее влиятельных каналов в Украине, известный своими новостными программами, политическими ток-шоу, а также популярными развлекательными проектами, сериалами и фильмами.',
+                    },
+                    'by': {
+                        title: '1+1',
+                        description: 'Адзін з найбуйнейшых і найбольш уплывовых каналаў ва Украіне, вядомы сваімі навінавымі праграмамі, палітычнымі ток-шоу, а таксама папулярнымі забаўляльнымі праектамі, серыяламі і фільмамі.',
+                    },
+                    'uk': {
+                        title: '1+1',
+                        description: 'Один із найбільших і найвпливовіших каналів в Україні, відомий своїми новинними програмами, політичними ток-шоу, а також популярними розважальними проєктами, серіалами та фільмами.',
+                    },
+                    'en': {
+                        title: '1+1',
+                        description: 'One of the largest and most influential channels in Ukraine, known for its news programs, political talk shows, as well as popular entertainment projects, TV series, and films.',
+                    },
+                },
+                'ch24': {
+                    'ru': {
+                        title: '24 канал',
+                        description: '24 канал — украинский круглосуточный информационный телеканал. Его основная задача — оперативно и объективно освещать новости из Украины и мира. В его эфире транслируются новостные выпуски каждый час, аналитические программы, журналистские расследования, а также прямые включения с мест событий. Канал известен своим фокусом на политической и общественной тематике, предоставляя зрителю широкий спектр мнений и экспертных оценок.',
+                    },
+                    'by': {
+                        title: '24 канал',
+                        description: '24 канал — украінскі кругласутачны інфармацыйны тэлеканал. Яго асноўная задача — аператыўна і аб\'ектыўна асвятляць навіны з Украіны і свету. У яго эфіры транслююцца навінавыя выпускі кожную гадзіну, аналітычныя праграмы, журналісцкія расследаванні, а таксама прамыя ўключэнні з месцаў падзей. Канал вядомы сваім фокусам на палітычнай і грамадскай тэматыцы, прадастаўляючы гледачу шырокі спектр меркаванняў і экспертных ацэнак.',
+                    },
+                    'uk': {
+                        title: '24 канал',
+                        description: '24 канал — український цілодобовий інформаційний телеканал. Його основне завдання — оперативно та об\'єктивно висвітлювати новини з України та світу. В його ефірі транслюються новинні випуски щогодини, аналітичні програми, журналістські розслідування, а також прямі включення з місць подій. Канал відомий своїм фокусом на політичній і суспільній тематиці, надаючи глядачеві широкий спектр думок та експертних оцінок.',
+                    },
+                    'en': {
+                        title: '24 Channel',
+                        description: '24 Channel is a Ukrainian round-the-clock news channel. Its main task is to promptly and objectively cover news from Ukraine and the world. Its broadcast includes news releases every hour, analytical programs, journalistic investigations, and live broadcasts from the scene of events. The channel is known for its focus on political and social topics, providing viewers with a wide range of opinions and expert assessments.',
+                    },
+                },
+                'tnt': {
+                    'ru': {
+                        title: 'ТНТ',
+                        description: 'Российский развлекательный телеканал, который фокусируется на комедийных сериалах, юмористических шоу и реалити-проектах. Среди самых известных программ — "Универ", "Танцы" и "Comedy Club".',
+                    },
+                    'by': {
+                        title: 'ТНТ',
+                        description: 'Расійскі забаўляльны тэлеканал, які факусуецца на камедыйных серыялах, гумарыстычных шоў і рэаліці-праектах. Сярод самых вядомых праграм — "Універ", "Танцы" і "Comedy Club".',
+                    },
+                    'uk': {
+                        title: 'ТНТ',
+                        description: 'Російський розважальний телеканал, який фокусується на комедійних серіалах, гумористичних шоу та реаліті-проєктах. Серед найвідоміших програм — "Універ", "Танці" і "Comedy Club".',
+                    },
+                    'en': {
+                        title: 'TNT',
+                        description: 'A Russian entertainment channel that focuses on comedy series, humor shows, and reality projects. Among the most famous programs are "Univer," "Dances," and "Comedy Club."',
+                    },
+                },
+                'viva': {
+                    'ru': {
+                        title: 'VIVA Russia',
+                        description: 'Российский музыкальный телеканал. Его эфир составляют музыкальные клипы, чарты и программы о современной музыке.',
+                    },
+                    'by': {
+                        title: 'VIVA Russia',
+                        description: 'Расійскі музычны тэлеканал. Яго эфір складаюць музычныя кліпы, чарты і праграмы аб сучаснай музыцы.',
+                    },
+                    'uk': {
+                        title: 'VIVA Russia',
+                        description: 'Російський музичний телеканал. Його ефір складають музичні кліпи, чарти та програми про сучасну музику.',
+                    },
+                    'en': {
+                        title: 'VIVA Russia',
+                        description: 'A Russian music channel. Its broadcast consists of music videos, charts, and programs about modern music.',
+                    },
+                },
+                'etvplus': {
+                    'ru': {
+                        title: 'ETV+',
+                        description: 'Эстонский общественный телеканал на русском языке. Он предлагает информационные, культурные, образовательные и развлекательные программы для русскоязычного населения Эстонии. Среди известных программ — новостной блок "Актуальная камера".',
+                    },
+                    'by': {
+                        title: 'ETV+',
+                        description: 'Эстонскі грамадскі тэлеканал на рускай мове. Ён прапануе інфармацыйныя, культурныя, адукацыйныя і забаўляльныя праграмы для рускамоўнага насельніцтва Эстоніі. Сярод вядомых праграм — навінавы блок "Актуальная камера".',
+                    },
+                    'uk': {
+                        title: 'ETV+',
+                        description: 'Естонський громадський телеканал російською мовою. Він пропонує інформаційні, культурні, освітні та розважальні програми для російськомовного населення Естонії. Серед відомих програм — новинний блок "Актуальна камера".',
+                    },
+                    'en': {
+                        title: 'ETV+',
+                        description: 'An Estonian public television channel in Russian. It offers informational, cultural, educational, and entertainment programs for the Russian-speaking population of Estonia. Notable programs include the news block "Aktuaalne kaamera."',
+                    },
+                },
+                'per': {
+                    'ru': {
+                        title: 'Перец International',
+                        description: 'Международный развлекательный канал, ориентированный на русскоязычную аудиторию. Он транслирует развлекательные шоу, юмористические программы и реалити-шоу.',
+                    },
+                    'by': {
+                        title: 'Перац International',
+                        description: 'Міжнародны забаўляльны канал, арыентаваны на рускамоўную аўдыторыю. Ён транслюе забаўляльныя шоу, гумарыстычныя праграмы і рэаліці-шоу.',
+                    },
+                    'uk': {
+                        title: 'Перец International',
+                        description: 'Міжнародний розважальний канал, орієнтований на російськомовну аудиторію. Він транслює розважальні шоу, гумористичні програми та реаліті-шоу.',
+                    },
+                    'en': {
+                        title: 'Perets International',
+                        description: 'An international entertainment channel aimed at a Russian-speaking audience. It broadcasts entertainment shows, comedy programs, and reality shows.',
+                    },
+                },
+                'match': {
+                    'ru': {
+                        title: 'МАТЧ ТВ',
+                        description: '«МАТЧ ТВ» — ведущий общероссийский государственный спортивный телеканал. Обладает эксклюзивными правами на трансляцию ключевых внутренних и международных спортивных событий, включая матчи Российской Премьер-Лиги (РПЛ), Континентальной Хоккейной Лиги (КХЛ), Единой лиги ВТБ, чемпионатов мира и Европы по футболу и хоккею, Олимпийские игры. В эфире представлены прямые трансляции, авторские аналитические программы, новости спорта, интервью с известными спортсменами и тренерами. Канал является флагманом спортивной журналистики в России.',
+                    },
+                    'by': {
+                        title: 'МАТЧ ТВ',
+                        description: '«МАТЧ ТВ» — вядучы агульнарасійскі дзяржаўны спартыўны тэлеканал. Валодае эксклюзіўнымі правамі на трансляцыю ключавых унутраных і міжнародных спартыўных падзей, уключаючы матчы Расійскай Прэм\'ер-Лігі (РПЛ), Кантынентальнай Хакейнай Лігі (КХЛ), Адзінай лігі ВТБ, чэмпіянатаў свету і Еўропы па футболе і хакеі, Алімпійскія гульні. У эфіры прадстаўлены прамыя трансляцыі, аўтарскія аналітычныя праграмы, навіны спорту, інтэрв\'ю з вядомымі спартсменамі і трэнерамі. Канал з\'яўляецца флагманам спартыўнай журналістыкі ў Расіі.',
+                    },
+                    'uk': {
+                        title: 'МАТЧ ТВ',
+                        description: '«МАТЧ ТВ» — провідний загальноросійський державний спортивний телеканал. Володіє ексклюзивними правами на трансляцію ключових внутрішніх та міжнародних спортивних подій, включаючи матчі Російської Прем\'єр-Ліги (РПЛ), Континентальної хокейної ліги (КХЛ), Єдиної ліги ВТБ, чемпіонатів світу та Європи з футболу та хокею, Олімпійські ігри. В ефірі представлені прямі трансляції, авторські аналітичні програми, новини спорту, інтерв\'ю з відомими спортсменами та тренерами. Канал є флагманом спортивної журналістики в Росії.',
+                    },
+                    'en': {
+                        title: 'MATCH TV',
+                        description: 'MATCH TV is the leading all-Russian state sports television channel. It holds exclusive rights to broadcast key domestic and international sporting events, including matches of the Russian Premier League (RPL), Kontinental Hockey League (KHL), VTB United League, FIFA World Cup and UEFA European Football Championship, Ice Hockey World Championships, and the Olympic Games. The broadcast features live coverage, original analytical programs, sports news, and interviews with famous athletes and coaches. The channel is the flagship of sports journalism in Russia.',
+                    },
+                },
+                '2p2': {
+                    'ru': {
+                        title: '2+2',
+                        description: '«2+2» — украинский телеканал, который входит в медиахолдинг «1+1 Media». Он ориентирован преимущественно на мужскую аудиторию и известен своим фокусом на развлекательном и приключенческом контенте. В его эфире транслируются боевики, детективы, триллеры и сериалы. Канал также уделяет большое внимание спортивным событиям, показывая трансляции футбольных матчей, боксёрских поединков и других соревнований.',
+                    },
+                    'by': {
+                        title: '2+2',
+                        description: '«2+2» — украінскі тэлеканал, які ўваходзіць у медыяхолдынг «1+1 Media». Ён арыентаваны пераважна на мужчынскую аўдыторыю і вядомы сваім фокусам на забаўляльным і прыгодніцкім кантэнце. У яго эфіры транслююцца баевікі, дэтэктывы, трылеры і серыялы. Канал таксама надае вялікую ўвагу спартыўным падзеям, паказваючы трансляцыі футбольных матчаў, баксёрскіх паядынкаў і іншых спаборніцтваў.',
+                    },
+                    'uk': {
+                        title: '2+2',
+                        description: '«2+2» — український телеканал, який входить до медіахолдингу «1+1 Media». Він орієнтований переважно на чоловічу аудиторію і відомий своїм фокусом на розважальному та пригодницькому контенті. В його ефірі транслюються бойовики, детективи, трилери та серіали. Канал також приділяє велику увагу спортивним подіям, показуючи трансляції футбольних матчів, боксерських поєдинків та інших змагань.',
+                    },
+                    'en': {
+                        title: '2+2',
+                        description: '2+2 is a Ukrainian television channel that is part of the "1+1 Media" holding. It is primarily aimed at a male audience and is known for its focus on entertainment and adventure content. Its broadcast includes action films, detective stories, thrillers, and TV series. The channel also pays great attention to sports events, showing broadcasts of football matches, boxing matches, and other competitions.',
+                    },
+                },
+                'stb': {
+                    'ru': {
+                        title: 'СТБ',
+                        description: 'Этот канал известен своими крупными и популярными талант-шоу и реалити-проектами, например, «Х-Фактор» и «Холостяк». Также он транслирует сериалы и фильмы собственного производства.',
+                    },
+                    'by': {
+                        title: 'СТБ',
+                        description: 'Гэты канал вядомы сваімі буйнымі і папулярнымі талент-шоу і рэаліці-праектамі, напрыклад, «Х-Фактар» і «Халасцяк». Таксама ён транслюе серыялы і фільмы ўласнай вытворчасці.',
+                    },
+                    'uk': {
+                        title: 'СТБ',
+                        description: 'Цей канал відомий своїми великими та популярними талант-шоу та реаліті-проєктами, наприклад, «Х-Фактор» і «Холостяк». Також він транслює серіали та фільми власного виробництва.',
+                    },
+                    'en': {
+                        title: 'STB',
+                        description: 'This channel is known for its major and popular talent shows and reality projects, such as "X-Factor" and "The Bachelor." It also broadcasts its own-produced TV series and films.',
+                    },
+                },
+                'mtv': {
+                    'ru': {
+                        title: 'MTV Live',
+                        description: 'Международный музыкальный телеканал. Он транслирует концерты, музыкальные клипы и фестивали в высоком качестве, ориентируясь исключительно на музыкальный контент.',
+                    },
+                    'by': {
+                        title: 'MTV Live',
+                        description: 'Міжнародны музычны тэлеканал. Ён транслюе канцэрты, музычныя кліпы і фестывалі ў высокай якасці, арыентуючыся выключна на музычны кантэнт.',
+                    },
+                    'uk': {
+                        title: 'MTV Live',
+                        description: 'Міжнародний музичний телеканал. Він транслює концерти, музичні кліпи та фестивалі у високій якості, орієнтуючись виключно на музичний контент.',
+                    },
+                    'en': {
+                        title: 'MTV Live',
+                        description: 'An international music television channel. It broadcasts concerts, music videos, and festivals in high quality, focusing exclusively on music content.',
+                    },
+                },
+                'his': {
+                    'ru': {
+                        title: 'History Channel',
+                        description: 'Международный канал, посвященный истории. Он транслирует документальные фильмы, сериалы и реалити-шоу об исторических событиях. Среди популярных проектов — "Поиск сокровищ" и "Проект «Синяя книга»".',
+                    },
+                    'by': {
+                        title: 'History Channel',
+                        description: 'Міжнародны канал, прысвечаны гісторыі. Ён транслюе дакументальныя фільмы, серыялы і рэаліці-шоу аб гістарычных падзеях. Сярод папулярных праектаў — "Пошук скарбаў" і "Праект «Сіняя кніга»".',
+                    },
+                    'uk': {
+                        title: 'History Channel',
+                        description: 'Міжнародний канал, присвячений історії. Він транслює документальні фільми, серіали та реаліті-шоу про історичні події. Серед популярних проєктів — "Пошук скарбів" і "Проєкт «Синя книга»".',
+                    },
+                    'en': {
+                        title: 'History Channel',
+                        description: 'An international channel dedicated to history. It broadcasts documentaries, series, and reality shows about historical events. Popular projects include "Treasure Search" and "Project Blue Book."',
+                    },
+                },
+                'ch4': {
+                    'ru': {
+                        title: 'Channel 4',
+                        description: 'Британский общественный телеканал, известный своим инновационным и порой провокационным контентом. Среди его программ — документальные фильмы, комедийные и драматические сериалы. Значимые проекты — "The Great British Bake Off" и "Gogglebox".',
+                    },
+                    'by': {
+                        title: 'Channel 4',
+                        description: 'Брытанскі грамадскі тэлеканал, вядомы сваім інавацыйным і часам правакацыйным кантэнтам. Сярод яго праграм — дакументальныя фільмы, камедыйныя і драматычныя серыялы. Значныя праекты — "The Great British Bake Off" і "Gogglebox".',
+                    },
+                    'uk': {
+                        title: 'Channel 4',
+                        description: 'Британський громадський телеканал, відомий своїм інноваційним і часом провокаційним контентом. Серед його програм — документальні фільми, комедійні та драматичні серіали. Значущі проєкти — "The Great British Bake Off" і "Gogglebox".',
+                    },
+                    'en': {
+                        title: 'Channel 4',
+                        description: 'A British public television channel known for its innovative and sometimes provocative content. Its programs include documentaries, comedy, and drama series. Notable projects are "The Great British Bake Off" and "Gogglebox."',
+                    },
+                },
+                'zdf': {
+                    'ru': {
+                        title: 'ZDF',
+                        description: 'ZDF (Zweites Deutsches Fernsehen) — это один из крупнейших общественных телеканалов Германии. Он предлагает широкий спектр программ, ориентированных на самую разную аудиторию. В его эфире можно найти новости и актуальные передачи, например, "heute-journal", документальные фильмы о природе, истории и науке, такие как "Terra X", а также развлекательные шоу, сериалы и художественные фильмы. Канал стремится предоставлять качественный и разнообразный контент, охватывающий как серьезные, так и развлекательные темы.',
+                    },
+                    'by': {
+                        title: 'ZDF',
+                        description: 'ZDF (Zweites Deutsches Fernsehen) — гэта адзін з найбуйнейшых грамадскіх тэлеканалаў Германіі. Ён прапануе шырокі спектр праграм, арыентаваных на самую розную аўдыторыю. У яго эфіры можна знайсці навіны і актуальныя перадачы, напрыклад, "heute-journal", дакументальныя фільмы аб прыродзе, гісторыі і навуцы, такія як "Terra X", а таксама забаўляльныя шоу, серыялы і мастацкія фільмы. Канал імкнецца прадастаўляць якасны і разнастайны кантэнт, які ахоплівае як сур\'ёзныя, так і забаўляльныя тэмы.',
+                    },
+                    'uk': {
+                        title: 'ZDF',
+                        description: 'ZDF (Zweites Deutsches Fernsehen) — це один з найбільших суспільних телеканалів Німеччини. Він пропонує широкий спектр програм, орієнтованих на найрізноманітнішу аудиторію. В його ефірі можна знайти новини та актуальні передачі, наприклад, "heute-journal", документальні фільми про природу, історію та науку, такі як "Terra X", а також розважальні шоу, серіали та художні фільми. Канал прагне надавати якісний та різноманітний контент, що охоплює як серйозні, так і розважальні теми.',
+                    },
+                    'en': {
+                        title: 'ZDF',
+                        description: 'ZDF (Zweites Deutsches Fernsehen) is one of the largest public television channels in Germany. It offers a wide range of programs aimed at the most diverse audience. Its broadcast includes news and current affairs shows, such as "heute-journal," documentaries about nature, history, and science, such as "Terra X," as well as entertainment shows, TV series, and feature films. The channel aims to provide high-quality and diverse content, covering both serious and entertainment topics.',
+                    },
+                },
+                'sar24': {
+                    'ru': {
+                        title: 'Саратов 24',
+                        description: 'Региональный телеканал Саратовской области.',
+                    },
+                    'by': {
+                        title: 'Саратаў 24',
+                        description: 'Рэгіянальны тэлеканал Саратаўскай вобласці.',
+                    },
+                    'uk': {
+                        title: 'Саратов 24',
+                        description: 'Регіональний телеканал Саратовської області.',
+                    },
+                    'en': {
+                        title: 'Saratov 24',
+                        description: 'Regional TV channel of the Saratov region.',
+                    },
+                },
+                'seim': {
+                    'ru': {
+                        title: 'Сейм',
+                        description: 'Региональный телеканал Курской области.',
+                    },
+                    'by': {
+                        title: 'Сейм',
+                        description: 'Рэгіянальны тэлеканал Курскай вобласці.',
+                    },
+                    'uk': {
+                        title: 'Сейм',
+                        description: 'Регіональний телеканал Курської області.',
+                    },
+                    'en': {
+                        title: 'Seym',
+                        description: 'Regional TV channel of the Kursk region.',
+                    },
+                },
+                'k24': {
+                    'ru': {
+                        title: 'Кубань 24',
+                        description: 'Региональный телеканал Краснодарского края.',
+                    },
+                    'by': {
+                        title: 'Кубань 24',
+                        description: 'Рэгіянальны тэлеканал Краснадарскага краю.',
+                    },
+                    'uk': {
+                        title: 'Кубань 24',
+                        description: 'Регіональний телеканал Краснодарського краю.',
+                    },
+                    'en': {
+                        title: 'Kuban 24',
+                        description: 'Regional TV channel of the Krasnodar Krai.',
+                    },
+                },
+                'chgtrk': {
+                    'ru': {
+                        title: 'ЧГТРК Грозный',
+                        description: 'Региональный телеканал Чеченской Республики.',
+                    },
+                    'by': {
+                        title: 'ЧДТРК Грозны',
+                        description: 'Рэгіянальны тэлеканал Чачэнскай Рэспублікі.',
+                    },
+                    'uk': {
+                        title: 'ЧДТРК Грозний',
+                        description: 'Регіональний телеканал Чеченської Республіки.',
+                    },
+                    'en': {
+                        title: 'ChGTRK Grozny',
+                        description: 'Regional TV channel of the Chechen Republic.',
+                    },
+                },
+                'otv': {
+                    'ru': {
+                        title: 'ОТВ (Екатеринбург)',
+                        description: 'Региональный телеканал Свердловской области.',
+                    },
+                    'by': {
+                        title: 'ОТБ (Екацярынбург)',
+                        description: 'Рэгіянальны тэлеканал Свярдлоўскай вобласці.',
+                    },
+                    'uk': {
+                        title: 'ОТВ (Єкатеринбург)',
+                        description: 'Регіональний телеканал Свердловської області.',
+                    },
+                    'en': {
+                        title: 'OTV (Yekaterinburg)',
+                        description: 'Regional TV channel of the Sverdlovsk region.',
+                    },
+                },
+                'aist': {
+                    'ru': {
+                        title: 'Аист',
+                        description: 'Региональный телеканал Иркутской области.',
+                    },
+                    'by': {
+                        title: 'Бусел',
+                        description: 'Рэгіянальны тэлеканал Іркуцкай вобласці.',
+                    },
+                    'uk': {
+                        title: 'Аист',
+                        description: 'Регіональний телеканал Іркутської області.',
+                    },
+                    'en': {
+                        title: 'Aist',
+                        description: 'Regional TV channel of the Irkutsk region.',
+                    },
+                },
+                'tvk': {
+                    'ru': {
+                        title: 'ТВК',
+                        description: 'Региональный телеканал Красноярского края.',
+                    },
+                    'by': {
+                        title: 'ТВК',
+                        description: 'Рэгіянальны тэлеканал Краснаярскага краю.',
+                    },
+                    'uk': {
+                        title: 'ТВК',
+                        description: 'Регіональний телеканал Красноярського краю.',
+                    },
+                    'en': {
+                        title: 'TVK',
+                        description: 'Regional TV channel of the Krasnoyarsk Krai.',
+                    },
+                },
+                'otvprim': {
+                    'ru': {
+                        title: 'ОТВ (Приморье)',
+                        description: 'Региональный телеканал Приморья.',
+                    },
+                    'by': {
+                        title: 'ОТБ (Прымор’е)',
+                        description: 'Рэгіянальны тэлеканал Прымор\'я.',
+                    },
+                    'uk': {
+                        title: 'ОТВ (Примор’я)',
+                        description: 'Регіональний телеканал Примор\'я.',
+                    },
+                    'en': {
+                        title: 'OTV (Primorye)',
+                        description: 'Regional TV channel of Primorye.',
+                    },
+                },
+                'bel4': {
+                    'ru': {
+                        title: 'Беларусь 4 Витебск',
+                        description: 'Региональный телеканал Витебской области.',
+                    },
+                    'by': {
+                        title: 'Беларусь 4 Віцебск',
+                        description: 'Рэгіянальны тэлеканал Віцебскай вобласці.',
+                    },
+                    'uk': {
+                        title: 'Білорусь 4 Вітебськ',
+                        description: 'Регіональний телеканал Вітебської області.',
+                    },
+                    'en': {
+                        title: 'Belarus 4 Vitebsk',
+                        description: 'Regional TV channel of the Vitebsk region.',
+                    },
+                },
+                'zahid': {
+                    'ru': {
+                        title: 'Перший Західний',
+                        description: 'Региональный телеканал Львовской области.',
+                    },
+                    'by': {
+                        title: 'Першы Заходні',
+                        description: 'Рэгіянальны тэлеканал Львоўскай вобласці.',
+                    },
+                    'uk': {
+                        title: 'Перший Західний',
+                        description: 'Регіональний телеканал Львівської області.',
+                    },
+                    'en': {
+                        title: 'Pershy Zakhidnyi',
+                        description: 'Regional TV channel of the Lviv region.',
+                    },
+                },
+                'ch11': {
+                    'ru': {
+                        title: '11 канал',
+                        description: 'Региональный телеканал Днепропетровской области.',
+                    },
+                    'by': {
+                        title: '11 канал',
+                        description: 'Рэгіянальны тэлеканал Днепрапятроўскай вобласці.',
+                    },
+                    'uk': {
+                        title: '11 канал',
+                        description: 'Регіональний телеканал Дніпропетровської області.',
+                    },
+                    'en': {
+                        title: '11 Channel',
+                        description: 'Regional TV channel of the Dnipropetrovsk region.',
+                    },
+                },
+                'mis': {
+                    'ru': {
+                        title: 'Перший міський',
+                        description: 'Региональный телеканал Одессы.',
+                    },
+                    'by': {
+                        title: 'Першы гарадскі',
+                        description: 'Рэгіянальны тэлеканал Адэсы.',
+                    },
+                    'uk': {
+                        title: 'Перший міський',
+                        description: 'Регіональний телеканал Одеси.',
+                    },
+                    'en': {
+                        title: 'Pershy Miskyi',
+                        description: 'Regional TV channel of Odessa.',
+                    },
+                },
+            };
+
             const params = new URLSearchParams(window.location.search);
             const channelId = params.get('v');
 
-            const channels = {
-                'ntv': {
-                    title: 'НТВ',
-                    description: 'Российский телеканал, который специализируется на новостях, криминальных расследованиях и детективных сериалах. Среди его заметных программ — информационные выпуски "Сегодня", аналитическое шоу "Итоги недели", а также популярные проекты, такие как "Следствие вели…" и "Маска".',
-                    player: 'https://streaming.televizor-24-tochka.ru/live/7.m3u8'
-                },
-                'rtvi': {
-                    title: 'RTVI',
-                    description: 'Международный русскоязычный телеканал, вещающий на страны Европы, Северной Америки и Израиль. Канал предлагает информационно-аналитические программы, а также документальные фильмы и ток-шоу, направленные на русскоязычную аудиторию за пределами России. Среди известных программ — "Вы держитесь", "Большой Newstalk", "Новые Итоги", "Американское Утро", "Дежурный по Америке".',
-                    player: 'https://server.musical.uz/tv/rtvi/index.m3u8?token=e243491dccbf2b714dde97004e4afc3190fac512-4d78301118543037ba48a4da67359efd-1757855350-1757844550'
-                },
-                'm24': {
-                    title: 'Москва 24',
-                    description: 'Московский круглосуточный информационный телеканал, освещающий события, происходящие в столице России. Основной контент — оперативные новости, репортажи, аналитические обзоры и передачи, посвященные жизни города, транспорту, культурным событиям и городским проектам. Значимые программы включают "Москва Едет" и "Это Москва".',
-                    player: 'https://www.m24.ru/tv',
-                    isDirectUrl: true
-                },
-                'spb6': {
-                    title: 'Санкт-Петербург',
-                    description: 'Региональный телеканал, освещающий события и жизнь Санкт-Петербурга. В эфире представлены новостные выпуски, аналитические программы, документальные фильмы, культурные и исторические передачи, посвященные городу. Среди популярных программ — "Новости" и "Утро в Петербурге".',
-                    player: 'https://playercdn.cdnvideo.ru/aloha/players/auto_player1.html?clid=4f2trzpmbn&plid=0eb352f9-1854-4744-baf8-86957e93e5e2',
-                    isDirectUrl: true
-                },
-                'ont': {
-                    title: 'ОНТ',
-                    description: 'Белорусский государственный телеканал, который предлагает разнообразный контент. Его эфир включает новостные выпуски, аналитические программы, документальные фильмы, а также развлекательные шоу и концерты. Среди популярных проектов — информационная программа "Наши новости", утренняя передача "Наше утро", а также различные музыкальные шоу и адаптации международных форматов.',
-                    player: 'https://stream.dc.beltelecom.by/ont/ont/playlist.m3u8'
-                },
-                'stv': {
-                    title: 'СТВ',
-                    description: 'Белорусский государственный телеканал, который специализируется на новостях, аналитических программах и общественно-политическом контенте. СТВ освещает события в Беларуси и мире, предлагая информационные выпуски, ток-шоу, документальные проекты и развлекательные программы. Среди известных программ — информационно-аналитическая программа "24 часа" и утреннее шоу "Утро. Студия хорошего настроения".',
-                    player: 'https://ctv.dc.beltelecom.by/ctv/ctv.stream/playlist.m3u8'
-                },
-                'fd': {
-                    title: 'Freeдом',
-                    description: '«Freedom» — это украинский русскоязычный информационный телеканал, который был создан в 2022 году на базе единого телемарафона «Єдині новини». Его основная задача — доносить информацию о событиях в Украине, ее позиции и борьбе против российской агрессии до русскоязычной аудитории за пределами Украины. Канал транслирует новости, аналитику, интервью и документальные фильмы, разоблачая российскую пропаганду и рассказывая правду о войне.',
-                    player: 'https://freedom.cdn-01.cosmonova.net.ua/mobile-app/main/freedom/master.m3u8'
-                },
-                'tvr': {
-                    title: 'Дождь',
-                    description: '«Дождь» — российский независимый информационный телеканал. Его эфир состоит из новостных программ, аналитических передач, журналистских расследований и прямых трансляций общественно-политических событий. Канал известен своей критической позицией и освещением тем, которые редко обсуждаются на государственном телевидении. В настоящее время «Дождь» вещает из-за рубежа, преимущественно через интернет-платформы.',
-                    player: 'https://wl.tvrain.tv/transcode/ngrp:ses_all/playlist.m3u8'
-                },
-                'bel1': {
-                    title: 'Беларусь 1',
-                    description: '«Беларусь 1» — главный государственный телеканал страны, который является основным источником новостей и информации для широкой аудитории. В его эфире преобладают новостные выпуски, информационно-аналитические программы, а также документальные проекты и прямые трансляции значимых государственных событий. Канал также транслирует популярные сериалы, фильмы и крупные спортивные мероприятия.',
-                    player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus1.smil/playlist.m3u8'
-                },
-                'bel2': {
-                    title: 'Беларусь 2',
-                    description: '«Беларусь 2» — развлекательный телеканал, ориентированный на молодежную аудиторию и тех, кто ищет легкий и позитивный контент. Его программа состоит из сериалов, художественных и документальных фильмов, а также юмористических и музыкальных шоу. Главная цель канала — развлекать и предлагать разнообразный контент для отдыха.',
-                    player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus2/playlist.m3u8',
-                },
-                'bel3': {
-                    title: 'Беларусь 3',
-                    description: '«Беларусь 3» — это первый белорусский социокультурный телеканал. Его эфир посвящен истории, культуре и искусству Беларуси. Здесь можно найти документальные фильмы, посвященные истории страны, трансляции спектаклей и концертов, образовательные программы, а также проекты о выдающихся деятелях культуры и искусства. Канал создан для тех, кто интересуется историей и культурным наследием Беларуси.',
-                    player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus3/playlist.m3u8',
-                },
-                'bel24': {
-                    title: 'Беларусь 24',
-                    description: '«Беларусь 24» — международный спутниковый телеканал, который вещает за пределами Беларуси. Его основная задача — информировать русскоязычную аудиторию по всему миру о событиях в стране, ее культуре и обществе. Эфир «Беларусь 24» состоит из новостных блоков, аналитических передач, а также лучших документальных и художественных фильмов, произведенных в Беларуси.',
-                    player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus24/playlist.m3u8',
-                },
-                'cgtn': {
-                    title: 'CGTN на русском',
-                    description: 'Русскоязычный канал китайской международной медиасети CGTN. Канал предлагает новости, аналитические программы и документальные фильмы о Китае, а также освещает международные события с китайской точки зрения. Заметные программы включают "Репортаж из Китая" и "Фокус на Азию".',
-                    player: 'https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master.m3u8'
-                },
-                'rt': {
-                    title: 'RT (Russia Today)',
-                    description: 'Международная медиасеть, вещающая на нескольких языках. RT предоставляет новости, аналитические и документальные программы, предлагая альтернативный взгляд на глобальные события. Известные программы включают "World Today" и "RT Documentary".',
-                    player: 'https://rumble.com/live-hls-dvr/33aw1a/playlist.m3u8'
-                },
-                'cnn': {
-                    title: 'CNN',
-                    description: 'Американский новостной канал, который вещает по всему миру. Его эфир состоит из круглосуточных новостей, аналитических ток-шоу и репортажей. Среди знаковых программ — "Anderson Cooper 360°" и "The Situation Room with Wolf Blitzer".',
-                    player: 'https://raw.githubusercontent.com/CODERX24/tv/refs/heads/master/CNN.m3u8'
-                },
-                'fox': {
-                    title: 'FOX News',
-                    description: 'Американский новостной канал, известный своим консервативным подходом к освещению событий. FOX News предлагает новости и ток-шоу. Среди популярных программ — "Fox & Friends" и "The Five".',
-                    player: 'http://23.237.104.106:8080/USA_FOX_NEWS/index.m3u8'
-                },
-                'bbc': {
-                    title: 'BBC',
-                    description: 'Британская общественная телерадиокорпорация. Ее каналы предлагают широкий спектр контента: новости, документальные фильмы, образовательные программы и сериалы. Значимые программы включают "BBC News at Six" и документальные проекты, например, "Планета Земля".',
-                    player: 'https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8'
-                },
-                'eu': {
-                    title: 'Euronews',
-                    description: 'Многоязычный европейский новостной канал. Он предоставляет круглосуточные новости, аналитику и репортажи о событиях в Европе и по всему миру. Отличается форматом, где часто новости подаются без диктора. Значимые программы — "Global Conversation" и "No Comment".',
-                    player: 'https://a-cdn.klowdtv.com/live3/euronews_720p/playlist.m3u8'
-                },
-                'alj': {
-                    title: 'Al Jazeera',
-                    description: 'Международная медиасеть из Катара, которая предлагает новости, аналитику и документальные фильмы с акцентом на события на Ближнем Востоке. Известные программы — "Inside Story" и "Head to Head".',
-                    player: 'https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8'
-                },
-                'ard': {
-                    title: 'Das Erste',
-                    description: 'Немецкий общественный телеканал, являющийся основным каналом медиаконцерна ARD. Das Erste предлагает разнообразный контент, включая новости, текущие события, спортивные трансляции, документальные фильмы, развлекательные шоу и художественные сериалы. Среди известных программ — новостная передача "Tagesschau", политическое ток-шоу "Hart aber fair", а также популярные криминальные сериалы, такие как "Tatort".',
-                    player: 'https://viamotionhsi.netplus.ch/live/eds/daserstehd/browser-HLS8/daserstehd.m3u8'
-                },
-                'belsat': {
-                    title: 'Belsat',
-                    description: 'Belsat TV — независимый телеканал, который был создан как альтернатива государственному телевидению в Беларуси. Он вещает на белорусском и русском языках. Основное направление — это новости, документальные фильмы, культурные и общественно-политические программы, которые рассказывают о жизни в Беларуси, ее истории, культуре и политических процессах. Канал финансируется Польским телевидением и ориентирован на белорусскую аудиторию как внутри страны, так и за ее пределами.',
-                    player: 'https://www.youtube.com/embed/YA9ukP4k_Fk',
-                    isDirectUrl: true
-                },
-                '1p1': {
-                    title: '1+1',
-                    description: 'Один из крупнейших и наиболее влиятельных каналов в Украине, известный своими новостными программами, политическими ток-шоу, а также популярными развлекательными проектами, сериалами и фильмами.',
-                    player: 'https://www.youtube.com/embed/lnrp2S2L6qk',
-                    isDirectUrl: true
-                },
-                'ch24': {
-                    title: '24 канал',
-                    description: '24 канал — украинский круглосуточный информационный телеканал. Его основная задача — оперативно и объективно освещать новости из Украины и мира. В его эфире транслируются новостные выпуски каждый час, аналитические программы, журналистские расследования, а также прямые включения с мест событий. Канал известен своим фокусом на политической и общественной тематике, предоставляя зрителю широкий спектр мнений и экспертных оценок.',
-                    player: 'https://embed-player.dyvy.tv/?channel=24-kanal&autoplay=true&mode=compact&provider-id=777905',
-                    isDirectUrl: true
-                },
-                'tnt': {
-                    title: 'ТНТ',
-                    description: 'Российский развлекательный телеканал, который фокусируется на комедийных сериалах, юмористических шоу и реалити-проектах. Среди самых известных программ — "Универ", "Танцы" и "Comedy Club".',
-                    player: 'https://streaming.televizor-24-tochka.ru/live/23.m3u8'
-                },
-                'viva': {
-                    title: 'VIVA Russia',
-                    description: 'Российский музыкальный телеканал. Его эфир составляют музыкальные клипы, чарты и программы о современной музыке.',
-                    player: 'https://goodgame.ru/player?180805#autoplay',
-                    isDirectUrl: true
-                },
-                'etvplus': {
-                    title: 'ETV+',
-                    description: 'Эстонский общественный телеканал на русском языке. Он предлагает информационные, культурные, образовательные и развлекательные программы для русскоязычного населения Эстонии. Среди известных программ — новостной блок "Актуальная камера".',
-                    player: 'https://live.err.ee/live/etvpluss.m3u8'
-                },
-                'per': {
-                    title: 'Перец International',
-                    description: 'Международный развлекательный канал, ориентированный на русскоязычную аудиторию. Он транслирует развлекательные шоу, юмористические программы и реалити-шоу.',
-                    player: 'https://cdn4.skygo.mn/live/disk1/Che/HLSv3-FTA/Che.m3u8'
-                },
-                '2p2': {
-                    title: '2+2',
-                    description: '«2+2» — украинский телеканал, который входит в медиахолдинг «1+1 Media». Он ориентирован преимущественно на мужскую аудиторию и известен своим фокусом на развлекательном и приключенческом контенте. В его эфире транслируются боевики, детективы, триллеры и сериалы. Канал также уделяет большое внимание спортивным событиям, показывая трансляции футбольных матчей, боксёрских поединков и других соревнований.',
-                    player: 'https://s.tivix.co/Y4SBSL_tbyvH9mun6_QSQw/238/1757820902/index.m3u8'
-                },
-                'stb': {
-                    title: 'СТБ',
-                    description: 'Этот канал известен своими крупными и популярными талант-шоу и реалити-проектами, например, «Х-Фактор» и «Холостяк». Также он транслирует сериалы и фильмы собственного производства.',
-                    player: 'https://s.xittv.net/9Co5BFrmhNZeZyRXayVWpg/101/1757820746/index.m3u8'
-                },
-                'mtv': {
-                    title: 'MTV Live',
-                    description: 'Международный музыкальный телеканал. Он транслирует концерты, музыкальные клипы и фестивали в высоком качестве, ориентируясь исключительно на музыкальный контент.',
-                    player: 'https://fl4.moveonjoy.com/MTV_LIVE/index.m3u8'
-                },
-                'his': {
-                    title: 'History Channel',
-                    description: 'Международный канал, посвященный истории. Он транслирует документальные фильмы, сериалы и реалити-шоу об исторических событиях. Среди популярных проектов — "Поиск сокровищ" и "Проект «Синяя книга»".',
-                    player: 'https://fl1.moveonjoy.com/history_channel/index.m3u8'
-                },
-                'ch4': {
-                    title: 'Channel 4',
-                    description: 'Британский общественный телеканал, известный своим инновационным и порой провокационным контентом. Среди его программ — документальные фильмы, комедийные и драматические сериалы. Значимые проекты — "The Great British Bake Off" и "Gogglebox".',
-                    player: 'https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS8/channel4.m3u8'
-                },
-                'zdf': {
-                    title: 'ZDF',
-                    description: 'ZDF (Zweites Deutsches Fernsehen) — это один из крупнейших общественных телеканалов Германии. Он предлагает широкий спектр программ, ориентированных на самую разную аудиторию. В его эфире можно найти новости и актуальные передачи, например, "heute-journal", документальные фильмы о природе, истории и науке, такие как "Terra X", а также развлекательные шоу, сериалы и художественные фильмы. Канал стремится предоставлять качественный и разнообразный контент, охватывающий как серьезные, так и развлекательные темы.',
-                    player: 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8'
-                },
-                'sar24': {
-                    title: 'Саратов 24',
-                    description: 'Региональный телеканал Саратовской области',
-                    player: 'https://ok.ru/videoembed/5102355095276',
-                    isDirectUrl: true
-                },
-                'seim': {
-                    title: 'Сейм',
-                    description: 'Региональный телеканал Курской области',
-                    player: 'https://vk.com/video_ext.php?oid=-84923713&id=456248329&hash=f4211f48f9f734c3',
-                    isDirectUrl: true
-                },
-                'k24': {
-                    title: 'Кубань 24',
-                    description: 'Региональный телеканал Краснодарского края',
-                    player: 'https://ok.ru/videoembed/4157442498242?nochat=1&mute=0',
-                    isDirectUrl: true
-                },
-                'chgtrk': {
-                    title: 'ЧГТРК Грозный',
-                    description: 'Региональный телеканал Чеченской Республики',
-                    player: 'https://player.facecast.io/chgtrk',
-                    isDirectUrl: true
-                },
-                'otv': {
-                    title: 'ОТВ (Екатеринбург)',
-                    description: 'Региональный телеканал Свердловской области',
-                    player: 'https://vd.obltv.ru/player/video.html',
-                    isDirectUrl: true
-                },
-                'aist': {
-                    title: 'Аист',
-                    description: 'Региональный телеканал Иркутской области',
-                    player: 'https://live2-aisttv.cdnvideo.ru/aisttv2/aisttv.sdp/playlist.m3u8'
-                },
-                'tvk': {
-                    title: 'ТВК',
-                    description: 'Региональный телеканал Красноярского края',
-                    player: 'https://air.tvk6.ru/tvk24/tracks-v2a1/mono.m3u8'
-                },
-                'otvprim': {
-                    title: 'ОТВ (Приморье)',
-                    description: 'Региональный телеканал Приморья',
-                    player: 'https://ok.ru/videoembed/3503444925978',
-                    isDirectUrl: true
-                },
-                'bel4': {
-                    title: 'Беларусь 4 Витебск',
-                    description: 'Региональный телеканал Витебской области',
-                    player: 'https://live.dc.beltelecom.by/vtv/bt4.stream/playlist.m3u8'
-                },
-                'zahid': {
-                    title: 'Перший Західний',
-                    description: 'Региональный телеканал Львовской области',
-                    player: 'https://live-1zahid-1.mw-01.cosmonova-broadcast.tv/player',
-                    isDirectUrl: true
-                },
-                'ch11': {
-                    title: '11 канал',
-                    description: 'Региональный телеканал Днепропетровской области',
-                    player: 'https://live-11tv-dp.cosmonova.net.ua/online.php',
-                    isDirectUrl: true
-                },
-                'mis': {
-                    title: 'Перший міський',
-                    description: 'Региональный телеканал Одессы',
-                    player: 'https://live.1tv.od.ua/stream1/channel1/playlist.m3u8'
-                }
-            };
-
-            // Set the page title based on the URL parameter 'v'
             if (channelId && channels[channelId]) {
-                document.title = `Смотреть ${channels[channelId].title} онлайн бесплатно`;
-            } else {
-                document.title = 'Смотреть каналы онлайн бесплатно';
+                const video = channels[channelId];
+                const playerFrame = document.getElementById('playerFrame');
+                
+                if (video.isDirectUrl) {
+                    playerFrame.src = video.player;
+                } else {
+                    playerFrame.src = `playerjs.html?file=${encodeURIComponent(video.player)}`;
+                }
+                
+                // Применяем переводы для текущего канала
+                updateChannelTranslations(defaultLanguage);
             }
-
-            const video = channels[channelId] || {
-                title: 'Ошибка',
-                description: 'Не выбран телеканал',
-                player: '',
-                isDirectUrl: false
-            };
-
-            const playerFrame = document.getElementById('playerFrame');
-            if (video.isDirectUrl) {
-                playerFrame.src = video.player;
-            } else {
-                playerFrame.src = `playerjs.html?file=${encodeURIComponent(video.player)}`;
-            }
-            
-            document.getElementById('vtitle').textContent = video.title;
-            document.getElementById('vdesc').textContent = video.description;
         });
     </script>
 </body>

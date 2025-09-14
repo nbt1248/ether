@@ -114,6 +114,22 @@ a {
 .footer {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    margin-top: 2em;
+    padding: 2em 0;
+    background-color: #1E1F29;
+    text-align: center;
+}
+
+.langs {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.langs a img {
+    height: 1em;
 }
 
 .about {
@@ -130,7 +146,6 @@ a {
 
 .quickinfo {
     opacity: 0.5;
-    margin-top: 10px;
 }
 
 .ttabs {
@@ -301,6 +316,10 @@ a {
     background-color: #D70B04;
 }
 
+#match {
+    background-color: #C59F56;
+}
+
 #bel1 {
     background-color: #C00F0F;
 }
@@ -314,6 +333,10 @@ a {
 }
 
 #bel4 {
+    background-color: #C00F0F;
+}
+
+#bel5 {
     background-color: #C00F0F;
 }
 
@@ -561,6 +584,23 @@ a {
 .footer {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    margin-top: 2em;
+    padding: 2em 0;
+    background-color: #1E1F29;
+    text-align: center;
+    font-size: 50px;
+}
+
+.langs {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.langs a img {
+    height: 1em;
 }
 
 .about {
@@ -577,7 +617,6 @@ a {
 
 .quickinfo {
     opacity: 0.5;
-    margin-top: 10px;
 }
 
 .ttabs {

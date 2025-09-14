@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8" />
-    <title>Ether - Смотреть телевидение онлайн</title>
-    <meta name="description" content="Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!">
+    <title data-key="page_title">Ether - Смотреть телевидение онлайн</title>
+    <meta name="description" data-key="page_description" content="Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!">
     <meta property="og:image" content="/media/cover.png">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="media/etherfav.svg">
@@ -20,8 +20,84 @@
             </div>
     </div>
     <div class="box">
-        <div class="content" style="margin: 5em 10em">
+        <div class="content" style="margin: 5em 10em" data-key="content_text">
             Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!<br>Некоторые каналы могут быть недоступны в зависимости от вашего местоположения.
         </div>
+    </div>
+    <div class="footer">
+        <div class="langs">
+            <a href="#" onclick="changeLanguage('ru')"><img src="media/ru.svg"></a>
+            <a href="#" onclick="changeLanguage('by')"><img src="media/by.svg"></a>
+            <a href="#" onclick="changeLanguage('uk')"><img src="media/uk.svg"></a>
+            <a href="#" onclick="changeLanguage('en')"><img src="media/en.svg"></a>
+        </div>
+        <div class="row">
+            <span class="quickinfo">Ether, 2025</span>
+        </div>
+    </div>
+
+    <script>
+        // Словарь переводов (синхронизирован с главной страницей)
+        const translations = {
+            'ru': {
+                'page_title': 'Ether - Смотреть телевидение онлайн',
+                'page_description': 'Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!',
+                'content_text': 'Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!<br>Некоторые каналы могут быть недоступны в зависимости от вашего местоположения.',
+                'about_link': 'О сайте'
+            },
+            'by': {
+                'page_title': 'Ether - Глядзець тэлебачанне онлайн',
+                'page_description': 'Ether - гэта бясплатны плэер IPTV. Даступна ўжо больш за 40 каналаў. Усе трансляцыі выкарыстоўваюць афіцыйныя крыніцы. Глядзіце тэлебачанне? Ether лепш!',
+                'content_text': 'Ether - гэта бясплатны плэер IPTV. Даступна ўжо больш за 40 каналаў. Усе трансляцыі выкарыстоўваюць афіцыйныя крыніцы. Глядзіце тэлебачанне? Ether лепш!<br>Некаторыя каналы могуць быць недаступныя ў залежнасці ад вашага месцазнаходжання.',
+                'about_link': "Пра сайт"
+            },
+            'uk': {
+                'page_title': 'Ether - Дивитися телебачення онлайн',
+                'page_description': 'Ether - це безкоштовний плеєр IPTV. Доступно вже понад 40 каналів. Всі трансляції використовують офіційні джерела. Дивитесь телебачення? Ether краще!',
+                'content_text': 'Ether - це безкоштовний плеєр IPTV. Доступно вже понад 40 каналів. Всі трансляції використовують офіційні джерела. Дивитесь телебачення? Ether краще!<br>Деякі канали можуть бути недоступні залежно від вашого місцезнаходження.',
+                'about_link': "Про сайт",
+            },
+            'en': {
+                'page_title': 'Ether - Watch TV online',
+                'page_description': 'Ether is a free IPTV player. Already more than 40 channels available. All broadcasts use official sources. Watch TV? Better watch Ether!',
+                'content_text': 'Ether is a free IPTV player. Already more than 40 channels available. All broadcasts use official sources. Watch TV? Better watch Ether!<br>Some channels may be unavailable depending on your location.',
+                'about_link': "About",
+            }
+        };
+
+        // Функция смены языка (синхронизирована с главной страницей)
+        function changeLanguage(lang) {
+            // Сохраняем выбор языка в localStorage для синхронизации между страницами
+            localStorage.setItem('selectedLanguage', lang);
+            
+            // Обновляем язык документа
+            document.documentElement.lang = lang;
+            
+            // Обновляем все элементы с атрибутом data-key
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'META' && element.name === 'description') {
+                        element.content = translations[lang][key];
+                    } else if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        // Инициализация языка при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            // Используем тот же механизм определения языка, что и на главной странице
+            const savedLanguage = localStorage.getItem('selectedLanguage');
+            const browserLanguage = navigator.language.substring(0, 2);
+            const defaultLanguage = savedLanguage || (['ru', 'by', 'uk', 'en'].includes(browserLanguage) ? browserLanguage : 'ru');
+            
+            // Устанавливаем язык
+            changeLanguage(defaultLanguage);
+        });
+    </script>
 </body>
 </html>
