@@ -7,6 +7,7 @@ body {
     color: white;
     font-family: "helvetica_regular";
     background-color: #2A2A3A;
+    font-synthesis: none !important;
 }
 
 a {
