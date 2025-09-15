@@ -240,8 +240,8 @@ a {
     background-color: #39A82A;
 }
 
-#rtvi {
-    background-color: #B03160;
+#cgtn {
+    background-color: #D2BE68;
 }
 
 #m24 {
@@ -292,8 +292,8 @@ a {
     background-color: #FA9000;
 }
 
-#cgtn {
-    background-color: #D2BE68;
+#fr24 {
+    background-color: #00B3F0;
 }
 
 #tnt {
@@ -308,8 +308,44 @@ a {
     background-color: #FE740E;
 }
 
+#yle {
+    background-color: #0099DB;
+}
+
+#yle2 {
+    background-color: #A625AA;
+}
+
+#etv {
+    background-color: #D60A62;
+}
+
+#etv2 {
+    background-color: #0EAA81;
+}
+
 #etvplus {
     background-color: #DE10C5;
+}
+
+#lrt {
+    background-color: #0A45BC;
+}
+
+#tvp {
+    background-color: #00529F;
+}
+
+#jednotka {
+    background-color: #ED245A;
+}
+
+#duna {
+    background-color: #002691;
+}
+
+#mold1 {
+    background-color: #1745B8;
 }
 
 #per {
@@ -384,6 +420,34 @@ a {
     background-color: #FA7D19;
 }
 
+#fr2 {
+    background-color: #EB0032;
+}
+
+#orf {
+    background-color: #E2001A;
+}
+
+#rtl {
+    background-color: #FA0000;
+}
+
+#la1 {
+    background-color: #433DCA;
+}
+
+#sic {
+    background-color: #EC4F2C;
+}
+
+#rtb {
+    background-color: #77BC1F;
+}
+
+#tvcg1 {
+    background-color: #E12028;
+}
+
 #sar24 {
     background-color: #3FABE3;
 }
@@ -428,7 +492,7 @@ a {
     background-color: #04B2F2;
 }
 
-#tvr {
+#tvrain {
     background-color: #CF3476;
 }
 
