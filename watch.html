@@ -160,38 +160,54 @@
             // Оригинальный код для загрузки канала
             const channels = {
                 'ntv': { player: 'https://streaming.televizor-24-tochka.ru/live/7.m3u8' },
-                'rtvi': { player: 'https://server.musical.uz/tv/rtvi/index.m3u8?token=e243491dccbf2b714dde97004e4afc3190fac512-4d78301118543037ba48a4da67359efd-1757855350-1757844550' },
                 'm24': { player: 'https://www.m24.ru/tv', isDirectUrl: true },
                 'spb6': { player: 'https://playercdn.cdnvideo.ru/aloha/players/auto_player1.html?clid=4f2trzpmbn&plid=0eb352f9-1854-4744-baf8-86957e93e5e2', isDirectUrl: true },
                 'ont': { player: 'https://stream.dc.beltelecom.by/ont/ont/playlist.m3u8' },
                 'stv': { player: 'https://ctv.dc.beltelecom.by/ctv/ctv.stream/playlist.m3u8' },
                 'fd': { player: 'https://freedom.cdn-01.cosmonova.net.ua/mobile-app/main/freedom/master.m3u8' },
-                'tvr': { player: 'https://wl.tvrain.tv/transcode/ngrp:ses_all/playlist.m3u8' },
+                'tvrain': { player: 'https://wl.tvrain.tv/transcode/ngrp:ses_all/playlist.m3u8' },
                 'bel1': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus1.smil/playlist.m3u8' },
                 'bel2': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus2/playlist.m3u8' },
                 'bel3': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus3/playlist.m3u8' },
                 'bel24': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus24/playlist.m3u8' },
+                'fr24': { player: 'https://live.france24.com/hls/live/2037218-b/fr24_EN_HI_HLS/master_5000.m3u8' },
                 'cgtn': { player: 'https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master.m3u8' },
+                'orf': { player: 'https://livetvde.net/orf1y/index.m3u8?token=7d8f14cf021f358cbef8286d3015661414a1a7cc-09d65716e867e9611969578af49252a9-1757955455-1757944655' },
+                'rtl': { player: 'https://live-edge.rtl.lu/channel1/smil:channel1/playlist.m3u8' },
+                'la1': { player: 'https://ztnr.rtve.es/ztnr/1688877.m3u8' },
+                'sic': { player: 'https://d1zx6l1dn8vaj5.cloudfront.net/out/v1/b89cc37caa6d418eb423cf092a2ef970/index.m3u8' },
+                'rtb': { player: 'https://rt-srb.rttv.com/dvr/rtbalkan/playlist.m3u8' },
+                'tvcg': { player: 'http://cdn3.bcdn.rs:1935/cg1/smil:cg1.smil/playlist.m3u8' },
                 'rt': { player: 'https://rumble.com/live-hls-dvr/33aw1a/playlist.m3u8' },
                 'cnn': { player: 'https://raw.githubusercontent.com/CODERX24/tv/refs/heads/master/CNN.m3u8' },
                 'fox': { player: 'https://stream.livenewsplay.com:9443/hls/foxnews/foxsd.m3u8' },
                 'bbc': { player: 'https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8' },
                 'eu': { player: 'https://a-cdn.klowdtv.com/live3/euronews_720p/playlist.m3u8' },
                 'alj': { player: 'https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8' },
-                'ard': { player: 'https://viamotionhsi.netplus.ch/live/eds/daserstehd/browser-HLS8/daserstehd.m3u8' },
                 'belsat': { player: 'https://www.youtube.com/embed/YA9ukP4k_Fk', isDirectUrl: true },
                 '1p1': { player: 'https://www.youtube.com/embed/lnrp2S2L6qk', isDirectUrl: true },
                 'ch24': { player: 'https://embed-player.dyvy.tv/?channel=24-kanal&autoplay=true&mode=compact&provider-id=777905', isDirectUrl: true },
                 'tnt': { player: 'https://streaming.televizor-24-tochka.ru/live/23.m3u8' },
                 'viva': { player: 'https://goodgame.ru/player?180805#autoplay', isDirectUrl: true },
+                'yle': { player: 'https://yletvworld.akamaized.net/hls/live/622540/yletv1w/index.m3u8' },
+                'yle2': { player: 'https://yletvworld.akamaized.net/hls/live/622541/yletv2w/index.m3u8' },
+                'etv': { player: 'https://sb.err.ee/live/etv.m3u8' },
+                'etv2': { player: 'https://live.err.ee/live/etv2.m3u8' },
                 'etvplus': { player: 'https://live.err.ee/live/etvpluss.m3u8' },
+                'lrt': { player: 'https://stream-syncwords.lrt.lt/out/v1/channel-group-lrt-portal-prod-01/channel-lrt-portal-prod-01/endpoint-lrt-portal-prod-01/index.m3u8' },
+                'tvp': { player: 'https://ec06-krk3.cache.orange.pl/dai4/org1/vb/104/tvp1hd/index.m3u8' },
+                'jednotka': { player: 'https://n13.stv.livebox.sk/stv-tv/_definst_/stv1.smil/playlist.m3u8?auth=b64:X2FueV98MTc1Nzk0ODM2OHwyMDRiYTkxNDJjOWEyZGEzMWYyZWJiMGFmZjUxNTRkZTZjOGUyNDZl' },
+                'duna': { player: 'https://viamotionhsi.netplus.ch/live/eds/duna/browser-HLS8/duna.m3u8' },
+                'mold1': { player: 'https://v0.trm.md/static/streaming-playlists/hls/9b79338b-1870-4cd7-91d4-0f6ce5cac7ca/master.m3u8' },
+                'ard': { player: 'https://viamotionhsi.netplus.ch/live/eds/daserstehd/browser-HLS8/daserstehd.m3u8' },
+                'zdf': { player: 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8' },
+                'fr2': { player: 'http://69.64.57.208/france2/mono.m3u8' },
                 'per': { player: 'https://cdn4.skygo.mn/live/disk1/Che/HLSv3-FTA/Che.m3u8' },
-                '2p2': { player: 'https://s.tivix.co/Y4SBSL_tbyvH9mun6_QSQw/238/1757820902/index.m3u8' },
-                'stb': { player: 'https://s.xittv.net/9Co5BFrmhNZeZyRXayVWpg/101/1757820746/index.m3u8' },
+                '2p2': { player: 'https://s.tvua.biz/-761CKQAh70ua58Pz5FSww/238/1757968012/index.m3u8' },
+                'stb': { player: 'https://s.tvua.biz/aBHPk42Pu9ybxyANI8SC0w/101/1757968040/index.m3u8' },
                 'mtv': { player: 'https://fl4.moveonjoy.com/MTV_LIVE/index.m3u8' },
                 'his': { player: 'https://fl1.moveonjoy.com/history_channel/index.m3u8' },
                 'ch4': { player: 'https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS8/channel4.m3u8' },
-                'zdf': { player: 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8' },
                 'match': { player: 'https://edge01p.mediavitrina.ru/hls-livef1/matchtv/tracks-v3a1/mono.m3u8?token=v2.orNRE6SdvXUeh9ti8ytub5wE052VgvDcF8QNGJASmig.blcmrvR2pMIHAhyDOQzr1Mm7SdDh6u8oQ2OqJ_kA244.1758485219.ad69e00cd56834796f279d2cd18c065f' },
                 'bel5': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5/playlist.m3u8' },
                 'sar24': { player: 'https://ok.ru/videoembed/5102355095276', isDirectUrl: true },
@@ -228,22 +244,22 @@
                         description: 'A Russian TV channel specializing in news, crime investigations, and detective series. Its notable programs include the news reports "Segodnya," the analytical show "Itogi Nedeli," and popular projects like "Sledstviye veli..." and "Maska."',
                     },
                 },
-                'rtvi': {
+                'cgtn': {
                     'ru': {
-                        title: 'RTVI',
-                        description: 'Международный русскоязычный телеканал, вещающий на страны Европы, Северной Америки и Израиль. Канал предлагает информационно-аналитические программы, а также документальные фильмы и ток-шоу, направленные на русскоязычную аудиторию за пределами России. Среди известных программ — "Вы держитесь", "Большой Newstalk", "Новые Итоги", "Американское Утро", "Дежурный по Америке".',
+                        title: 'CGTN',
+                        description: 'CGTN — это международный медиахолдинг, принадлежащий китайской государственной телерадиокомпании CCTV. Его основная задача — освещение мировых событий и новостей Китая с официальной точки зрения Пекина. Канал является ключевым инструментом мягкой силы КНР, предлагая многоязычный контент, сфокусированный на развитии страны и её роли в глобальных делах.',
                     },
                     'by': {
-                        title: 'RTVI',
-                        description: 'Міжнародны рускамоўны тэлеканал, які вяшчае на краіны Еўропы, Паўночнай Амерыкі і Ізраіль. Канал прапануе інфармацыйна-аналітычныя праграмы, а таксама дакументальныя фільмы і ток-шоу, накіраваныя на рускамоўную аўдыторыю за межамі Расіі. Сярод вядомых праграм — "Вы трымаецеся", "Вялікі Newstalk", "Новыя вынікі", "Амерыканская раніца", "Дзяжурны па Амерыцы".',
+                        title: 'CGTN',
+                        description: 'CGTN — міжнародны медыяхолдынг, які належыць кітайскай дзяржаўнай тэлерадыёкампаніі CCTV. Яго галоўная задача — асвятленне сусветных падзей і навін Кітая з афіцыйнага пункту гледжання Пекіна. Канал з\'яўляецца ключавым інструментам мяккай сілы КНР, прапануючы шматмоўны кантэнт, сфакусаваны на развіцці краіны і яе ролі ў глабальных справах.',
                     },
                     'uk': {
-                        title: 'RTVI',
-                        description: 'Міжнародний російськомовний телеканал, що транслює на країни Європи, Північної Америки та Ізраїль. Канал пропонує інформаційно-аналітичні програми, а також документальні фільми та ток-шоу, спрямовані на російськомовну аудиторію за межами Росії. Серед відомих програм — "Ви тримаєтеся", "Великий Newstalk", "Нові підсумки", "Американський ранок", "Черговий по Америці".',
+                        title: 'CGTN',
+                        description: 'CGTN — міжнародний медіахолдинг, що належить китайській державній телерадіокомпанії CCTV. Його основна задача — висвітлення світових подій та новин Китаю з офіційної точки зору Пекіна. Канал є ключовим інструментом м\'якої сили КНР, пропонуючи багатомовний контент, сфокусований на розвитку країни та її ролі в глобальних справах.',
                     },
                     'en': {
-                        title: 'RTVI',
-                        description: 'An international Russian-language TV channel broadcasting to Europe, North America, and Israel. The channel offers news and analysis programs, as well as documentaries and talk shows aimed at the Russian-speaking audience outside of Russia. Notable programs include "Vy Derzhites", "Bolshoy Newstalk", "Novye Itogi", "Amerikanskoe Utro" and "Dezhurnyi po Amerike"',
+                        title: 'CGTN',
+                        description: 'CGTN is an international media holding owned by the Chinese state broadcaster CCTV. Its primary mission is to cover global events and news about China from Beijing\'s official perspective. The channel is a key tool of China\'s soft power, offering multilingual content focused on the country\'s development and its role in global affairs.',
                     },
                 },
                 'm24': {
@@ -444,23 +460,23 @@
                         description: 'Belarus 24 is an international satellite TV channel that broadcasts outside Belarus. Its main goal is to inform the Russian-speaking audience worldwide about events in the country, its culture, and society. The broadcast of "Belarus 24" consists of news blocks, analytical programs, as well as the best documentaries and feature films produced in Belarus.',
                     },
                 },
-                'cgtn': {
-                    'ru': {
-                        title: 'CGTN на русском',
-                        description: 'Русскоязычный канал китайской международной медиасети CGTN. Канал предлагает новости, аналитические программы и документальные фильмы о Китае, а также освещает международные события с китайской точки зрения. Заметные программы включают "Репортаж из Китая" и "Фокус на Азию".',
+                "fr24": {
+                    "ru": {
+                        "title": "France 24",
+                        "description": "France 24 — международный круглосуточный новостной телеканал, принадлежащий государству. Он предоставляет новости со всего мира с французской точки зрения и вещает на нескольких языках, включая французский, английский, арабский и испанский."
                     },
-                    'by': {
-                        title: 'CGTN на рускай',
-                        description: 'Рускамоўны канал кітайскай міжнароднай медыя-сеткі CGTN. Канал прапануе навіны, аналітычныя праграмы і дакументальныя фільмы пра Кітай, а таксама асвятляе міжнародныя падзеі з кітайскага пункту гледжання. Заўважныя праграмы ўключаюць "Рэпартаж з Кітая" і "Фокус на Азію".',
+                    "by": {
+                        "title": "France 24",
+                        "description": "France 24 — міжнародны кругласутачны навінавы тэлеканал, які належыць дзяржаве. Ён прадастаўляе навіны з усяго свету з французскага пункту гледжання і вяшчае на некалькіх мовах, уключаючы французскую, англійскую, арабскую і іспанскую."
                     },
-                    'uk': {
-                        title: 'CGTN російською',
-                        description: 'Російськомовний канал китайської міжнародної медіамережі CGTN. Канал пропонує новини, аналітичні програми та документальні фільми про Китай, а також висвітлює міжнародні події з китайської точки зору. Помітні програми включають "Репортаж з Китаю" і "Фокус на Азію".',
+                    "uk": {
+                        "title": "France 24",
+                        "description": "France 24 — міжнародний цілодобовий новинний телеканал, що належить державі. Він надає новини з усього світу з французької точки зору та веде мовлення кількома мовами, включаючи французьку, англійську, арабську та іспанську."
                     },
-                    'en': {
-                        title: 'CGTN Russian',
-                        description: 'A Russian-language channel of the Chinese international media network CGTN. The channel offers news, analytical programs, and documentaries about China, as well as covering international events from a Chinese perspective. Notable programs include "Report from China" and "Focus on Asia."',
-                    },
+                    "en": {
+                        "title": "France 24",
+                        "description": "France 24 is a state-owned international 24-hour news channel. It provides news from around the world from a French perspective and broadcasts in several languages, including French, English, Arabic, and Spanish."
+                    }
                 },
                 'rt': {
                     'ru': {
@@ -518,20 +534,20 @@
                 },
                 'bbc': {
                     'ru': {
-                        title: 'BBC',
-                        description: 'Британская общественная телерадиокорпорация. Ее каналы предлагают широкий спектр контента: новости, документальные фильмы, образовательные программы и сериалы. Значимые программы включают "BBC News at Six" и документальные проекты, например, "Планета Земля".',
+                        title: 'BBC News',
+                        description: 'BBC News — это всемирно известный новостной канал британской общественной вещательной корпорации. Он известен своими глубокими репортажами, аналитикой и стремлением к независимой и взвешенной подаче информации. Канал обладает обширной сетью корреспондентов по всему миру, что делает его одним из самых авторитетных международных новостных источников.',
                     },
                     'by': {
-                        title: 'BBC',
-                        description: 'Брытанская грамадская тэлерадыёкарпарацыя. Яе каналы прапануюць шырокі спектр кантэнту: навіны, дакументальныя фільмы, адукацыйныя праграмы і серыялы. Значныя праграмы ўключаюць "BBC News at Six" і дакументальныя праекты, напрыклад, "Планета Зямля".',
+                        title: 'BBC News',
+                        description: 'BBC News — гэта сусветна вядомы навіновы канал брытанскай грамадскай тэлерадыёкампаніі. Ён вядомы сваімі глыбокімі рэпартажамі, аналітыкай і імкненнем да незалежнай і ўраўнаважанай падачы інфармацыі. Канал мае разгалінаваную сетку карэспандэнтаў па ўсім свеце, што робіць яго адным з самых аўтарытэтных міжнародных навіновых крыніц.',
                     },
                     'uk': {
-                        title: 'BBC',
-                        description: 'Британська громадська телерадіокорпорація. Її канали пропонують широкий спектр контенту: новини, документальні фільми, освітні програми та серіали. Значущі програми включають "BBC News at Six" і документальні проєкти, наприклад, "Планета Земля".',
+                        title: 'BBC News',
+                        description: 'BBC News — це всесвітньо відомий новинний канал британської громадської телерадіокомпанії. Він відомий своїми глибокими репортажами, аналітикою та прагненням до незалежної та зваженої подачі інформації. Канал має розгалужену мережу кореспондентів по всьому світу, що робить його одним з найавторитетніших міжнародних новинних джерел.',
                     },
                     'en': {
-                        title: 'BBC',
-                        description: 'A British public broadcaster. Its channels offer a wide range of content: news, documentaries, educational programs, and TV series. Notable programs include "BBC News at Six" and documentary projects, such as "Planet Earth."',
+                        title: 'BBC News',
+                        description: 'BBC News is a world-renowned news channel of the British public broadcasting corporation. It is known for its in-depth reporting, analysis, and commitment to independent and balanced coverage. The channel has an extensive network of correspondents worldwide, making it one of the most authoritative international news sources.',
                     },
                 },
                 'eu': {
@@ -678,6 +694,78 @@
                         description: 'A Russian music channel. Its broadcast consists of music videos, charts, and programs about modern music.',
                     },
                 },
+                'yle': {
+                    'ru': {
+                        title: 'Yle TV1',
+                        description: 'Главный общественный телеканал Финляндии. Более 70% его программ составляют документальные фильмы, новости и образовательные передачи. Также транслирует драмы, культурные и сатирические программы.',
+                    },
+                    'by': {
+                        title: 'Yle TV1',
+                        description: 'Галоўны грамадскі тэлеканал Фінляндыі. Больш за 70% яго праграм складаюць дакументальныя фільмы, навіны і адукацыйныя перадачы. Таксама транслюе драмы, культурныя і сатырычныя праграмы.',
+                    },
+                    'uk': {
+                        title: 'Yle TV1',
+                        description: 'Головний суспільний телеканал Фінляндії. Понад 70% його програм складають документальні фільми, новини та освітні передачі. Також транслює драми, культурні та сатиричні програми.',
+                    },
+                    'en': {
+                        title: 'Yle TV1',
+                        description: 'The main public television channel of Finland. More than 70% of its programs are documentaries, news, and educational broadcasts. It also airs dramas, cultural and satirical shows.',
+                    },
+                },
+                'yle2': {
+                    'ru': {
+                        title: 'Yle TV2',
+                        description: 'Второй общественный телеканал Финляндии, фокусирующийся на спортивных событиях, детских и молодежных программах. В сетке вещания также есть драмы, развлекательные и познавательные передачи.',
+                    },
+                    'by': {
+                        title: 'Yle TV2',
+                        description: 'Другі грамадскі тэлеканал Фінляндыі, які факусуецца на спартыўных падзеях, дзіцячых і моладзевых праграмах. У сетцы вяшчання таксама ёсць драмы, забаўляльныя і пазнавальныя перадачы.',
+                    },
+                    'uk': {
+                        title: 'Yle TV2',
+                        description: 'Другий суспільний телеканал Фінляндії, який фокусується на спортивних подіях, дитячих та молодіжних програмах. У сітці мовлення також є драми, розважальні та пізнавальні передачі.',
+                    },
+                    'en': {
+                        title: 'Yle TV2',
+                        description: 'The second public television channel of Finland, focusing on sports, children\'s, and youth programs. The broadcast schedule also includes dramas, entertainment, and factual shows.',
+                    },
+                },
+                'etv': {
+                    'ru': {
+                        title: 'ETV',
+                        description: 'Эстонский общественный телеканал, вещающий на эстонском языке. Он предлагает широкий спектр программ, включая новости, культурные передачи, развлекательные шоу, фильмы и образовательный контент.',
+                    },
+                    'by': {
+                        title: 'ETV',
+                        description: 'Эстонскі грамадскі тэлеканал, які вяшчае на эстонскай мове. Ён прапануе шырокі спектр праграм, уключаючы навіны, культурныя перадачы, забаўляльныя шоу, фільмы і адукацыйны кантэнт.',
+                    },
+                    'uk': {
+                        title: 'ETV',
+                        description: 'Естонський громадський телеканал, що транслює програми естонською мовою. Він пропонує широкий спектр програм, зокрема новини, культурні передачі, розважальні шоу, фільми та освітній контент.',
+                    },
+                    'en': {
+                        title: 'ETV',
+                        description: 'An Estonian public television channel broadcasting in Estonian. It offers a wide range of programs, including news, cultural broadcasts, entertainment shows, movies, and educational content.',
+                    },
+                },
+                'etv2': {
+                    'ru': {
+                        title: 'ETV2',
+                        description: 'Второй канал Эстонского общественного телерадиовещания. Днем он транслирует программы для детей, а вечером — культурный контент, документальные фильмы и авторское кино.',
+                    },
+                    'by': {
+                        title: 'ETV2',
+                        description: 'Другі канал Эстонскага грамадскага тэлерадыёвяшчання. Удзень ён транслюе праграмы для дзяцей, а ўвечары — культурны кантэнт, дакументальныя фільмы і аўтарскае кіно.',
+                    },
+                    'uk': {
+                        title: 'ETV2',
+                        description: 'Другий канал Естонського громадського телерадіомовлення. Вдень він транслює програми для дітей, а ввечері — культурний контент, документальні фільми та авторське кіно.',
+                    },
+                    'en': {
+                        title: 'ETV2',
+                        description: 'The second channel of Estonian Public Broadcasting. During the day, it broadcasts programs for children, and in the evening, it offers cultural content, documentaries, and art-house films.',
+                    },
+                },
                 'etvplus': {
                     'ru': {
                         title: 'ETV+',
@@ -695,6 +783,96 @@
                         title: 'ETV+',
                         description: 'An Estonian public television channel in Russian. It offers informational, cultural, educational, and entertainment programs for the Russian-speaking population of Estonia. Notable programs include the news block "Aktuaalne kaamera."',
                     },
+                },
+                'lrt': {
+                    'ru': {
+                        title: 'LRT TV',
+                        description: 'Главный телеканал Литовского национального радио и телевидения (LRT). Он предоставляет широкий спектр программ, включая новости, публицистику, культурные и образовательные передачи.',
+                    },
+                    'by': {
+                        title: 'LRT TV',
+                        description: 'Галоўны тэлеканал Літоўскага нацыянальнага радыё і тэлебачання (LRT). Ён прадастаўляе шырокі спектр праграм, уключаючы навіны, публіцыстыку, культурныя і адукацыйныя перадачы.',
+                    },
+                    'uk': {
+                        title: 'LRT TV',
+                        description: 'Головний телеканал Литовського національного радіо та телебачення (LRT). Він пропонує широкий спектр програм, включаючи новини, публіцистику, культурні та освітні передачі.',
+                    },
+                    'en': {
+                        title: 'LRT TV',
+                        description: 'The main channel of Lithuanian National Radio and Television (LRT). It provides a wide range of programs, including news, current affairs, cultural, and educational broadcasts.',
+                    },
+                },
+                "tvp": {
+                    "ru": {
+                        "title": "TVP",
+                        "description": "Польское общественное телевидение (TVP) — крупнейшая телекомпания в Польше. Его главный канал TVP1 предлагает широкий спектр программ, включая новости, публицистику, фильмы, сериалы и развлекательные шоу."
+                    },
+                    "by": {
+                        "title": "TVP",
+                        "description": "Польскае грамадскае тэлебачанне (TVP) — найбуйнейшая тэлекампанія ў Польшчы. Яе галоўны канал TVP1 прапануе шырокі спектр праграм, уключаючы навіны, публіцыстыку, фільмы, серыялы і забаўляльныя шоу."
+                    },
+                    "uk": {
+                        "title": "TVP",
+                        "description": "Польське громадське телебачення (TVP) — найбільша телекомпанія в Польщі. Його головний канал TVP1 пропонує широкий спектр програм, включаючи новини, публіцистику, фільми, серіали та розважальні шоу."
+                    },
+                    "en": {
+                        "title": "TVP",
+                        "description": "Polish Public Television (TVP) is the largest television broadcaster in Poland. Its main channel, TVP1, offers a wide range of programs, including news, current affairs, movies, TV series, and entertainment shows."
+                    }
+                },
+                "jednotka": {
+                    "ru": {
+                        "title": "Jednotka",
+                        "description": "Jednotka (с словацкого — «Единица») — главный государственный информационно-развлекательный телеканал Словакии, принадлежащий общественной телерадиокомпании RTVS. Канал предлагает новости, развлекательные программы, фильмы, а также спортивные трансляции."
+                    },
+                    "by": {
+                        "title": "Jednotka",
+                        "description": "Jednotka (са славацкай — «Адзінка») — галоўны дзяржаўны інфармацыйна-забаўляльны тэлеканал Славакіі, які належыць грамадскай тэлерадыёкампаніі RTVS. Канал прапануе навіны, забаўляльныя праграмы, фільмы, а таксама спартыўныя трансляцыі."
+                    },
+                    "uk": {
+                        "title": "Jednotka",
+                        "description": "Jednotka (зі словацької — «Одиниця») — головний державний інформаційно-розважальний телеканал Словаччини, що належить громадській телерадіокомпанії RTVS. Канал пропонує новини, розважальні програми, фільми, а також спортивні трансляції."
+                    },
+                    "en": {
+                        "title": "Jednotka",
+                        "description": "Jednotka (Slovak for 'The One') is the main state-owned informational and entertainment television channel in Slovakia, owned by the public broadcaster RTVS. The channel offers news, entertainment programs, movies, and sports broadcasts."
+                    }
+                },
+                "duna": {
+                    "ru": {
+                        "title": "Duna",
+                        "description": "Duna — венгерский общественный телеканал, входящий в медиахолдинг Duna Média. Канал известен своими культурными, образовательными и развлекательными программами, ориентированными на широкую аудиторию."
+                    },
+                    "by": {
+                        "title": "Duna",
+                        "description": "Duna — венгерскі грамадскі тэлеканал, які ўваходзіць у медыяхолдынг Duna Média. Канал вядомы сваімі культурнымі, адукацыйнымі і забаўляльнымі праграмамі, арыентаванымі на шырокую аўдыторыю."
+                    },
+                    "uk": {
+                        "title": "Duna",
+                        "description": "Duna — угорський громадський телеканал, що входить до медіахолдингу Duna Média. Канал відомий своїми культурними, освітніми та розважальними програмами, орієнтованими на широку аудиторію."
+                    },
+                    "en": {
+                        "title": "Duna",
+                        "description": "Duna is a Hungarian public television channel and part of the Duna Média media holding. The channel is known for its cultural, educational, and entertainment programs aimed at a wide audience."
+                    }
+                },
+                "mold1": {
+                    "ru": {
+                        "title": "Moldova 1",
+                        "description": "Moldova 1 — главный государственный телеканал Молдовы, принадлежащий общественной телерадиокомпании Teleradio-Moldova. Канал предлагает новости, аналитические программы, культурные и развлекательные передачи."
+                    },
+                    "by": {
+                        "title": "Moldova 1",
+                        "description": "Moldova 1 — галоўны дзяржаўны тэлеканал Малдовы, які належыць грамадскай тэлерадыёкампаніі Teleradio-Moldova. Канал прапануе навіны, аналітычныя праграмы, культурныя і забаўляльныя перадачы."
+                    },
+                    "uk": {
+                        "title": "Moldova 1",
+                        "description": "Moldova 1 — головний державний телеканал Молдови, що належить громадській телерадіокомпанії Teleradio-Moldova. Канал пропонує новини, аналітичні програми, культурні та розважальні передачі."
+                    },
+                    "en": {
+                        "title": "Moldova 1",
+                        "description": "Moldova 1 is the main state-owned television channel of Moldova, belonging to the public broadcaster Teleradio-Moldova. The channel offers news, analytical programs, cultural and entertainment broadcasts."
+                    }
                 },
                 'per': {
                     'ru': {
@@ -839,6 +1017,132 @@
                         title: 'ZDF',
                         description: 'ZDF (Zweites Deutsches Fernsehen) is one of the largest public television channels in Germany. It offers a wide range of programs aimed at the most diverse audience. Its broadcast includes news and current affairs shows, such as "heute-journal," documentaries about nature, history, and science, such as "Terra X," as well as entertainment shows, TV series, and feature films. The channel aims to provide high-quality and diverse content, covering both serious and entertainment topics.',
                     },
+                },
+                "fr2": {
+                    "ru": {
+                        "title": "France 2",
+                        "description": "France 2 — главный общественный телеканал Франции, входящий в группу France Télévisions. Он предлагает широкий спектр программ, включая новости, текущие события, развлекательные шоу, фильмы и сериалы."
+                    },
+                    "by": {
+                        "title": "France 2",
+                        "description": "France 2 — галоўны грамадскі тэлеканал Францыі, які ўваходзіць у групу France Télévisions. Ён прапануе шырокі спектр праграм, уключаючы навіны, бягучыя падзеі, забаўляльныя шоу, фільмы і серыялы."
+                    },
+                    "uk": {
+                        "title": "France 2",
+                        "description": "France 2 — головний громадський телеканал Франції, що входить до групи France Télévisions. Він пропонує широкий спектр програм, включаючи новини, поточні події, розважальні шоу, фільми та серіали."
+                    },
+                    "en": {
+                        "title": "France 2",
+                        "description": "France 2 is the main public television channel in France, part of the France Télévisions group. It offers a wide range of programs, including news, current affairs, entertainment shows, movies, and TV series."
+                    }
+                },
+                "orf1": {
+                    "ru": {
+                        "title": "ORF 1",
+                        "description": "ORF 1 — первый общественный телеканал Австрии. Он ориентирован на молодую аудиторию и транслирует в основном развлекательные программы, фильмы, сериалы и спортивные события. Все новостные выпуски были перенесены на ORF 2."
+                    },
+                    "by": {
+                        "title": "ORF 1",
+                        "description": "ORF 1 — першы грамадскі тэлеканал Аўстрыі. Ён арыентаваны на маладую аўдыторыю і трансліруе ў асноўным забаўляльныя праграмы, фільмы, серыялы і спартыўныя падзеі. Усе навінавыя выпускі былі перанесены на ORF 2."
+                    },
+                    "uk": {
+                        "title": "ORF 1",
+                        "description": "ORF 1 — перший громадський телеканал Австрії. Він орієнтований на молоду аудиторію і транслює в основному розважальні програми, фільми, серіали та спортивні події. Всі випуски новин були перенесені на ORF 2."
+                    },
+                    "en": {
+                        "title": "ORF 1",
+                        "description": "ORF 1 is the first public television channel in Austria. It is oriented towards a younger audience and primarily broadcasts entertainment shows, movies, TV series, and sports events. All news broadcasts have been moved to ORF 2."
+                    }
+                },
+                "rtl": {
+                    "ru": {
+                        "title": "RTL",
+                        "description": "RTL Télé Lëtzebuerg — главный телеканал в Люксембурге, вещающий на люксембургском языке. Он предлагает новости, спорт, развлекательные и информационные передачи."
+                    },
+                    "by": {
+                        "title": "RTL",
+                        "description": "RTL Télé Lëtzebuerg — галоўны тэлеканал у Люксембургу, які вяшчае на люксембургскай мове. Ён прапануе навіны, спорт, забаўляльныя і інфармацыйныя перадачы."
+                    },
+                    "uk": {
+                        "title": "RTL",
+                        "description": "RTL Télé Lëtzebuerg — головний телеканал у Люксембурзі, що веде мовлення люксембурзькою мовою. Він пропонує новини, спорт, розважальні та інформаційні передачі."
+                    },
+                    "en": {
+                        "title": "RTL",
+                        "description": "RTL Télé Lëtzebuerg is the main television channel in Luxembourg, broadcasting in Luxembourgish. It offers news, sports, entertainment, and informational programs."
+                    }
+                },
+                "la1": {
+                    "ru": {
+                        "title": "La 1",
+                        "description": "La 1 (La Primera) — старейший и главный общественный телеканал Испании, входящий в состав RTVE. Его программы включают новости, документальные фильмы, развлекательные шоу, спортивные трансляции и фильмы."
+                    },
+                    "by": {
+                        "title": "La 1",
+                        "description": "La 1 (La Primera) — найстарэйшы і галоўны грамадскі тэлеканал Іспаніі, які ўваходзіць у склад RTVE. Яго праграмы ўключаюць навіны, дакументальныя фільмы, забаўляльныя шоу, спартыўныя трансляцыі і фільмы."
+                    },
+                    "uk": {
+                        "title": "La 1",
+                        "description": "La 1 (La Primera) — найстаріший і головний суспільний телеканал Іспанії, що входить до складу RTVE. Його програми включають новини, документальні фільми, розважальні шоу, спортивні трансляції та фільми."
+                    },
+                    "en": {
+                        "title": "La 1",
+                        "description": "La 1 (La Primera) is the oldest and main public television channel in Spain, part of RTVE. Its programming includes news, documentaries, entertainment shows, sports broadcasts, and movies."
+                    }
+                },
+                "sic": {
+                    "ru": {
+                        "title": "SIC",
+                        "description": "SIC — первый частный телеканал в Португалии, который на протяжении многих лет остается одним из самых просматриваемых. Канал предлагает ток-шоу, игровые шоу, бразильские теленовеллы и международные сериалы."
+                    },
+                    "by": {
+                        "title": "SIC",
+                        "description": "SIC — першы прыватны тэлеканал у Партугаліі, які на працягу многіх гадоў застаецца адным з самых прагляданых. Канал прапануе ток-шоу, гульнявыя шоу, бразільскія тэленавелы і міжнародныя серыялы."
+                    },
+                    "uk": {
+                        "title": "SIC",
+                        "description": "SIC — перший приватний телеканал у Португалії, який протягом багатьох років залишається одним із найбільш перегляданих. Канал пропонує ток-шоу, ігрові шоу, бразильські теленовели та міжнародні серіали."
+                    },
+                    "en": {
+                        "title": "SIC",
+                        "description": "SIC is the first private television channel in Portugal, and for many years, it has been one of the most-watched channels. It offers talk shows, game shows, Brazilian telenovelas, and international TV series."
+                    }
+                },
+                "rt_balkan": {
+                    "ru": {
+                        "title": "RT Balkan",
+                        "description": "RT Balkan — информационный телеканал, вещающий на сербском языке. Он является частью международной сети RT. Канал транслирует новости, аналитические программы, интервью и документальные фильмы, представляя мировые и региональные события с российской точки зрения. Студия телеканала находится в Белграде."
+                    },
+                    "by": {
+                        "title": "RT Balkan",
+                        "description": "RT Balkan — інфармацыйны тэлеканал, які вяшчае на сербскай мове. Ён з'яўляецца часткай міжнароднай сеткі RT. Канал транслюе навіны, аналітычныя праграмы, інтэрв'ю і дакументальныя фільмы, прадстаўляючы сусветныя і рэгіянальныя падзеі з расійскага пункту гледжання. Студыя тэлеканала знаходзіцца ў Бялградзе."
+                    },
+                    "uk": {
+                        "title": "RT Balkan",
+                        "description": "RT Balkan — інформаційний телеканал, що веде мовлення сербською мовою. Він є частиною міжнародної мережі RT. Канал транслює новини, аналітичні програми, інтерв'ю та документальні фільми, представляючи світові та регіональні події з російської точки зору. Студія телеканалу знаходиться в Белграді."
+                    },
+                    "en": {
+                        "title": "RT Balkan",
+                        "description": "RT Balkan is a news television channel broadcasting in the Serbian language. It is part of the international RT network. The channel broadcasts news, analytical programs, interviews, and documentaries, presenting world and regional events from a Russian perspective. The channel's studio is located in Belgrade."
+                    }
+                },
+                "tvcg1": {
+                    "ru": {
+                        "title": "RTCG 1",
+                        "description": "RTCG 1 — главный общественный телеканал Черногории, входящий в состав национальной телерадиокомпании RTCG. Он специализируется на новостях, внутренних программах и передачах собственного производства."
+                    },
+                    "by": {
+                        "title": "RTCG 1",
+                        "description": "RTCG 1 — галоўны грамадскі тэлеканал Чарнагорыі, які ўваходзіць у склад нацыянальнай тэлерадыёкампаніі RTCG. Ён спецыялізуецца на навінах, унутраных праграмах і перадачах уласнай вытворчасці."
+                    },
+                    "uk": {
+                        "title": "RTCG 1",
+                        "description": "RTCG 1 — головний суспільний телеканал Чорногорії, що входить до складу національної телерадіокомпанії RTCG. Він спеціалізується на новинах, внутрішніх програмах і передачах власного виробництва."
+                    },
+                    "en": {
+                        "title": "RTCG 1",
+                        "description": "RTCG 1 is the main public television channel of Montenegro, part of the national broadcaster RTCG. It specializes in news, domestic programs, and its own productions."
+                    }
                 },
                 'sar24': {
                     'ru': {
