@@ -22,9 +22,9 @@
     <div class="box">
         <div class="sidebar sleft">
             <span class="sh sleft" data-key="sidebar_popular">Популярное</span>
-            <a href="watch.html?v=rtvi" class="sbut sleft">
-                <img class="sbuticon" src="cdn/rtvi.svg">
-                <span>RTVI</span>
+            <a href="watch.html?v=eu" class="sbut sleft">
+                <img class="sbuticon" src="cdn/eu.svg">
+                <span>Euronews</span>
             </a>
             <a href="watch.html?v=m24" class="sbut sleft">
                 <img class="sbuticon" src="cdn/m24w.svg">
@@ -203,8 +203,8 @@
                 'zdf': { player: 'https://zdf-hls-15.akamaized.net/hls/live/2016498/de/high/master.m3u8' },
                 'fr2': { player: 'https://viamotionhsi.netplus.ch/live/eds/france2hd/browser-HLS8/france2hd.m3u8' },
                 'per': { player: 'https://cdn4.skygo.mn/live/disk1/Che/HLSv3-FTA/Che.m3u8' },
-                '2p2': { player: 'https://s.tvua.biz/-761CKQAh70ua58Pz5FSww/238/1757968012/index.m3u8' },
-                'stb': { player: 'https://s.tvua.biz/aBHPk42Pu9ybxyANI8SC0w/101/1757968040/index.m3u8' },
+                '2p2': { player: 'http://141.95.55.143/CH4657/index.m3u8' },
+                'stb': { player: 'http://141.95.55.143/CH4663/index.m3u8' },
                 'mtv': { player: 'https://fl4.moveonjoy.com/MTV_LIVE/index.m3u8' },
                 'his': { player: 'https://fl1.moveonjoy.com/history_channel/index.m3u8' },
                 'ch4': { player: 'https://viamotionhsi.netplus.ch/live/eds/channel4/browser-HLS8/channel4.m3u8' },
@@ -222,6 +222,26 @@
                 'zahid': { player: 'https://live-1zahid-1.mw-01.cosmonova-broadcast.tv/player', isDirectUrl: true },
                 'ch11': { player: 'https://live-11tv-dp.cosmonova.net.ua/online.php', isDirectUrl: true },
                 'mis': { player: 'https://live.1tv.od.ua/stream1/channel1/playlist.m3u8' },
+                'tvp3b': { player: 'https://cdndai.pl/tvp3bialystoksd/index.m3u8' },
+                'tvp3by': { player: 'https://cdndai.pl/tvp3bydgoszczsd/index.m3u8', isDirectUrl: true },
+                'tvp3g': { player: 'https://cdndai.pl/tvp3gdansksd/index.m3u8', isDirectUrl: true },
+                'tvp3go': { player: 'https://cdndai.pl/tvp3gorzowsd/index.m3u8' },
+                'tvp3k': { player: 'https://cdndai.pl/tvp3katowicesd/index.m3u8' },
+                'tvp3ki': { player: 'https://cdndai.pl/tvp3kielcesd/index.m3u8', isDirectUrl: true },
+                'tvp3kr': { player: 'https://cdndai.pl/tvp3krakowsd/index.m3u8', isDirectUrl: true },
+                'tvp3l': { player: 'https://cdndai.pl/tvp3lodzsd/index.m3u8' },
+                'tvp3lu': { player: 'https://cdndai.pl/tvp3lublinsd/index.m3u8' },
+                'tvp3o': { player: 'https://cdndai.pl/tvp3olsztynsd/index.m3u8', isDirectUrl: true },
+                'tvp3op': { player: 'https://cdndai.pl/tvp3opolesd/index.m3u8', isDirectUrl: true },
+                'tvp3p': { player: 'https://cdndai.pl/tvp3poznansd/index.m3u8' },
+                'tvp3r': { player: 'https://cdndai.pl/tvp3rzeszowsd/index.m3u8' },
+                'tvp3sz': { player: 'https://cdndai.pl/tvp3szczecinsd/index.m3u8', isDirectUrl: true },
+                'tvp3war': { player: 'https://cdndai.pl/tvp3warszawasd/index.m3u8', isDirectUrl: true },
+                'tvp3wro': { player: 'https://cdndai.pl/tvp3wroclawsd/index.m3u8' },
+                'wdr': { player: 'https://wdr-live.ard-mcdn.de/wdr/live/hls/de/master.m3u8' },
+                'br': { player: 'https://mcdn.br.de/br/fs/bfs_nord/hls/de/master.m3u8' },
+                'rbb': { player: 'https://viamotionhsi.netplus.ch/live/eds/rbb/browser-HLS8/rbb.m3u8' },
+                'swr': { player: 'https://viamotionhsi.netplus.ch/live/eds/swrbw/browser-HLS8/swrbw.m3u8' },
             };
 
             // Переводы для каналов (глобальная переменная для доступа из changeLanguage)
@@ -1360,6 +1380,366 @@
                         description: 'Regional TV channel of Odessa.',
                     },
                 },
+                'tvp3war': {
+                    'ru': {
+                    'title': 'TVP 3 Warszawa',
+                    'description': 'Региональный телеканал Варшавы и Мазовецкого воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Warszawa',
+                    'description': 'Рэгіянальны тэлеканал Варшавы і Мазавецкага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Warszawa',
+                    'description': 'Регіональний телеканал Варшави та Мазовецького воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Warszawa',
+                    'description': 'Regional television channel of Warsaw and Masovian Voivodeship.',
+                    },
+                },
+                'tvp3kr': {
+                    'ru': {
+                    'title': 'TVP 3 Kraków',
+                    'description': 'Региональный телеканал Кракова и Малопольского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Kraków',
+                    'description': 'Рэгіянальны тэлеканал Кракава і Малапольскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Kraków',
+                    'description': 'Регіональний телеканал Кракова та Малопольського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Kraków',
+                    'description': 'Regional television channel of Kraków and Lesser Poland Voivodeship.',
+                    },
+                },
+                'tvp3k': {
+                    'ru': {
+                    'title': 'TVP 3 Katowice',
+                    'description': 'Региональный телеканал Катовице и Силезского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Katowice',
+                    'description': 'Рэгіянальны тэлеканал Катавіцэ і Сілезскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Katowice',
+                    'description': 'Регіональний телеканал Катовице та Сілезького воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Katowice',
+                    'description': 'Regional television channel of Katowice and Silesian Voivodeship.',
+                    },
+                },
+                'tvp3g': {
+                    'ru': {
+                    'title': 'TVP 3 Gdańsk',
+                    'description': 'Региональный телеканал Гданьска и Поморского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Gdańsk',
+                    'description': 'Рэгіянальны тэлеканал Гданьска і Паморскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Gdańsk',
+                    'description': 'Регіональний телеканал Гданська та Поморського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Gdańsk',
+                    'description': 'Regional television channel of Gdańsk and Pomeranian Voivodeship.',
+                    },
+                },
+                'tvp3p': {
+                    'ru': {
+                    'title': 'TVP 3 Poznań',
+                    'description': 'Региональный телеканал Познани и Великопольского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Poznań',
+                    'description': 'Рэгіянальны тэлеканал Познані і Велікапольскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Poznań',
+                    'description': 'Регіональний телеканал Познані та Великопольського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Poznań',
+                    'description': 'Regional television channel of Poznań and Greater Poland Voivodeship.',
+                    },
+                },
+                'tvp3wro': {
+                    'ru': {
+                    'title': 'TVP 3 Wrocław',
+                    'description': 'Региональный телеканал Вроцлава и Нижнесилезского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Wrocław',
+                    'description': 'Рэгіянальны тэлеканал Уроцлава і Ніжнесілезскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Wrocław',
+                    'description': 'Регіональний телеканал Вроцлава та Нижньосілезького воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Wrocław',
+                    'description': 'Regional television channel of Wrocław and Lower Silesian Voivodeship.',
+                    },
+                },
+                'tvp3l': {
+                    'ru': {
+                    'title': 'TVP 3 Łódź',
+                    'description': 'Региональный телеканал Лодзи и Лодзинского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Łódź',
+                    'description': 'Рэгіянальны тэлеканал Лодзі і Лодзінскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Łódź',
+                    'description': 'Регіональний телеканал Лодзі та Лодзинського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Łódź',
+                    'description': 'Regional television channel of Łódź and Łódź Voivodeship.',
+                    },
+                },
+                'tvp3lu': {
+                    'ru': {
+                    'title': 'TVP 3 Lublin',
+                    'description': 'Региональный телеканал Люблина и Люблинского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Lublin',
+                    'description': 'Рэгіянальны тэлеканал Любліна і Люблінскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Lublin',
+                    'description': 'Регіональний телеканал Любліна та Люблінського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Lublin',
+                    'description': 'Regional television channel of Lublin and Lublin Voivodeship.',
+                    },
+                },
+                'tvp3b': {
+                    'ru': {
+                    'title': 'TVP 3 Białystok',
+                    'description': 'Региональный телеканал Белостока и Подляского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Białystok',
+                    'description': 'Рэгіянальны тэлеканал Беластока і Падляскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Białystok',
+                    'description': 'Регіональний телеканал Білостока та Підляського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Białystok',
+                    'description': 'Regional television channel of Białystok and Podlaskie Voivodeship.',
+                    },
+                },
+                'tvp3o': {
+                    'ru': {
+                    'title': 'TVP 3 Olsztyn',
+                    'description': 'Региональный телеканал Ольштына и Варминьско-Мазурского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Olsztyn',
+                    'description': 'Рэгіянальны тэлеканал Ольштына і Вармінска-Мазурскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Olsztyn',
+                    'description': 'Регіональний телеканал Ольштина та Вармінсько-Мазурського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Olsztyn',
+                    'description': 'Regional television channel of Olsztyn and Warmian-Masurian Voivodeship.',
+                    },
+                },
+                'tvp3r': {
+                    'ru': {
+                    'title': 'TVP 3 Rzeszów',
+                    'description': 'Региональный телеканал Жешува и Подкарпатского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Rzeszów',
+                    'description': 'Рэгіянальны тэлеканал Жэшува і Падкарпацкага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Rzeszów',
+                    'description': 'Регіональний телеканал Жешува та Підкарпатського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Rzeszów',
+                    'description': 'Regional television channel of Rzeszów and Subcarpathian Voivodeship.',
+                    },
+                },
+                'tvp3sz': {
+                    'ru': {
+                    'title': 'TVP 3 Szczecin',
+                    'description': 'Региональный телеканал Щецина и Западно-Поморского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Szczecin',
+                    'description': 'Рэгіянальны тэлеканал Шчэцына і Заходне-Паморскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Szczecin',
+                    'description': 'Регіональний телеканал Щецина та Західнопоморського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Szczecin',
+                    'description': 'Regional television channel of Szczecin and West Pomeranian Voivodeship.',
+                    },
+                },
+                'tvp3op': {
+                    'ru': {
+                    'title': 'TVP 3 Opole',
+                    'description': 'Региональный телеканал Ополе и Опольского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Opole',
+                    'description': 'Рэгіянальны тэлеканал Аполя і Апольскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Opole',
+                    'description': 'Регіональний телеканал Ополе та Опольського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Opole',
+                    'description': 'Regional television channel of Opole and Opole Voivodeship.',
+                    },
+                },
+                'tvp3ki': {
+                    'ru': {
+                    'title': 'TVP 3 Kielce',
+                    'description': 'Региональный телеканал Кельце и Свентокшиского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Kielce',
+                    'description': 'Рэгіянальны тэлеканал Кельце і Свентакшыскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Kielce',
+                    'description': 'Регіональний телеканал Кельце та Свентокшиського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Kielce',
+                    'description': 'Regional television channel of Kielce and Świętokrzyskie Voivodeship.',
+                    },
+                },
+                'tvp3by': {
+                    'ru': {
+                    'title': 'TVP 3 Bydgoszcz',
+                    'description': 'Региональный телеканал Быдгоща и Куявско-Поморского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Bydgoszcz',
+                    'description': 'Рэгіянальны тэлеканал Быдгашча і Куяўска-Паморскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Bydgoszcz',
+                    'description': 'Регіональний телеканал Бидгоща та Куявсько-Поморського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Bydgoszcz',
+                    'description': 'Regional television channel of Bydgoszcz and Kuyavian-Pomeranian Voivodeship.',
+                    },
+                },
+                'tvp3go': {
+                    'ru': {
+                    'title': 'TVP 3 Gorzów Wielkopolski',
+                    'description': 'Региональный телеканал Гожува-Велькопольского и Любушского воеводства.',
+                    },
+                    'by': {
+                    'title': 'TVP 3 Gorzów Wielkopolski',
+                    'description': 'Рэгіянальны тэлеканал Гожува-Велікапольскага і Любушскага ваяводства.',
+                    },
+                    'uk': {
+                    'title': 'TVP 3 Gorzów Wielkopolski',
+                    'description': 'Регіональний телеканал Гожува-Велькопольського та Любуського воєводства.',
+                    },
+                    'en': {
+                    'title': 'TVP 3 Gorzów Wielkopolski',
+                    'description': 'Regional television channel of Gorzów Wielkopolski and Lubusz Voivodeship.',
+                    },
+                },
+                'wdr': {
+                    'ru': {
+                    'title': 'WDR Fernsehen',
+                    'description': 'Региональный телеканал земли Северный Рейн-Вестфалия.',
+                    },
+                    'by': {
+                    'title': 'WDR Fernsehen',
+                    'description': 'Рэгіянальны тэлеканал зямлі Паўночны Рэйн-Вестфалія.',
+                    },
+                    'uk': {
+                    'title': 'WDR Fernsehen',
+                    'description': 'Регіональний телеканал Землі Північний Рейн-Вестфалія.',
+                    },
+                    'en': {
+                    'title': 'WDR Fernsehen',
+                    'description': 'Regional television channel of North Rhine-Westphalia.',
+                    },
+                },
+                'br': {
+                    'ru': {
+                    'title': 'BR Fernsehen',
+                    'description': 'Региональный телеканал Баварии.',
+                    },
+                    'by': {
+                    'title': 'BR Fernsehen',
+                    'description': 'Рэгіянальны тэлеканал Баварыі.',
+                    },
+                    'uk': {
+                    'title': 'BR Fernsehen',
+                    'description': 'Регіональний телеканал Баварії.',
+                    },
+                    'en': {
+                    'title': 'BR Fernsehen',
+                    'description': 'Regional television channel of Bavaria.',
+                    },
+                },
+                'rbb': {
+                    'ru': {
+                    'title': 'rbb Fernsehen',
+                    'description': 'Региональный телеканал земель Берлин и Бранденбург.',
+                    },
+                    'by': {
+                    'title': 'rbb Fernsehen',
+                    'description': 'Рэгіянальны тэлеканал земляў Берлін і Брандэнбург.',
+                    },
+                    'uk': {
+                    'title': 'rbb Fernsehen',
+                    'description': 'Регіональний телеканал земель Берлін та Бранденбург.',
+                    },
+                    'en': {
+                    'title': 'rbb Fernsehen',
+                    'description': 'Regional television channel of Berlin and Brandenburg.',
+                    },
+                },
+                'swr': {
+                    'ru': {
+                    'title': 'SWR Fernsehen',
+                    'description': 'Региональный телеканал земель Баден-Вюртемберг и Рейнланд-Пфальц.',
+                    },
+                    'by': {
+                    'title': 'SWR Fernsehen',
+                    'description': 'Рэгіянальны тэлеканал земляў Бадэн-Вюртэмберг і Рэйнланд-Пфальц.',
+                    },
+                    'uk': {
+                    'title': 'SWR Fernsehen',
+                    'description': 'Регіональний телеканал земель Баден-Вюртемберг та Рейнланд-Пфальц.',
+                    },
+                    'en': {
+                    'title': 'SWR Fernsehen',
+                    'description': 'Regional television channel of Baden-Württemberg and Rhineland-Palatinate.',
+                    },
+                }
             };
 
             const params = new URLSearchParams(window.location.search);

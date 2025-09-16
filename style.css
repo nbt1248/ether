@@ -336,6 +336,10 @@ a {
     background-color: #00529F;
 }
 
+#tvp3 {
+    background-color: #174891;
+}
+
 #jednotka {
     background-color: #ED245A;
 }
@@ -494,6 +498,22 @@ a {
 
 #tvrain {
     background-color: #CF3476;
+}
+
+#wdr {
+    background-color: #00375A;
+}
+
+#br {
+    background-color: #0069FF;
+}
+
+#rbb {
+    background-color: #E0131A;
+}
+
+#swr {
+    background-color: #17033E;
 }
 
 .vcontent {
