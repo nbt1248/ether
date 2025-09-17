@@ -943,7 +943,7 @@ iframe {
 
 #entryimg {
     width: 50%;
-    height: fit-content;
+    height: 100%;
 }
 
 .entrytext {
