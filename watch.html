@@ -10,6 +10,19 @@
     <link rel="apple-touch-icon" href="/media/ethericon.png">
     <meta name="theme-color" content="#4B4F9C" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#4B4F9C" media="(prefers-color-scheme: dark)">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104174553', 'ym');
+
+        ym(104174553, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104174553" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 </head>
 <body>
     <div class="header">
@@ -48,6 +61,11 @@
                     <span class="vdesc" id="vdesc"></span>
                 </div>
             </div>
+            <div class="epg">
+                <span style="text-transform: uppercase; opacity: 0.5;" data-key="now">Сейчас в эфире</span>
+                <div class="entries" id="entries">
+                </div>
+            </div>
         </div>
     </div>
     <div class="footer">
@@ -62,7 +80,6 @@
             <span class="quickinfo">Ether, 2025</span>
         </div>
     </div>
-
     <script>
         // Словарь переводов (синхронизирован с другими страницами)
         const translations = {
@@ -71,6 +88,9 @@
                 'page_description': 'Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!',
                 'sidebar_popular': 'Популярное',
                 'moscow24': 'Москва 24',
+                'now': 'Сейчас в эфире',
+                'error-no-epg': 'Ошибка: канал отсутствует в базе EPG',
+                'error-unavailable-epg': 'Ошибка: невозможно загрузить EPG',
                 'about_link': 'О сайте',
                 'language_switch': 'Переключить язык можно на любой другой странице'
             },
@@ -79,6 +99,9 @@
                 'page_description': 'Ether - гэта бясплатны плэер IPTV. Даступна ўжо больш за 40 каналаў. Усе трансляцыі выкарыстоўваюць афіцыйныя крыніцы. Глядзіце тэлебачанне? Ether лепш!',
                 'sidebar_popular': 'Папулярнае',
                 'moscow24': 'Масква 24',
+                'now': 'Цяпер у эфіры',
+                'error-no-epg': 'Памылка: канал не знойдзены ў базе дадзеных EPG',
+                'error-unavailable-epg': 'Памылка: Немагчыма загрузіць EPG',
                 'about_link': 'Пра сайт',
                 'language_switch': 'Пераключыць мову можна на любой іншай старонцы'
             },
@@ -87,6 +110,9 @@
                 'page_description': 'Ether - це безкоштовний плеєр IPTV. Доступно вже понад 40 каналів. Всі трансляції використовують офіційні джерела. Дивитесь телебачення? Ether краще!',
                 'sidebar_popular': 'Популярне',
                 'moscow24': 'Москва 24',
+                'now': 'Зараз в ефірі',
+                'error-no-epg': 'Помилка: канал відсутній у базі EPG',
+                'error-unavailable-epg': 'Помилка: неможливо завантажити EPG',
                 'about_link': 'Про сайт',
                 'language_switch': 'Переключити мову можна на будь-якій іншій сторінці'
             },
@@ -95,6 +121,9 @@
                 'page_description': 'Ether is a free IPTV player. Already more than 40 channels available. All broadcasts use official sources. Watch TV? Ether is better!',
                 'sidebar_popular': 'Popular',
                 'moscow24': 'Moscow 24',
+                'now': 'Now',
+                'error-no-epg': 'Error: no EPG for channel available',
+                'error-unavailable-epg': 'Error: unable to load EPG',
                 'about_link': 'About',
                 'language_switch': 'You can switch language on any other page'
             }
@@ -159,6 +188,8 @@
             
             // Оригинальный код для загрузки канала
             const channels = {
+                'ch1': { player: 'https://streaming.televizor-24-tochka.ru/live/4.m3u8' },
+                'r1': { player: 'https://streaming.televizor-24-tochka.ru/live/5.m3u8' },
                 'ntv': { player: 'https://streaming.televizor-24-tochka.ru/live/7.m3u8' },
                 'm24': { player: 'https://www.m24.ru/tv', isDirectUrl: true },
                 'spb6': { player: 'https://playercdn.cdnvideo.ru/aloha/players/auto_player1.html?clid=4f2trzpmbn&plid=0eb352f9-1854-4744-baf8-86957e93e5e2', isDirectUrl: true },
@@ -170,17 +201,12 @@
                 'bel2': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus2/playlist.m3u8' },
                 'bel3': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus3/playlist.m3u8' },
                 'bel24': { player: 'https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus24/playlist.m3u8' },
-                'fr24': { player: 'https://live.france24.com/hls/live/2037218-b/fr24_EN_HI_HLS/master_5000.m3u8' },
                 'cgtn': { player: 'https://amg00405-rakutentv-cgtn-rakuten-i9tar.amagi.tv/master.m3u8' },
-                'orf': { player: 'https://strm.hdtvizlecanli.com/live/orf1.m3u8' },
                 'rtl': { player: 'https://live-edge.rtl.lu/channel1/smil:channel1/playlist.m3u8' },
-                'la1': { player: 'https://ztnr.rtve.es/ztnr/1688877.m3u8' },
                 'sic': { player: 'https://d1zx6l1dn8vaj5.cloudfront.net/out/v1/b89cc37caa6d418eb423cf092a2ef970/index.m3u8' },
                 'rtb': { player: 'https://rt-srb.rttv.com/dvr/rtbalkan/playlist.m3u8' },
-                'tvcg1': { player: 'http://cdn3.bcdn.rs:1935/cg1/smil:cg1.smil/playlist.m3u8' },
                 'rt': { player: 'https://rumble.com/live-hls-dvr/33aw1a/playlist.m3u8' },
                 'cnn': { player: 'https://raw.githubusercontent.com/CODERX24/tv/refs/heads/master/CNN.m3u8' },
-                'fox': { player: 'https://stream.livenewsplay.com:9443/hls/foxnews/foxsd.m3u8' },
                 'bbc': { player: 'https://viamotionhsi.netplus.ch/live/eds/bbcworld/browser-HLS8/bbcworld.m3u8' },
                 'eu': { player: 'https://a-cdn.klowdtv.com/live3/euronews_720p/playlist.m3u8' },
                 'alj': { player: 'https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8' },
@@ -192,8 +218,8 @@
                 'yle': { player: 'https://yletvworld.akamaized.net/hls/live/622540/yletv1w/index.m3u8' },
                 'yle2': { player: 'https://yletvworld.akamaized.net/hls/live/622541/yletv2w/index.m3u8' },
                 'etv': { player: 'https://sb.err.ee/live/etv.m3u8' },
-                'etv2': { player: 'https://live.err.ee/live/etv2.m3u8' },
-                'etvplus': { player: 'https://live.err.ee/live/etvpluss.m3u8' },
+                'etv2': { player: 'https://sb.err.ee/live/etv2.m3u8' },
+                'etvplus': { player: 'https://sb.err.ee/live/etvpluss.m3u8' },
                 'lrt': { player: 'https://stream-syncwords.lrt.lt/out/v1/channel-group-lrt-portal-prod-01/channel-lrt-portal-prod-01/endpoint-lrt-portal-prod-01/index.m3u8' },
                 'tvp': { player: 'https://liveovh009.cda.pl/enc129/tvp1hdraw/tvp1hdraw.m3u8' },
                 'jednotka': { player: 'https://n13.stv.livebox.sk/stv-tv/_definst_/stv1.smil/playlist.m3u8?auth=b64:X2FueV98MTc1Nzk0ODM2OHwyMDRiYTkxNDJjOWEyZGEzMWYyZWJiMGFmZjUxNTRkZTZjOGUyNDZl' },
@@ -222,22 +248,6 @@
                 'zahid': { player: 'https://live-1zahid-1.mw-01.cosmonova-broadcast.tv/player', isDirectUrl: true },
                 'ch11': { player: 'https://live-11tv-dp.cosmonova.net.ua/online.php', isDirectUrl: true },
                 'mis': { player: 'https://live.1tv.od.ua/stream1/channel1/playlist.m3u8' },
-                'tvp3b': { player: 'https://cdndai.pl/tvp3bialystoksd/index.m3u8' },
-                'tvp3by': { player: 'https://cdndai.pl/tvp3bydgoszczsd/index.m3u8', isDirectUrl: true },
-                'tvp3g': { player: 'https://cdndai.pl/tvp3gdansksd/index.m3u8', isDirectUrl: true },
-                'tvp3go': { player: 'https://cdndai.pl/tvp3gorzowsd/index.m3u8' },
-                'tvp3k': { player: 'https://cdndai.pl/tvp3katowicesd/index.m3u8' },
-                'tvp3ki': { player: 'https://cdndai.pl/tvp3kielcesd/index.m3u8', isDirectUrl: true },
-                'tvp3kr': { player: 'https://cdndai.pl/tvp3krakowsd/index.m3u8', isDirectUrl: true },
-                'tvp3l': { player: 'https://cdndai.pl/tvp3lodzsd/index.m3u8' },
-                'tvp3lu': { player: 'https://cdndai.pl/tvp3lublinsd/index.m3u8' },
-                'tvp3o': { player: 'https://cdndai.pl/tvp3olsztynsd/index.m3u8', isDirectUrl: true },
-                'tvp3op': { player: 'https://cdndai.pl/tvp3opolesd/index.m3u8', isDirectUrl: true },
-                'tvp3p': { player: 'https://cdndai.pl/tvp3poznansd/index.m3u8' },
-                'tvp3r': { player: 'https://cdndai.pl/tvp3rzeszowsd/index.m3u8' },
-                'tvp3sz': { player: 'https://cdndai.pl/tvp3szczecinsd/index.m3u8', isDirectUrl: true },
-                'tvp3war': { player: 'https://cdndai.pl/tvp3warszawasd/index.m3u8', isDirectUrl: true },
-                'tvp3wro': { player: 'https://cdndai.pl/tvp3wroclawsd/index.m3u8' },
                 'wdr': { player: 'https://wdr-live.ard-mcdn.de/wdr/live/hls/de/master.m3u8' },
                 'br': { player: 'https://mcdn.br.de/br/fs/bfs_nord/hls/de/master.m3u8' },
                 'rbb': { player: 'https://viamotionhsi.netplus.ch/live/eds/rbb/browser-HLS8/rbb.m3u8' },
@@ -246,6 +256,42 @@
 
             // Переводы для каналов (глобальная переменная для доступа из changeLanguage)
             window.channelTranslations = {
+                'ch1': {
+                    'ru': {
+                    'title': 'Первый канал',
+                    'description': 'Круглосуточный федеральный телеканал, один из старейших и крупнейших в России.',
+                    },
+                    'by': {
+                    'title': 'Першы канал',
+                    'description': 'Кругласутачны федэральны тэлеканал, адзін з найстарэйшых і найбуйнейшых у Расіі.',
+                    },
+                    'uk': {
+                    'title': 'Перший канал',
+                    'description': 'Цілодобовий федеральний телеканал, один із найстаріших і найбільших у Росії.',
+                    },
+                    'en': {
+                    'title': 'Channel One Russia',
+                    'description': 'A 24-hour federal television channel, one of the oldest and largest in Russia.',
+                    },
+                },
+                'r1': {
+                    'ru': {
+                    'title': 'Россия 1',
+                    'description': 'Общероссийский федеральный телеканал, флагманский канал ВГТРК с развлекательным и информационным контентом.',
+                    },
+                    'by': {
+                    'title': 'Расія 1',
+                    'description': 'Агульнарасійскі федэральны тэлеканал, флагманскі канал ВДТРК з забаўляльным і інфармацыйным кантэнтам.',
+                    },
+                    'uk': {
+                    'title': 'Росія 1',
+                    'description': 'Загальноросійський федеральний телеканал, флагманський канал ВДТРК із розважальним та інформаційним контентом.',
+                    },
+                    'en': {
+                    'title': 'Russia-1',
+                    'description': 'An all-Russian federal television channel, the flagship channel of VGTRK with entertainment and informational content.',
+                    },
+                },
                 'ntv': {
                     'ru': {
                         title: 'НТВ',
@@ -372,7 +418,7 @@
                         description: '“Freedom” is a Ukrainian Russian-language news channel created in 2022 on the basis of the single TV marathon "United News." Its main task is to deliver information about events in Ukraine, its position, and the fight against Russian aggression to the Russian-speaking audience outside of Ukraine. The channel broadcasts news, analysis, interviews, and documentaries, exposing Russian propaganda and telling the truth about the war.',
                     },
                 },
-                'tvr': {
+                'tvrain': {
                     'ru': {
                         title: 'Дождь',
                         description: '«Дождь» — российский независимый информационный телеканал. Его эфир состоит из новостных программ, аналитических передач, журналистских расследований и прямых трансляций общественно-политических событий. Канал известен своей критической позицией и освещением тем, которые редко обсуждаются на государственном телевидении. В настоящее время «Дождь» вещает из-за рубежа, преимущественно через интернет-платформы.',
@@ -480,24 +526,6 @@
                         description: 'Belarus 24 is an international satellite TV channel that broadcasts outside Belarus. Its main goal is to inform the Russian-speaking audience worldwide about events in the country, its culture, and society. The broadcast of "Belarus 24" consists of news blocks, analytical programs, as well as the best documentaries and feature films produced in Belarus.',
                     },
                 },
-                "fr24": {
-                    "ru": {
-                        "title": "France 24",
-                        "description": "France 24 — международный круглосуточный новостной телеканал, принадлежащий государству. Он предоставляет новости со всего мира с французской точки зрения и вещает на нескольких языках, включая французский, английский, арабский и испанский."
-                    },
-                    "by": {
-                        "title": "France 24",
-                        "description": "France 24 — міжнародны кругласутачны навінавы тэлеканал, які належыць дзяржаве. Ён прадастаўляе навіны з усяго свету з французскага пункту гледжання і вяшчае на некалькіх мовах, уключаючы французскую, англійскую, арабскую і іспанскую."
-                    },
-                    "uk": {
-                        "title": "France 24",
-                        "description": "France 24 — міжнародний цілодобовий новинний телеканал, що належить державі. Він надає новини з усього світу з французької точки зору та веде мовлення кількома мовами, включаючи французьку, англійську, арабську та іспанську."
-                    },
-                    "en": {
-                        "title": "France 24",
-                        "description": "France 24 is a state-owned international 24-hour news channel. It provides news from around the world from a French perspective and broadcasts in several languages, including French, English, Arabic, and Spanish."
-                    }
-                },
                 'rt': {
                     'ru': {
                         title: 'RT (Russia Today)',
@@ -532,24 +560,6 @@
                     'en': {
                         title: 'CNN',
                         description: 'An American news channel that broadcasts worldwide. Its programming consists of 24-hour news, analytical talk shows, and reports. Iconic programs include "Anderson Cooper 360°" and "The Situation Room with Wolf Blitzer."',
-                    },
-                },
-                'fox': {
-                    'ru': {
-                        title: 'FOX News',
-                        description: 'Американский новостной канал, известный своим консервативным подходом к освещению событий. FOX News предлагает новости и ток-шоу. Среди популярных программ — "Fox & Friends" и "The Five".',
-                    },
-                    'by': {
-                        title: 'FOX News',
-                        description: 'Амерыканскі навінавы канал, вядомы сваім кансерватыўным падыходам да асвятлення падзей. FOX News прапануе навіны і ток-шоу. Сярод папулярных праграм — "Fox & Friends" і "The Five".',
-                    },
-                    'uk': {
-                        title: 'FOX News',
-                        description: 'Американський новинний канал, відомий своїм консервативним підходом до висвітлення подій. FOX News пропонує новини та ток-шоу. Серед популярних програм — "Fox & Friends" і "The Five".',
-                    },
-                    'en': {
-                        title: 'FOX News',
-                        description: 'An American news channel known for its conservative approach to covering events. FOX News offers news and talk shows. Popular programs include "Fox & Friends" and "The Five."',
                     },
                 },
                 'bbc': {
@@ -1759,6 +1769,432 @@
                 updateChannelTranslations(defaultLanguage);
             }
         });
+    </script>
+    <script>
+// Список каналов и их EPG URL
+const CHANNELS = {
+    rt: "https://epg.pw/api/epg.xml?lang=en&channel_id=6580",
+    cnn: "https://epg.pw/api/epg.xml?lang=en&channel_id=403819",
+    bbc: "https://epg.pw/api/epg.xml?lang=en&channel_id=76771",
+    eu: "https://epg.pw/api/epg.xml?lang=en&channel_id=6707",
+    alj: "https://epg.pw/api/epg.xml?lang=en&channel_id=76735",
+    cgtn: "https://epg.pw/api/epg.xml?lang=en&channel_id=7367",
+    ch1: "https://epg.pw/api/epg.xml?lang=en&channel_id=6379",
+    r1: "https://epg.pw/api/epg.xml?lang=en&channel_id=6091",
+    match: "https://epg.pw/api/epg.xml?lang=en&channel_id=5755",
+    ntv: "https://epg.pw/api/epg.xml?lang=en&channel_id=5926",
+    m24: "https://epg.pw/api/epg.xml?lang=en&channel_id=6088",
+    spb6: "https://epg.pw/api/epg.xml?lang=en&channel_id=7019",
+    tnt: "https://epg.pw/api/epg.xml?lang=en&channel_id=6280",
+    viva: "https://viva-russia.ru/scheduler/epg/epg.xml",
+    per: "https://epg.pw/api/epg.xml?lang=en&channel_id=5823",
+    tvrain: "https://epg.pw/api/epg.xml?lang=en&channel_id=6042",
+    bel1: "https://epg.pw/api/epg.xml?lang=en&channel_id=7837",
+    bel2: "https://epg.pw/api/epg.xml?lang=en&channel_id=7838",
+    bel3: "https://epg.pw/api/epg.xml?lang=en&channel_id=7839",
+    bel4: "https://epg.pw/api/epg.xml?lang=en&channel_id=412067",
+    bel5: "https://epg.pw/api/epg.xml?lang=en&channel_id=7836",
+    bel24: "https://epg.pw/api/epg.xml?lang=en&channel_id=7541",
+    ont: "https://epg.pw/api/epg.xml?lang=en&channel_id=6460",
+    stv: "https://epg.pw/api/epg.xml?lang=en&channel_id=6258",
+    belsat: "https://epg.pw/api/epg.xml?lang=en&channel_id=6903",
+    fd: "https://epg.pw/api/epg.xml?lang=en&channel_id=6377",
+    "1p1": "https://epg.pw/api/epg.xml?lang=en&channel_id=6266",
+    "2p2": "https://epg.pw/api/epg.xml?lang=en&channel_id=6249",
+    stb: "https://epg.pw/api/epg.xml?lang=en&channel_id=7280",
+    ch24: "https://epg.pw/api/epg.xml?lang=en&channel_id=6663",
+    etv: "https://epg.pw/api/epg.xml?lang=en&channel_id=7453",
+    etv2: "https://epg.pw/api/epg.xml?lang=en&channel_id=7348",
+    etvplus: "https://epg.pw/api/epg.xml?lang=en&channel_id=6272",
+    lrt: "https://epg.pw/api/epg.xml?lang=en&channel_id=6684",
+    tvp: "https://epg.pw/api/epg.xml?lang=en&channel_id=6464",
+    mold1: "https://epg.pw/api/epg.xml?lang=en&channel_id=5747",
+    mtv: "https://epg.pw/api/epg.xml?lang=en&channel_id=7591",
+    ard: "https://epg.pw/api/epg.xml?lang=en&channel_id=76674",
+    zdf: "https://epg.pw/api/epg.xml?lang=en&channel_id=76627",
+    fr2: "https://epg.pw/api/epg.xml?lang=en&channel_id=76691",
+    ch4: "https://epg.pw/api/epg.xml?lang=en&channel_id=9328",
+    sar24: "https://epg.pw/api/epg.xml?lang=en&channel_id=6383",
+    seim: "https://epg.pw/api/epg.xml?lang=en&channel_id=6803",
+    k24: "https://epg.pw/api/epg.xml?lang=en&channel_id=5941",
+    chgtrk: "https://epg.pw/api/epg.xml?lang=en&channel_id=408646",
+    otv: "https://epg.pw/api/epg.xml?lang=en&channel_id=7539",
+    aist: "https://epg.pw/api/epg.xml?lang=en&channel_id=5982",
+    tvk: "https://epg.pw/api/epg.xml?lang=en&channel_id=6058",
+    otvprim: "https://epg.pw/api/epg.xml?lang=en&channel_id=7197",
+    zahid: "https://epg.pw/api/epg.xml?lang=en&date=20250917&channel_id=7617",
+    ch11: "https://epg.pw/api/epg.xml?lang=en&date=20250917&channel_id=6078",
+    mis: "https://epg.pw/api/epg.xml?lang=en&date=20250917&channel_id=7104",
+    wdr: "https://epg.pw/api/epg.xml?lang=en&channel_id=76684",
+    br: "https://epg.pw/api/epg.xml?lang=en&channel_id=76712",
+    rbb: "https://epg.pw/api/epg.xml?lang=en&channel_id=76751",
+    swr: "https://epg.pw/api/epg.xml?lang=en&channel_id=76693"
+};
+
+// === Словарь обложек передач (ключи в lower-case) ===
+const SHOW_IMAGES = {
+  rt: {
+    "news": "cdn/shows/rt/news.png",
+    "crosstalk": "cdn/shows/rt/crosstalk.png",
+    "sanchez effect": "cdn/shows/rt/sanchez.png",
+    "documentary": "cdn/shows/rt/doc.png"
+  },
+  cnn: {
+    "early start with rahel solomon": "cdn/shows/cnn/earlystart.png",
+    "cnn this morning": "cdn/shows/cnn/morning.png",
+    "cnn news central": "cdn/shows/cnn/news.png",
+    "situation room with wolf blitzer": "cdn/shows/cnn/room.png",
+    "inside politics with dana bash": "cdn/shows/cnn/inside.png",
+    "the arena with kasie hunt": "cdn/shows/cnn/arena.png",
+  },
+  bbc: {
+    "bbc news": "cdn/shows/bbc/news.png",
+    "business today": "cdn/shows/bbc/business.png",
+    "tech now": "cdn/shows/bbc/tech.png",
+    "bbc news now": "cdn/shows/bbc/now.png",
+  },
+  eu: {
+    "news": "cdn/shows/eu/news.png",
+    "euronews now": "cdn/shows/eu/now.png",
+    "the european debrief": "cdn/shows/eu/debrief.png",
+  },
+  alj: {
+    "newshour": "cdn/shows/alj/newshour.png",
+    "news live": "cdn/shows/alj/news.png",
+    "inside story": "cdn/shows/alj/inside.png",
+    "witness": "cdn/shows/alj/witness.png",
+    "studio b: unscripted": "cdn/shows/alj/studiob.png",
+  },
+  cgtn: {
+    "africa live": "cdn/shows/cgtn/africa.png",
+    "asia today": "cdn/shows/cgtn/asia.png",
+    "dialogue": "cdn/shows/cgtn/dialogue.png",
+    "the world today": "cdn/shows/cgtn/world.png",
+    "china 24": "cdn/shows/cgtn/china.png",
+    "global business": "cdn/shows/cgtn/business.png",
+  },
+  ch1: {
+    "время покажет": "cdn/shows/ch1/vremyapokazhet.png",
+    "большая игра": "cdn/shows/ch1/biggame.png",
+    "новости": "cdn/shows/ch1/news.png",
+    "давай поженимся!": "cdn/shows/ch1/zhen.png",
+    "мужское / женское": "cdn/shows/ch1/malefemale.png",
+    "пусть говорят": "cdn/shows/ch1/govoryat.png",
+    "подкаст.лаб.": "cdn/shows/ch1/lab.png",
+  },
+  r1: {
+    "вести": "cdn/shows/r1/vesti.png",
+    "малахов": "cdn/shows/r1/malakhov.png",
+    "60 минут": "cdn/shows/r1/60min.png",
+    "вечер": "cdn/shows/r1/vecher.png",
+  },
+  match: {
+    "новости": "cdn/shows/match/news.png",
+    "все на матч!": "cdn/shows/match/vsenamatch.png",
+  },
+  ntv: {
+    "чп": "cdn/shows/ntv/chp.png",
+    "место встречи": "cdn/shows/ntv/mesto.png",
+    "сегодня": "cdn/shows/ntv/segodnya.png",
+    "за гранью": "cdn/shows/ntv/grani.png",
+    "днк": "cdn/shows/ntv/dnk.png",
+    "сегодня в москве": "cdn/shows/ntv/mossegodnya.png",
+  },
+  m24: {
+    "новости": "cdn/shows/m24/news.png",
+    "мослекторий": "cdn/shows/m24/moslektoriy.png",
+    "доктор 24": "cdn/shows/m24/doktor.png",
+    "московский патруль": "cdn/shows/m24/patrol.png",
+    "спецрепортаж": "cdn/shows/m24/rep.png",
+    "это москва": "cdn/shows/m24/etomoskva.png",
+    "деньги 24": "cdn/shows/m24/money.png",
+    "вопрос спорный": "cdn/shows/m24/question.png",
+    "миллион вопросов": "cdn/shows/m24/questions.png",
+    "московский патруль": "cdn/shows/m24/patrol.png",
+    "интервью": "cdn/shows/m24/interview.png",
+    "торги москвы": "cdn/shows/m24/torgi.png",
+    "техно": "cdn/shows/m24/techno.png",
+    "the city": "cdn/shows/m24/city.png",
+    "the city. едим": "cdn/shows/m24/cityedim.png",
+    "москва едет": "cdn/shows/m24/moskvaedet.png",
+    "большой скачок": "cdn/shows/m24/skachok.png",
+  },
+  spb6: {
+    "новости": "cdn/shows/spb6/news.png",
+    "новости. итоги дня": "cdn/shows/spb6/itogi.png",
+    "новости спорта": "cdn/shows/spb6/sport.png",
+    "утро в петербурге": "cdn/shows/spb6/utro.png",
+    "степень защиты": "cdn/shows/spb6/protect.png",
+    "петербург. город решений": "cdn/shows/spb6/resheniy.png",
+    "объясним про": "cdn/shows/spb6/explain.png",
+    "залог успеха": "cdn/shows/spb6/zalog.png",
+    "бизнес-петербург": "cdn/shows/spb6/business.png",
+    "дайджест": "cdn/shows/spb6/digest.png",
+    "энциклопедия": "cdn/shows/spb6/history.png",
+    "культурная эволюция": "cdn/shows/spb6/culture.png",
+    "зона особого внимания": "cdn/shows/spb6/zone.png",
+  },
+  tnt: {
+    "однажды в россии": "cdn/shows/tnt/odnazhdy.png",
+    "утро": "cdn/shows/tnt/utro.png",
+    "кто куда": "cdn/shows/tnt/ktokuda.png",
+    "интерны": "cdn/shows/tnt/interny.png",
+    "первокурсницы": "cdn/shows/tnt/pervokurs.png",
+    "универ": "cdn/shows/tnt/univer.png",
+    "яйцо фаберже": "cdn/shows/tnt/yaitso.png",
+    "след киллера": "cdn/shows/tnt/sled.png",
+    "беляковы в отпуске": "cdn/shows/tnt/belyakovy.png",
+  },
+  per: {
+    "дорожные войны": "cdn/shows/per/voyny.png",
+    "опасные связи": "cdn/shows/per/svyazi.png",
+    "заступницы": "cdn/shows/per/zastup.png",
+    "решала": "cdn/shows/per/reshala.png",
+    "найди по id": "cdn/shows/per/id.png",
+    "улетное видео": "cdn/shows/per/video.png",
+    "антимагия": "cdn/shows/per/antimagiya.png",
+    "выжить после": "cdn/shows/per/vyzhit.png",
+  },
+  bel1: {
+    "новости": "cdn/shows/bel1/news.png",
+    "белорусское времечко": "cdn/shows/bel1/vremechko.png",
+    "зона х": "cdn/shows/bel1/zone.png",
+    "панорама": "cdn/shows/bel1/panorama.png",
+  },
+  bel2: {
+    "на ножах": "cdn/shows/bel2/nozhah.png",
+    "ничего себе ньюз": "cdn/shows/bel2/news.png",
+    "пин_код": "cdn/shows/bel2/pin.png",
+    "телебарометр": "cdn/shows/bel2/barometr.png",
+  },
+  bel3: {
+    "беларуская кухня": "cdn/shows/bel3/kuhnya.png",
+    "веды ў кубе": "cdn/shows/bel3/vedy.png",
+    "навіны культуры": "cdn/shows/bel3/culture.png",
+  },
+  bel5: {
+    "спорт-кадр": "cdn/shows/bel5/kadr.png",
+    "слэм-данк": "cdn/shows/bel5/slam.png",
+  },
+  bel24: {
+    "все понятно": "cdn/shows/bel24/ponyatno.png",
+    "объективно": "cdn/shows/bel24/object.png",
+    "маршрут построен": "cdn/shows/bel24/route.png",
+    "своими словами": "cdn/shows/bel24/slova.png",
+    "панорама": "cdn/shows/bel24/panorama.png",
+    "события": "cdn/shows/bel24/events.png",
+    "день спорта": "cdn/shows/bel24/sport.png",
+    "доброе утро, беларусь!": "cdn/shows/bel24/ranici.png",
+    "новости": "cdn/shows/bel24/news.png",
+    "зона х": "cdn/shows/bel24/zone.png",
+    "сфера интересов": "cdn/shows/bel24/sfera.png",
+    "пропаганда": "cdn/shows/bel24/propaganda.png",
+    "специальный репортаж": "cdn/shows/bel24/specrep.png",
+    "актуальное интервью": "cdn/shows/bel24/interview.png",
+    "рецепт настоящего беларуса": "cdn/shows/bel24/receipt.png",
+    "скажинемолчи": "cdn/shows/bel24/skazhi.png",
+    "мк": "cdn/shows/bel24/mk.png",
+    "взгляд на беларусь": "cdn/shows/bel24/vzglyad.png",
+    "это другое": "cdn/shows/bel24/drugoe.png",
+    "политика без галстуков и купюр": "cdn/shows/bel24/politika.png",
+  },
+  ont: {
+    "все понятно": "cdn/shows/ont/ponyatno.png",
+    "объективно": "cdn/shows/ont/object.png",
+    "давай поженимся!": "cdn/shows/ont/zhen.png",
+    "мужское/женское": "cdn/shows/ont/malefemale.png",
+    "наше время": "cdn/shows/ont/vremya.png",
+    "наши новости": "cdn/shows/ont/vremya.png",
+    "наше утро": "cdn/shows/ont/utro.png",
+    "тревожная кнопка": "cdn/shows/ont/knopka.png",
+  },
+  stv: {
+    "новости «24 часа»": "cdn/shows/stv/news.png",
+    "столичные подробности": "cdn/shows/stv/stolica.png",
+    "минщина": "cdn/shows/stv/minsk.png",
+  },
+  "2p2": {
+    "джедаі": "cdn/shows/2p2/dzhedai.png",
+    "загублений світ": "cdn/shows/2p2/svit.png",
+  },
+  stb: {
+    "історія одного злочину": "cdn/shows/stb/history.png",
+    "сліпа": "cdn/shows/stb/slipa.png",
+    "слід": "cdn/shows/stb/slid.png",
+    "т/с к. о. д.": "cdn/shows/stb/kod.png",
+  },
+  etv: {
+    "ringvaade": "cdn/shows/etv/panorama.png",
+    "terevisioon": "cdn/shows/etv/tv.png",
+    "aktuaalne kaamera": "cdn/shows/etv/camera.png",
+  },
+  etvplus: {
+    "горизонт": "cdn/shows/etvplus/horizon.png",
+    "кофе+": "cdn/shows/etvplus/coffee.png",
+    "интервью недели": "cdn/shows/etvplus/interview.png",
+    "мир в замедленном темпе": "cdn/shows/etvplus/mir.png",
+    "орел и решка": "cdn/shows/etvplus/reshka.png",
+    "актуальная камера": "cdn/shows/etvplus/camera.png",
+    "эпицентр": "cdn/shows/etvplus/epicentr.png",
+  },
+  lrt: {
+    "euromaxx": "cdn/shows/lrt/euromaxx.png",
+    "lrt radijo": "cdn/shows/lrt/radijas.png",
+    "(ne)emigrantai": "cdn/shows/lrt/emigrants.png",
+    "kas ir kodėl?": "cdn/shows/lrt/kaskodel.png",
+    "vakare": "cdn/shows/lrt/evening.png",
+    "žinios": "cdn/shows/lrt/news.png",
+    "labas rytas, lietuva": "cdn/shows/lrt/utro.png",
+    "sportas. orai": "cdn/shows/lrt/sports.png",
+    "laba diena, lietuva": "cdn/shows/lrt/day.png",
+    "panorama": "cdn/shows/lrt/panorama.png",
+    "dienos tema": "cdn/shows/lrt/tema.png",
+    "lietuva kalba": "cdn/shows/lrt/speaks.png",
+  },
+  tvp: {
+    "serwis info": "cdn/shows/tvp/info.png",
+    "agrobiznes": "cdn/shows/tvp/business.png",
+    "agropogoda": "cdn/shows/tvp/pogoda.png",
+    "teleexpress": "cdn/shows/tvp/teleexpress.png",
+  },
+  mold1: {
+    "⋗ live studio": "cdn/shows/mold1/news.png",
+  },
+  ard: {
+    "tagesschau": "cdn/shows/ard/news.png",
+    "maischberger": "cdn/shows/ard/maischberger.png",
+    "brisant": "cdn/shows/ard/brisant.png",
+    "gefragt": "cdn/shows/ard/gefragt.png",
+    "hubert": "cdn/shows/ard/hubert.png",
+    "wissen": "cdn/shows/ard/wissen.png",
+    "wetter": "cdn/shows/ard/wetter.png",
+    "wirtschaft": "cdn/shows/ard/wirtschaft.png",
+  },
+  zdf: {
+    "heute": "cdn/shows/zdf/news.png",
+    "hallo": "cdn/shows/zdf/hallo.png",
+  },
+  fr2: {
+    "journal": "cdn/shows/fr2/journal.png",
+    "météo": "cdn/shows/fr2/journal.png",
+    "n'oubliez": "cdn/shows/fr2/noubliez.png",
+    "télématin": "cdn/shows/fr2/telematin.png",
+  },
+  ch4: {
+    "location": "cdn/shows/ch4/location.png",
+    "countdown": "cdn/shows/ch4/countdown.png",
+    "channel 4 news": "cdn/shows/ch4/news.png",
+    "the donald trump show": "cdn/shows/ch4/trump.png",
+    "trump v the truth": "cdn/shows/ch4/truth.png",
+  },
+};
+
+// дефолтная обложка
+const DEFAULT_COVER = "media/cover.png";
+
+function getShowImage(channelKey, title) {
+  if (!title) return DEFAULT_COVER;
+  const titleNorm = title.toLowerCase().trim();
+  const channelMap = SHOW_IMAGES[channelKey];
+  if (!channelMap) return DEFAULT_COVER;
+
+  // точное совпадение
+  if (channelMap[titleNorm]) return channelMap[titleNorm];
+
+  // частичное совпадение (если название содержит ключ из словаря)
+  for (const key in channelMap) {
+    if (titleNorm.includes(key) || key.includes(titleNorm)) {
+      return channelMap[key];
+    }
+  }
+
+  return DEFAULT_COVER;
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const v = urlParams.get("v") || "ch1";
+const entriesDiv = document.getElementById("entries");
+
+if (!CHANNELS[v]) {
+    entriesDiv.innerHTML = "<div class='error'><img style='height: 5em;' src='media/sad.svg'><span class='loginto' data-key='error-no-epg'>Ошибка: канал отсутствует в базе EPG</span></div>";
+} else {
+    const epgUrl = CHANNELS[v];
+
+    fetch(epgUrl)
+        .then(res => res.text())
+        .then(xmlStr => {
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(xmlStr, "application/xml");
+            const programmes = Array.from(xml.getElementsByTagName("programme"));
+
+            const now = new Date();
+            let currentIndex = programmes.findIndex(prog => {
+                // Берем UTC время из атрибутов
+                const startStr = prog.getAttribute("start").substring(0, 14);
+                const stopStr = prog.getAttribute("stop").substring(0, 14);
+
+                const startUTC = new Date(Date.UTC(
+                    parseInt(startStr.substring(0,4)),
+                    parseInt(startStr.substring(4,6))-1,
+                    parseInt(startStr.substring(6,8)),
+                    parseInt(startStr.substring(8,10)),
+                    parseInt(startStr.substring(10,12)),
+                    parseInt(startStr.substring(12,14))
+                ));
+
+                const stopUTC = new Date(Date.UTC(
+                    parseInt(stopStr.substring(0,4)),
+                    parseInt(stopStr.substring(4,6))-1,
+                    parseInt(stopStr.substring(6,8)),
+                    parseInt(stopStr.substring(8,10)),
+                    parseInt(stopStr.substring(10,12)),
+                    parseInt(stopStr.substring(12,14))
+                ));
+
+                return now >= startUTC && now < stopUTC;
+            });
+
+            if (currentIndex === -1) currentIndex = 0;
+
+            const entriesToShow = programmes.slice(currentIndex, currentIndex + 6);
+
+            entriesDiv.innerHTML = "";
+            entriesToShow.forEach(prog => {
+                const titleElem = prog.getElementsByTagName("title")[0];
+                const title = titleElem ? titleElem.textContent : "Без названия";
+
+                // Преобразуем время UTC в локальное
+                const startStr = prog.getAttribute("start").substring(0, 14);
+                const startUTC = new Date(Date.UTC(
+                    parseInt(startStr.substring(0,4)),
+                    parseInt(startStr.substring(4,6))-1,
+                    parseInt(startStr.substring(6,8)),
+                    parseInt(startStr.substring(8,10)),
+                    parseInt(startStr.substring(10,12)),
+                    parseInt(startStr.substring(12,14))
+                ));
+                const time = startUTC.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+                // получаем обложку: сначала по словарю, иначе дефолт
+                const cover = getShowImage(v, title);
+
+                const entry = document.createElement("div");
+                entry.className = "entry";
+                entry.innerHTML = `
+                    <img src="${cover}" id="entryimg">
+                    <div class="entrytext">
+                        <span id="title">${title}</span>
+                        <span id="time">${time}</span>
+                    </div>
+                `;
+                entriesDiv.appendChild(entry);
+            });
+        })
+        .catch(err => {
+            entriesDiv.innerHTML = "<div class='error'><img style='height: 5em;' src='media/sad.svg'><span class='loginto' data-key='error-unavailable-epg'>Ошибка: невозможно загрузить EPG</span></div>";
+            console.error(err);
+        });
+}
     </script>
 </body>
 </html>
