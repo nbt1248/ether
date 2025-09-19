@@ -339,7 +339,7 @@ a {
 
 .prentryimg {
     width: 10em;
-    height: fit-content;
+    height: 100%;
     border-radius: 0.5em;
 }
 
@@ -1080,20 +1080,20 @@ h2 {
 }
 
 #tvtitle {
-    font-size: 50px;
+    font-size: 100px;
 }
 
 #tvtime {
-    font-size: 25px;
+    font-size: 50px;
     opacity: 0.5;
 }
 
 .tvtitle {
-    font-size: 25px;
+    font-size: 50px;
 }
 
 .tvtime {
-    font-size: 25px;
+    font-size: 50px;
     opacity: 0.5;
 }
 
@@ -1133,7 +1133,7 @@ h2 {
 
 .prentryimg {
     width: 50%;
-    height: fit-content;
+    height: 100%;
     border-radius: 0.5em;
 }
 
