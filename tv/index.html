@@ -1706,6 +1706,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "д/с": "../cdn/shows/otvprim/ts.png",
                     "м/ф": "../cdn/shows/otvprim/ts.png",
                 },
+
   };
   const DEFAULT_COVER = "../media/cover.png";
 
@@ -1802,7 +1803,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const nowProg = display[0];
       const info = getShowInfo(channelKey, nowProg.title);
       const link = document.createElement("a");
-      link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}` : "#";
+      link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}` : "#";
       link.innerHTML = `
         <img id="tventryimg" src="${info.img}">
         <div class="tvtext">
@@ -1829,7 +1830,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (prog) {
         const info = getShowInfo(channelKey, prog.title);
         const link = document.createElement("a");
-        link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}` : "#";
+        link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}` : "#";
         link.innerHTML = `
           <div class="tvtextnext">
             <span class="tvtime">${prog.start.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}</span>
