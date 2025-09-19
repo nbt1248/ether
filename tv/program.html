@@ -40,7 +40,7 @@
             </a>
         </div>
         <div class="content">
-            <h1 class="row3"><div class="prlogo" id="rt"><img id="logo" src="../cdn/rt.svg""></div><span data-lang="tvprogramfortoday">Программа передач на сегодня</span><a id="live" href="../watch.html?v=" style="background-color: #ff3f3f; padding: 0 0.5em; border-radius: 0.25em;">LIVE</a></h1>
+            <h1 class="row3"><div class="prlogo" id="rt"><img id="logo" src="../cdn/rt.svg"></div><span data-lang="tvprogramfortoday">Программа передач на сегодня</span><a id="live" href="../watch.html?v=" style="background-color: #ff3f3f; padding: 0 0.5em; border-radius: 0.25em;">LIVE</a></h1>
                 <div class="column">
                     <div class="row">
                         <div id="prentries">
@@ -990,7 +990,7 @@ const CHANNELS = {
             el.className = "prprev prentry";
             el.style.display = "none";
             el.innerHTML = `
-                <a href="show.html?v=${encodeURIComponent(info.id)}">
+                <a href="show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}">
                     <div class="prtextnext">
                         <span class="prtime">${timeStr}</span>
                         <span class="prtitle">${p.title}</span>
@@ -1016,7 +1016,7 @@ const CHANNELS = {
             const timeStr = nowProg.start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
             container.insertAdjacentHTML("beforeend", `
                 <div class="prnow prentry">
-                    <a href="show.html?v=${encodeURIComponent(info.id)}">
+                    <a href="show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}">
                         <img class="prentryimg" src="${info.img}" alt="${nowProg.title}">
                         <div class="prtext">
                             <span id="prtitle">${nowProg.title}</span>
@@ -1033,7 +1033,7 @@ const CHANNELS = {
             const timeStr = p.start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
             container.insertAdjacentHTML("beforeend", `
                 <div class="prnext prentry">
-                    <a href="show.html?v=${encodeURIComponent(info.id)}">
+                    <a href="show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}">
                         <div class="prtextnext">
                             <span class="prtime">${timeStr}</span>
                             <span class="prtitle">${p.title}</span>
