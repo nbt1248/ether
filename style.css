@@ -278,7 +278,7 @@ a {
 
 #tventryimg {
     width: 6em;
-    height: fit-content;
+    height: 100%;
     border-radius: 0.5em;
 }
 
@@ -1063,7 +1063,7 @@ h2 {
 
 #tventryimg {
     width: 50%;
-    height: fit-content;
+    height: 100%;
     border-radius: 0.5em;
 }
 
@@ -1084,7 +1084,7 @@ h2 {
 }
 
 #tvtime {
-    font-size: 50px;
+    font-size: 25px;
     opacity: 0.5;
 }
 
@@ -1093,7 +1093,7 @@ h2 {
 }
 
 .tvtime {
-    font-size: 50px;
+    font-size: 25px;
     opacity: 0.5;
 }
 
