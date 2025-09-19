@@ -724,11 +724,36 @@ a {
     gap: 0.5em;
 }
 
-#title {
+#timeentries {
+    display: flex;
+    flex-direction: row;
+    background: #1E1F29;
+    width: 50%;
+}
+
+.timeentry {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 1em;
+}
+
+#timenow {
+    background-color: #4C4E9C;
+}
+
+.timeentrytext {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+    gap: 0.5em;
+}
+
+.timeentrytext #time {
     font-size: 20px;
 }
 
-#time {
+.timeentrytext #date {
     font-size: 15px;
 }
 
