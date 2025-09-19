@@ -724,6 +724,10 @@ a {
     gap: 0.5em;
 }
 
+#cover {
+    width: 50%;
+}
+
 #timeentries {
     display: flex;
     flex-direction: row;
@@ -1254,6 +1258,44 @@ iframe {
     flex-direction: column;
     padding: 0 1em;
     gap: 0.5em;
+}
+
+#cover {
+    width: 100%;
+}
+
+
+#timeentries {
+    display: flex;
+    flex-direction: row;
+    background: #1E1F29;
+    width: 100%;
+}
+
+.timeentry {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 1em;
+}
+
+#timenow {
+    background-color: #4C4E9C;
+}
+
+.timeentrytext {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+    gap: 0.5em;
+}
+
+.timeentrytext #time {
+    font-size: 50px;
+}
+
+.timeentrytext #date {
+    font-size: 45px;
 }
 
 #title {
