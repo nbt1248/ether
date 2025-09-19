@@ -1093,147 +1093,755 @@
         });
     </script>
     <script>
-const CHANNELS = {
-    // пример
-    "channel1": "https://epg.example.com/xml?channel_id=1",
-    "channel2": "https://epg.example.com/xml?channel_id=2",
-    // добавляйте свои каналы
-};
-
-async function loadEPG(url) {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("EPG не загружено");
-    const text = await response.text();
-    const parser = new DOMParser();
-    return parser.parseFromString(text, "application/xml");
-}
-
-function parseEPGTime(timeStr) {
-    if (!timeStr) return null;
-    // формат: YYYYMMDDHHMMSS + TZ
-    const y = parseInt(timeStr.substr(0,4));
-    const m = parseInt(timeStr.substr(4,2)) - 1;
-    const d = parseInt(timeStr.substr(6,2));
-    const h = parseInt(timeStr.substr(8,2));
-    const min = parseInt(timeStr.substr(10,2));
-    const s = parseInt(timeStr.substr(12,2));
-    return new Date(y,m,d,h,min,s);
-}
-
-function getTitleFromProg(prog) {
-    const titleEl = prog.getElementsByTagName("title")[0];
-    return titleEl ? titleEl.textContent : "";
-}
-
-// заглушка для получения информации о шоу
-function getShowInfo(channelKey, title) {
-    return {
-        id: title.replace(/\s+/g,"_"), // пример id
-        img: "media/default.png"
-    };
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-    const blocks = document.querySelectorAll(".epg-block");
+            // === Список каналов и их EPG URL (используй точные ключи в data-channel) ===
+            const CHANNELS = {
+                rt: "https://epg.pw/api/epg.xml?lang=en&channel_id=6580",
+                cnn: "https://epg.pw/api/epg.xml?lang=en&channel_id=403819",
+                bbc: "https://epg.pw/api/epg.xml?lang=en&channel_id=76771",
+                eu: "https://epg.pw/api/epg.xml?lang=en&channel_id=6707",
+                alj: "https://epg.pw/api/epg.xml?lang=en&channel_id=76735",
+                cgtn: "https://epg.pw/api/epg.xml?lang=en&channel_id=7367",
+                ch1: "https://epg.pw/api/epg.xml?lang=en&channel_id=6379",
+                r1: "https://epg.pw/api/epg.xml?lang=en&channel_id=6091",
+                match: "https://epg.pw/api/epg.xml?lang=en&channel_id=5755",
+                ntv: "https://epg.pw/api/epg.xml?lang=en&channel_id=5926",
+                m24: "https://epg.pw/api/epg.xml?lang=en&channel_id=6088",
+                spb6: "https://epg.pw/api/epg.xml?lang=en&channel_id=7019",
+                tnt: "https://epg.pw/api/epg.xml?lang=en&channel_id=6280",
+                viva: "https://viva-russia.ru/scheduler/epg/epg.xml",
+                per: "https://epg.pw/api/epg.xml?lang=en&channel_id=5823",
+                tvrain: "https://epg.pw/api/epg.xml?lang=en&channel_id=6042",
+                bel1: "https://epg.pw/api/epg.xml?lang=en&channel_id=7837",
+                bel2: "https://epg.pw/api/epg.xml?lang=en&channel_id=7838",
+                bel3: "https://epg.pw/api/epg.xml?lang=en&channel_id=7839",
+                bel4: "https://epg.pw/api/epg.xml?lang=en&channel_id=412067",
+                bel5: "https://epg.pw/api/epg.xml?lang=en&channel_id=7836",
+                bel24: "https://epg.pw/api/epg.xml?lang=en&channel_id=7541",
+                ont: "https://epg.pw/api/epg.xml?lang=en&channel_id=6460",
+                stv: "https://epg.pw/api/epg.xml?lang=en&channel_id=6258",
+                belsat: "https://epg.pw/api/epg.xml?lang=en&channel_id=6903",
+                fd: "https://epg.pw/api/epg.xml?lang=en&channel_id=6377",
+                "1p1": "https://epg.pw/api/epg.xml?lang=en&channel_id=6266",
+                "2p2": "https://epg.pw/api/epg.xml?lang=en&channel_id=6249",
+                stb: "https://epg.pw/api/epg.xml?lang=en&channel_id=7280",
+                ch24: "https://epg.pw/api/epg.xml?lang=en&channel_id=6663",
+                etv: "https://epg.pw/api/epg.xml?lang=en&channel_id=7453",
+                etv2: "https://epg.pw/api/epg.xml?lang=en&channel_id=7348",
+                etvplus: "https://epg.pw/api/epg.xml?lang=en&channel_id=6272",
+                lrt: "https://epg.pw/api/epg.xml?lang=en&channel_id=6684",
+                tvp: "https://epg.pw/api/epg.xml?lang=en&channel_id=6464",
+                mold1: "https://epg.pw/api/epg.xml?lang=en&channel_id=5747",
+                mtv: "https://epg.pw/api/epg.xml?lang=en&channel_id=7591",
+                ard: "https://epg.pw/api/epg.xml?lang=en&channel_id=76674",
+                zdf: "https://epg.pw/api/epg.xml?lang=en&channel_id=76627",
+                fr2: "https://epg.pw/api/epg.xml?lang=en&channel_id=76691",
+                ch4: "https://epg.pw/api/epg.xml?lang=en&channel_id=9328",
+                sar24: "https://epg.pw/api/epg.xml?lang=en&channel_id=6383",
+                seim: "https://epg.pw/api/epg.xml?lang=en&channel_id=6803",
+                k24: "https://epg.pw/api/epg.xml?lang=en&channel_id=5941",
+                chgtrk: "https://epg.pw/api/epg.xml?lang=en&channel_id=408646",
+                otv: "https://epg.pw/api/epg.xml?lang=en&channel_id=7539",
+                aist: "https://epg.pw/api/epg.xml?lang=en&channel_id=5982",
+                tvk: "https://epg.pw/api/epg.xml?lang=en&channel_id=6058",
+                otvprim: "https://epg.pw/api/epg.xml?lang=en&channel_id=7197",
+                zahid: "https://epg.pw/api/epg.xml?lang=en&date=20250917&channel_id=7617",
+                ch11: "https://epg.pw/api/epg.xml?lang=en&date=20250917&channel_id=6078",
+                mis: "https://epg.pw/api/epg.xml?lang=en&date=20250917&channel_id=7104",
+                wdr: "https://epg.pw/api/epg.xml?lang=en&channel_id=76684",
+                br: "https://epg.pw/api/epg.xml?lang=en&channel_id=76712",
+                rbb: "https://epg.pw/api/epg.xml?lang=en&channel_id=76751",
+                swr: "https://epg.pw/api/epg.xml?lang=en&channel_id=76693"
+            };
 
-    blocks.forEach(async block => {
-        const channelKey = (block.getAttribute("data-channel") || block.getAttribute("channel") || "").trim();
-        if (!CHANNELS[channelKey]) return;
+            // === Словари картинок для передач (пример для rt) ===
+            const SHOW_IMAGES = {
+                  rt: {
+                    "news": "../cdn/shows/rt/news.png",
+                    "crosstalk": "../cdn/shows/rt/crosstalk.png",
+                    "sanchez effect": "../cdn/shows/rt/sanchez.png",
+                    "documentary": "../cdn/shows/rt/doc.png",
+                    "africa": "../cdn/shows/rt/africa.png"
+                },
+                cnn: {
+                    "early start with rahel solomon": "../cdn/shows/cnn/earlystart.png",
+                    "cnn this morning": "../cdn/shows/cnn/morning.png",
+                    "cnn news central": "../cdn/shows/cnn/news.png",
+                    "situation room with wolf blitzer": "../cdn/shows/cnn/room.png",
+                    "inside politics with dana bash": "../cdn/shows/cnn/inside.png",
+                    "the arena with kasie hunt": "../cdn/shows/cnn/arena.png",
+                    "the lead": "../cdn/shows/cnn/lead.png",
+                    "erin": "../cdn/shows/cnn/erin.png",
+                    "anderson cooper 360": "../cdn/shows/cnn/cooper.png",
+                    "the source": "../cdn/shows/cnn/source.png",
+                    "cnn newsnight": "../cdn/shows/cnn/newsnight.png",
+                },
+                bbc: {
+                    "bbc news": "../cdn/shows/bbc/news.png",
+                    "business today": "../cdn/shows/bbc/business.png",
+                    "tech now": "../cdn/shows/bbc/tech.png",
+                    "bbc news now": "../cdn/shows/bbc/now.png",
+                    "the world today": "../cdn/shows/bbc/world.png",
+                    "the context": "../cdn/shows/bbc/context.png",
+                    "the context usa": "../cdn/shows/bbc/contextus.png",
+                    "talking movies": "../cdn/shows/bbc/movies.png",
+                    "verified live": "../cdn/shows/bbc/verified.png",
+                    "question time": "../cdn/shows/bbc/question.png",
+                    "bbc world news america": "../cdn/shows/bbc/america.png",
+                },
+                eu: {
+                    "news": "../cdn/shows/eu/news.png",
+                    "euronews now": "../cdn/shows/eu/now.png",
+                    "the european debrief": "../cdn/shows/eu/debrief.png",
+                },
+                alj: {
+                    "newshour": "../cdn/shows/alj/newshour.png",
+                    "news live": "../cdn/shows/alj/news.png",
+                    "inside story": "../cdn/shows/alj/inside.png",
+                    "witness": "../cdn/shows/alj/witness.png",
+                    "studio b: unscripted": "../cdn/shows/alj/studiob.png",
+                    "fault lines": "../cdn/shows/alj/faultines.png",
+                    "the listening post": "../cdn/shows/alj/listening.png",
+                    "the stream": "cdn/shows/alj/stream.png",
+                },
+                cgtn: {
+                    "africa live": "../cdn/shows/cgtn/africa.png",
+                    "asia today": "../cdn/shows/cgtn/asia.png",
+                    "dialogue": "../cdn/shows/cgtn/dialogue.png",
+                    "the world today": "../cdn/shows/cgtn/world.png",
+                    "china 24": "../cdn/shows/cgtn/china.png",
+                    "global business": "../cdn/shows/cgtn/business.png",
+                    "world insight": "../cdn/shows/cgtn/insight.png",
+                    "the vibe": "../cdn/shows/cgtn/vibe.png",
+                },
+                ch1: {
+                    "время покажет": "../cdn/shows/ch1/vremyapokazhet.png",
+                    "большая игра": "../cdn/shows/ch1/biggame.png",
+                    "новости": "../cdn/shows/ch1/news.png",
+                    "давай поженимся!": "../cdn/shows/ch1/zhen.png",
+                    "мужское / женское": "../cdn/shows/ch1/malefemale.png",
+                    "пусть говорят": "../cdn/shows/ch1/govoryat.png",
+                    "подкаст.лаб.": "../cdn/shows/ch1/lab.png",
+                },
+                r1: {
+                    "вести": "../cdn/shows/r1/vesti.png",
+                    "малахов": "../cdn/shows/r1/malakhov.png",
+                    "60 минут": "../cdn/shows/r1/60min.png",
+                    "вечер": "../cdn/shows/r1/vecher.png",
+                    "т/с": "../cdn/shows/r1/ts.png",
+                },
+                match: {
+                    "новости": "../cdn/shows/match/news.png",
+                    "все на матч!": "../cdn/shows/match/vsenamatch.png",
+                    "есть тема": "../cdn/shows/match/tema.png",
+                },
+                ntv: {
+                    "чп": "../cdn/shows/ntv/chp.png",
+                    "место встречи": "../cdn/shows/ntv/mesto.png",
+                    "сегодня": "../cdn/shows/ntv/segodnya.png",
+                    "за гранью": "../cdn/shows/ntv/grani.png",
+                    "днк": "../cdn/shows/ntv/dnk.png",
+                    "сегодня в москве": "../cdn/shows/ntv/mossegodnya.png",
+                    "итоги недели": "../cdn/shows/ntv/itogi.png",
+                },
+                m24: {
+                    "новости": "../cdn/shows/m24/news.png",
+                    "мослекторий": "../cdn/shows/m24/moslektoriy.png",
+                    "доктор 24": "../cdn/shows/m24/doktor.png",
+                    "московский патруль": "../cdn/shows/m24/patrol.png",
+                    "специальный репортаж": "../cdn/shows/m24/rep.png",
+                    "это москва": "../cdn/shows/m24/etomoskva.png",
+                    "деньги 24": "../cdn/shows/m24/money.png",
+                    "вопрос спорный": "../cdn/shows/m24/question.png",
+                    "миллион вопросов": "../cdn/shows/m24/questions.png",
+                    "московский патруль": "../cdn/shows/m24/patrol.png",
+                    "интервью": "../cdn/shows/m24/interview.png",
+                    "торги москвы": "../cdn/shows/m24/torgi.png",
+                    "техно": "../cdn/shows/m24/techno.png",
+                    "the city": "../cdn/shows/m24/city.png",
+                    "the city. едим": "../cdn/shows/m24/cityedim.png",
+                    "москва едет": "../cdn/shows/m24/moskvaedet.png",
+                    "большой скачок": "../cdn/shows/m24/skachok.png",
+                },
+                spb6: {
+                    "новости": "../cdn/shows/spb6/news.png",
+                    "новости. итоги дня": "../cdn/shows/spb6/itogi.png",
+                    "новости спорта": "../cdn/shows/spb6/sport.png",
+                    "утро в петербурге": "../cdn/shows/spb6/utro.png",
+                    "степень защиты": "../cdn/shows/spb6/protect.png",
+                    "петербург. город решений": "../cdn/shows/spb6/resheniy.png",
+                    "объясним про": "../cdn/shows/spb6/explain.png",
+                    "залог успеха": "../cdn/shows/spb6/zalog.png",
+                    "бизнес-петербург": "../cdn/shows/spb6/business.png",
+                    "дайджест": "../cdn/shows/spb6/digest.png",
+                    "энциклопедия": "../cdn/shows/spb6/history.png",
+                    "культурная эволюция": "../cdn/shows/spb6/culture.png",
+                    "зона особого внимания": "../cdn/shows/spb6/zone.png",
+                    "город и люди": "../cdn/shows/spb6/gorod.png",
+                    "т/с": "../cdn/shows/spb6/ts.png",
+                    "х/ф": "../cdn/shows/spb6/ts.png",
+                    "д/ф": "../cdn/shows/spb6/ts.png",
+                },
+                tnt: {
+                    "однажды в россии": "../cdn/shows/tnt/odnazhdy.png",
+                    "утро": "../cdn/shows/tnt/utro.png",
+                    "кто куда": "../cdn/shows/tnt/ktokuda.png",
+                    "интерны": "../cdn/shows/tnt/interny.png",
+                    "первокурсницы": "../cdn/shows/tnt/pervokurs.png",
+                    "универ": "../cdn/shows/tnt/univer.png",
+                    "яйцо фаберже": "../cdn/shows/tnt/yaitso.png",
+                    "след киллера": "../cdn/shows/tnt/sled.png",
+                    "беляковы в отпуске": "../cdn/shows/tnt/belyakovy.png",
+                },
+                per: {
+                    "дорожные войны": "../cdn/shows/per/voyny.png",
+                    "опасные связи": "../cdn/shows/per/svyazi.png",
+                    "заступницы": "../cdn/shows/per/zastup.png",
+                    "решала": "../cdn/shows/per/reshala.png",
+                    "найди по id": "../cdn/shows/per/id.png",
+                    "улетное видео": "../cdn/shows/per/video.png",
+                    "антимагия": "../cdn/shows/per/antimagiya.png",
+                    "выжить после": "../cdn/shows/per/vyzhit.png",
+                    "притворщики": "../cdn/shows/per/pritvor.png",
+                    "охотники": "../cdn/shows/per/ohotniki.png",
+                    "невероятные истории": "../cdn/shows/per/istorii.png",
+                    "+100500": "../cdn/shows/per/100500.png",
+                },
+                bel1: {
+                    "новости": "../cdn/shows/bel1/news.png",
+                    "белорусское времечко": "../cdn/shows/bel1/vremechko.png",
+                    "зона х": "../cdn/shows/bel1/zone.png",
+                    "панорама": "../cdn/shows/bel1/panorama.png",
+                    "т/с": "../cdn/shows/bel1/ts.png",
+                    "х/ф": "../cdn/shows/bel1/ts.png",
+                    "д/ф": "../cdn/shows/bel1/ts.png",
+                    "д/с": "../cdn/shows/bel1/ts.png",
+                },
+                bel2: {
+                    "на ножах": "../cdn/shows/bel2/nozhah.png",
+                    "ничего себе ньюз": "../cdn/shows/bel2/news.png",
+                    "пин_код": "../cdn/shows/bel2/pin.png",
+                    "телебарометр": "../cdn/shows/bel2/barometr.png",
+                    "суд решит": "../cdn/shows/bel2/sud.png",
+                    "слепая": "../cdn/shows/bel2/slepaya.png",
+                    "т/с": "../cdn/shows/bel2/ts.png",
+                    "х/ф": "../cdn/shows/bel2/ts.png",
+                    "д/ф": "../cdn/shows/bel2/ts.png",
+                    "д/c": "../cdn/shows/bel2/ts.png",
+                },
+                bel3: {
+                    "беларуская кухня": "../cdn/shows/bel3/kuhnya.png",
+                    "веды ў кубе": "../cdn/shows/bel3/vedy.png",
+                    "навіны культуры": "../cdn/shows/bel3/culture.png",
+                    "славянскі базар у віцебску": "../cdn/shows/bel3/bazar.png",
+                    "т/с": "../cdn/shows/bel3/ts.png",
+                    "х/ф": "../cdn/shows/bel3/ts.png",
+                    "д/ф": "../cdn/shows/bel3/ts.png",
+                    "д/с": "../cdn/shows/bel3/ts.png",
+                },
+                bel5: {
+                    "спорт-кадр": "../cdn/shows/bel5/kadr.png",
+                    "слэм-данк": "../cdn/shows/bel5/slam.png",
+                },
+                bel24: {
+                    "все понятно": "../cdn/shows/bel24/ponyatno.png",
+                    "объективно": "../cdn/shows/bel24/object.png",
+                    "маршрут построен": "../cdn/shows/bel24/route.png",
+                    "своими словами": "../cdn/shows/bel24/slova.png",
+                    "панорама": "../cdn/shows/bel24/panorama.png",
+                    "события": "../cdn/shows/bel24/events.png",
+                    "день спорта": "../cdn/shows/bel24/sport.png",
+                    "доброе утро, беларусь!": "../cdn/shows/bel24/ranici.png",
+                    "новости": "../cdn/shows/bel24/news.png",
+                    "зона х": "../cdn/shows/bel24/zone.png",
+                    "сфера интересов": "../cdn/shows/bel24/sfera.png",
+                    "пропаганда": "../cdn/shows/bel24/propaganda.png",
+                    "специальный репортаж": "../cdn/shows/bel24/specrep.png",
+                    "актуальное интервью": "../cdn/shows/bel24/interview.png",
+                    "рецепт настоящего беларуса": "../cdn/shows/bel24/receipt.png",
+                    "скажинемолчи": "../cdn/shows/bel24/skazhi.png",
+                    "мк": "../cdn/shows/bel24/mk.png",
+                    "взгляд на беларусь": "../cdn/shows/bel24/vzglyad.png",
+                    "это другое": "../cdn/shows/bel24/drugoe.png",
+                    "политика без галстуков и купюр": "../cdn/shows/bel24/politika.png",
+                    "по существу": "../cdn/shows/bel24/such.png",
+                    "сломать стереотипы": "../cdn/shows/bel24/stereo.png",
+                    "т/с": "../cdn/shows/bel24/news.png",
+                    "х/ф": "../cdn/shows/bel24/news.png",
+                    "д/ф": "../cdn/shows/bel24/news.png",
+                    "д/с": "../cdn/shows/bel24/news.png",
+                },
+                ont: {
+                    "все понятно": "../cdn/shows/ont/ponyatno.png",
+                    "объективно": "../cdn/shows/ont/object.png",
+                    "давай поженимся!": "../cdn/shows/ont/zhen.png",
+                    "мужское/женское": "../cdn/shows/ont/malefemale.png",
+                    "наше время": "../cdn/shows/ont/vremya.png",
+                    "наши новости": "../cdn/shows/ont/vremya.png",
+                    "наше утро": "../cdn/shows/ont/utro.png",
+                    "тревожная кнопка": "../cdn/shows/ont/knopka.png",
+                    "т/с": "../cdn/shows/ont/ts.png",
+                    "х/ф": "../cdn/shows/ont/ts.png",
+                    "д/ф": "../cdn/shows/ont/ts.png",
+                    "д/c": "../cdn/shows/ont/ts.png",
+                },
+                stv: {
+                    "новости «24 часа»": "../cdn/shows/stv/news.png",
+                    "столичные подробности": "../cdn/shows/stv/stolica.png",
+                    "минщина": "../cdn/shows/stv/minsk.png",
+                    "т/с": "../cdn/shows/stv/ts.png",
+                    "х/ф": "../cdn/shows/stv/ts.png",
+                    "д/ф": "../cdn/shows/stv/ts.png",
+                    "д/c": "../cdn/shows/stv/ts.png",
+                },
+                "2p2": {
+                    "джедаі": "../cdn/shows/2p2/dzhedai.png",
+                    "загублений світ": "../cdn/shows/2p2/svit.png",
+                    "т/с": "../cdn/shows/2p2/ts.png",
+                    "х/ф": "../cdn/shows/2p2/ts.png",
+                    "д/ф": "../cdn/shows/2p2/ts.png",
+                },
+                stb: {
+                    "історія одного злочину": "../cdn/shows/stb/history.png",
+                    "сліпа": "../cdn/shows/stb/slipa.png",
+                    "днк": "../cdn/shows/stb/dnk.png",
+                    "т/с": "../cdn/shows/stb/ts.png",
+                    "х/ф": "../cdn/shows/stb/ts.png",
+                    "д/ф": "../cdn/shows/stb/ts.png",
+                },
+                etv: {
+                    "ringvaade": "../cdn/shows/etv/panorama.png",
+                    "terevisioon": "../cdn/shows/etv/tv.png",
+                    "aktuaalne kaamera": "../cdn/shows/etv/camera.png",
+                },
+                etvplus: {
+                    "горизонт": "../cdn/shows/etvplus/horizon.png",
+                    "кофе+": "../cdn/shows/etvplus/coffee.png",
+                    "интервью недели": "../cdn/shows/etvplus/interview.png",
+                    "мир в замедленном темпе": "../cdn/shows/etvplus/mir.png",
+                    "орел и решка": "../cdn/shows/etvplus/orel.png",
+                    "актуальная камера": "../cdn/shows/etvplus/camera.png",
+                    "эпицентр": "../cdn/shows/etvplus/epicentr.png",
+                },
+                lrt: {
+                    "euromaxx": "../cdn/shows/lrt/euromaxx.png",
+                    "lrt radijo": "../cdn/shows/lrt/radijas.png",
+                    "(ne)emigrantai": "../cdn/shows/lrt/emigrants.png",
+                    "kas ir kodėl?": "../cdn/shows/lrt/kaskodel.png",
+                    "vakare": "../cdn/shows/lrt/evening.png",
+                    "žinios": "../cdn/shows/lrt/news.png",
+                    "labas rytas, lietuva": "../cdn/shows/lrt/utro.png",
+                    "sportas. orai": "../cdn/shows/lrt/sports.png",
+                    "laba diena, lietuva": "../cdn/shows/lrt/day.png",
+                    "panorama": "../cdn/shows/lrt/panorama.png",
+                    "dienos tema": "../cdn/shows/lrt/tema.png",
+                    "lietuva kalba": "../cdn/shows/lrt/speaks.png",
+                },
+                tvp: {
+                    "serwis info": "../cdn/shows/tvp/info.png",
+                    "agrobiznes": "../cdn/shows/tvp/business.png",
+                    "agropogoda": "../cdn/shows/tvp/pogoda.png",
+                    "teleexpress": "../cdn/shows/tvp/teleexpress.png",
+                    "gra słów": "../cdn/shows/tvp/gra.png",
+                    "dziedzictwo": "../cdn/shows/tvp/detstvo.png",
+                    "jaka to melodia?": "../cdn/shows/tvp/melodia.png",
+                    "lekkoatletyka": "../cdn/shows/tvp/lekkoatletyka.png",
+                },
+                mold1: {
+                    "⋗ live studio": "../cdn/shows/mold1/news.png",
+                    "ştiri": "../cdn/shows/mold1/stiri.png",
+                    "publicitate": "../cdn/shows/mold1/ts.png",
+                    "т/с": "../cdn/shows/mold1/ts.png",
+                    "х/ф": "../cdn/shows/mold1/ts.png",
+                    "д/ф": "../cdn/shows/mold1/ts.png",
+                    "д/с": "../cdn/shows/mold1/ts.png",
+                    "м/ф": "../cdn/shows/mold1/ts.png",
+                },
+                ard: {
+                    "tagesschau": "../cdn/shows/ard/news.png",
+                    "tagesthemen": "../cdn/shows/ard/tagesthemen.png",
+                    "maischberger": "../cdn/shows/ard/maischberger.png",
+                    "brisant": "../cdn/shows/ard/brisant.png",
+                    "gefragt": "../cdn/shows/ard/gefragt.png",
+                    "hubert": "../cdn/shows/ard/hubert.png",
+                    "wissen": "../cdn/shows/ard/wissen.png",
+                    "wetter": "../cdn/shows/ard/wetter.png",
+                    "wirtschaft": "../cdn/shows/ard/wirtschaft.png",
+                    "wir vier und der enkeltrick": "../cdn/shows/ard/enkeltrick.png",
+                    "plusminus": "../cdn/shows/ard/plusminus.png",
+                    "mittagsmagazin": "../cdn/shows/ard/mittagsmagazin.png",
+                    "rote rosen": "../cdn/shows/ard/roterosen.png",
+                    "sturm der liebe": "../cdn/shows/ard/sturm.png",
+                },
+                zdf: {
+                    "heute": "../cdn/shows/zdf/news.png",
+                    "heute journal": "../cdn/shows/zdf/heutejournal.png",
+                    "heute journal update": "../cdn/shows/zdf/heutejournalupd.png",
+                    "hallo": "../cdn/shows/zdf/hallo.png",
+                    "aktenzeichen xy... ungelöst": "../cdn/shows/zdf/aktenzeichen.png",
+                    "auslands": "../cdn/shows/zdf/auslands.png",
+                    "fußball": "../cdn/shows/zdf/sportstudio.png",
+                    "markus lanz": "../cdn/shows/zdf/markuslanz.png",
+                },
+                fr2: {
+                    "journal": "../cdn/shows/fr2/journal.png",
+                    "météo": "../cdn/shows/fr2/meteo.png",
+                    "n'oubliez": "../cdn/shows/fr2/noubliez.png",
+                    "télématin": "../cdn/shows/fr2/telematin.png",
+                    "memory": "../cdn/shows/fr2/memory.png",
+                    "dans de beaux draps": "../cdn/shows/fr2/dans.png",
+                    "infrarouge": "../cdn/shows/fr2/infrarouge.png",
+                    "25 nuances de docs": "../cdn/shows/fr2/nuances.png",
+                    "basique, l'essentiel de la musique": "../cdn/shows/fr2/basique.png",
+                },
+                ch4: {
+                    "location": "../cdn/shows/ch4/location.png",
+                    "countdown": "../cdn/shows/ch4/countdown.png",
+                    "24 hours in a&e": "../cdn/shows/ch4/24hours.png",
+                    "huge homes": "../cdn/shows/ch4/homes.png",
+                    "channel 4 news": "../cdn/shows/ch4/news.png",
+                    "the donald trump show": "../cdn/shows/ch4/trump.png",
+                    "trump v the truth": "../cdn/shows/ch4/truth.png",
+                },
+                sar24: {
+                    "мировые новости": "../cdn/shows/sar24/mir.png",
+                    "саратов. сегодня": "../cdn/shows/sar24/segodnya.png",
+                    "саратов. итоги": "../cdn/shows/sar24/itogi.png",
+                    "днк россии": "../cdn/shows/sar24/dnk.png",
+                    "право знать": "../cdn/shows/sar24/pravo.png",
+                    "вне зоны": "../cdn/shows/sar24/zone.png",
+                    "мнимый больной": "../cdn/shows/sar24/mnimyi.png",
+                    "спецпроект": "../cdn/shows/sar24/spec.png",
+                    "автоинспектор": "../cdn/shows/sar24/avto.png",
+                    "общее дело": "../cdn/shows/sar24/delo.png",
+                    "ночное вещание": "../cdn/shows/sar24/night.png",
+                    "т/с": "../cdn/shows/sar24/ts.png",
+                    "х/ф": "../cdn/shows/sar24/ts.png",
+                    "д/ф": "../cdn/shows/sar24/ts.png",
+                    "д/с": "../cdn/shows/sar24/ts.png",
+                    "м/ф": "../cdn/shows/sar24/ts.png",
+                },
+                seim: {
+                    "планета цветов": "../cdn/shows/seim/flowers.png",
+                    "планета любви": "../cdn/shows/seim/lubvi.png",
+                    "незабытый город": "../cdn/shows/seim/gorod.png",
+                    "естественный отбор": "../cdn/shows/seim/otbor.png",
+                    "память священна": "../cdn/shows/seim/pamyat.png",
+                    "поехали!": "../cdn/shows/seim/poehali.png",
+                    "закон и право": "../cdn/shows/seim/pravo.png",
+                    "страна росатом": "../cdn/shows/seim/rosatom.png",
+                    "семья россии": "../cdn/shows/seim/semya.png",
+                    "слово церкви": "../cdn/shows/seim/slovo.png",
+                    "события дня": "../cdn/shows/seim/sobytiya.png",
+                    "специальный репортаж": "../cdn/shows/seim/spec.png",
+                    "тихая моя родина": "../cdn/shows/seim/tiho.png",
+                    "мои университеты": "../cdn/shows/seim/university.png",
+                    "власть": "../cdn/shows/seim/vlast.png",
+                    "свет и тень войны": "../cdn/shows/seim/voyna.png",
+                    "т/с": "../cdn/shows/seim/ts.png",
+                    "х/ф": "../cdn/shows/seim/ts.png",
+                    "д/ф": "../cdn/shows/seim/ts.png",
+                    "д/с": "../cdn/shows/seim/ts.png",
+                    "м/ф": "../cdn/shows/seim/ts.png",
+                },
+                k24: {
+                    "детали": "../cdn/shows/k24/detali.png",
+                    "факты": "../cdn/shows/k24/fakty.png",
+                    "босс, есть вопрос!": "../cdn/shows/k24/boss.png",
+                    "истории с географией": "../cdn/shows/k24/geography.png",
+                    "перейдем на личности": "../cdn/shows/k24/lichnosti.png",
+                    "медсовет": "../cdn/shows/k24/medsovet.png",
+                    "время нацпроектов": "../cdn/shows/k24/natsproekty.png",
+                    "на выезд": "../cdn/shows/k24/navyezd.png",
+                    "народные новости": "../cdn/shows/k24/news.png",
+                    "нейрогимн": "../cdn/shows/k24/neyrogimn.png",
+                    "махнем! отдохнем!": "../cdn/shows/k24/otdyh.png",
+                    "погода": "../cdn/shows/k24/pogoda.png",
+                    "походу быть": "../cdn/shows/k24/pohod.png",
+                    "реальный сектор": "../cdn/shows/k24/real.png",
+                    "хорошее утро": "../cdn/shows/k24/utro.png",
+                    "кубань: наше время": "../cdn/shows/k24/vremya.png",
+                    "д/ф экспедиция «zа наших»": "../cdn/shows/k24/z.png",
+                    "на стороне закона": "../cdn/shows/k24/zakon.png",
+                    "землеход": "../cdn/shows/k24/zemlya.png",
+                },
+                chgtrk: {
+                    "асхабы": "../cdn/shows/chgtrk/ashaby.png",
+                    "вайнах на грозном": "../cdn/shows/chgtrk/ts.png",
+                    "достояние народа": "../cdn/shows/chgtrk/dost.png",
+                    "экстра": "../cdn/shows/chgtrk/extra.png",
+                    "своя ферма": "../cdn/shows/chgtrk/farm.png",
+                    "наша история": "../cdn/shows/chgtrk/history.png",
+                    "иэс": "../cdn/shows/chgtrk/ies.png",
+                    "ийманан шовда": "../cdn/shows/chgtrk/iymanan.png",
+                    "кулинарный дневник": "../cdn/shows/chgtrk/journal.png",
+                    "чтение корана": "../cdn/shows/chgtrk/koran.png",
+                    "могуш-маьрша": "../cdn/shows/chgtrk/mogush.png",
+                    "в грозном стоит побывать": "../cdn/shows/chgtrk/pobyvat.png",
+                    "концерт": "../cdn/shows/chgtrk/music.png",
+                    "новости": "../cdn/shows/chgtrk/news.png",
+                    "образование сегодня": "../cdn/shows/chgtrk/obrazovanie.png",
+                    "особый разговор": "../cdn/shows/chgtrk/osobyi.png",
+                    "поэзин": "../cdn/shows/chgtrk/poezin.png",
+                    "реальная политика": "../cdn/shows/chgtrk/politics.png",
+                    "психолог и я": "../cdn/shows/chgtrk/psychology.png",
+                    "рекомендовано читать": "../cdn/shows/chgtrk/ts.png",
+                    "религиозный фильм": "../cdn/shows/chgtrk/religious.png",
+                    "салам шоу": "../cdn/shows/chgtrk/salam.png",
+                    "спортивная жизнь": "../cdn/shows/chgtrk/sports.png",
+                    "вечерний чай": "../cdn/shows/chgtrk/tea.png",
+                    "точки опоры": "../cdn/shows/chgtrk/tochki.png",
+                    "утро с грозным": "../cdn/shows/chgtrk/utro.png",
+                    "мастерская": "../cdn/shows/chgtrk/workshop.png",
+                    "здравия желаю": "../cdn/shows/chgtrk/zdraviya.png",
+                    "земля пророков": "../cdn/shows/chgtrk/zemlya.png",
+                    "къоман": "../cdn/shows/chgtrk/kioman.png",
+                    "масалш": "../cdn/shows/chgtrk/ts.png",
+                    "ваше право": "../cdn/shows/chgtrk/pravo.png",
+                    "спорт-тайм": "../cdn/shows/chgtrk/sport.png",
+                    "наш путь": "../cdn/shows/chgtrk/koran2.png",
+                    "женщина": "../cdn/shows/chgtrk/ts.png",
+                    "зикар": "../cdn/shows/chgtrk/zikar.png",
+                },
+                otv: {
+                    "днк россии": "../cdn/shows/otv/dnk.png",
+                    "деревни россии": "../cdn/shows/otv/derevni.png",
+                    "события": "../cdn/shows/otv/sobytiya.png",
+                    "события. акцент": "../cdn/shows/otv/accent.png",
+                    "вместе по россии": "../cdn/shows/otv/vmeste.png",
+                    "свердловское утро": "../cdn/shows/otv/utro.png",
+                    "погода": "../cdn/shows/otv/pogoda.png",
+                    "все говорят об этом": "../cdn/shows/otv/govoryat.png",
+                    "научные сенсации": "../cdn/shows/otv/sens.png",
+                    "земля людей": "../cdn/shows/otv/zemlya.png",
+                    "патрульный участок": "../cdn/shows/otv/patrol.png",
+                    "нейроновости": "../cdn/shows/otv/neyro.png",
+                    "битва оружейников": "../cdn/shows/otv/bitva.png",
+                    "новости региона": "../cdn/shows/otv/ts.png",
+                    "9 1/2": "../cdn/shows/otv/912.png",
+                    "вестник корпораций": "../cdn/shows/otv/corp.png",
+                    "т/с": "../cdn/shows/otv/ts.png",
+                    "х/ф": "../cdn/shows/otv/ts.png",
+                    "д/ф": "../cdn/shows/otv/ts.png",
+                    "д/с": "../cdn/shows/otv/ts.png",
+                    "м/ф": "../cdn/shows/otv/ts.png",
+                },
+                aist: {
+                    "планета любви": "../cdn/shows/aist/lubvi.png",
+                    "естественный отбор": "../cdn/shows/aist/otbor.png",
+                    "новости": "../cdn/shows/aist/news.png",
+                    "прогноз погоды": "../cdn/shows/aist/pogoda.png",
+                    "я другая": "../cdn/shows/aist/drugaya.png",
+                    "горизонт событий": "../cdn/shows/aist/horizon.png",
+                    "мир. мнение": "../cdn/shows/aist/mir.png",
+                    "шишкинские писаницы": "../cdn/shows/aist/shishkin.png",
+                    "т/с": "../cdn/shows/aist/ts.png",
+                    "х/ф": "../cdn/shows/aist/ts.png",
+                    "д/ф": "../cdn/shows/aist/ts.png",
+                    "д/с": "../cdn/shows/aist/ts.png",
+                    "м/ф": "../cdn/shows/aist/ts.png",
+                },
+                tvk: {
+                    "простая экономика": "../cdn/shows/tvk/ts.png",
+                    "контекст": "../cdn/shows/tvk/ts.png",
+                    "правое полушарие интроверта": "../cdn/shows/tvk/ts.png",
+                    "просто такая генетика": "../cdn/shows/tvk/ts.png",
+                    "подкасты на твк": "../cdn/shows/tvk/ts.png",
+                    "новости твк": "../cdn/shows/tvk/news.png",
+                    "после новостей": "../cdn/shows/tvk/posle.png",
+                    "проверка": "../cdn/shows/tvk/proverka.png",
+                    "новое утро": "../cdn/shows/tvk/utro.png",
+                    "из истории сибири": "../cdn/shows/tvk/history.png",
+                    "сергей токарев на твк": "../cdn/shows/tvk/tokarev.png",
+                    "проекты редакции новостей твк": "../cdn/shows/tvk/red.png",
+                    "консультант садовода": "../cdn/shows/tvk/sadovod.png",
+                    "эксперт нового утра": "../cdn/shows/tvk/utro.png",
+                    "финверсия": "../cdn/shows/tvk/finversia.png",
+                    "афиша": "../cdn/shows/tvk/afisha.png",
+                    "нежный трэвел на твк": "../cdn/shows/tvk/travel.png",
+                    "богатство сибири": "../cdn/shows/tvk/siberia.png",
+                    "т/с": "../cdn/shows/tvk/ts.png",
+                    "х/ф": "../cdn/shows/tvk/ts.png",
+                    "д/ф": "../cdn/shows/tvk/ts.png",
+                    "д/с": "../cdn/shows/tvk/ts.png",
+                    "м/ф": "../cdn/shows/tvk/ts.png",
+                },
+                otvprim: {
+                    "панорама": "../cdn/shows/otvprim/panorama.png",
+                    "прогноз погоды": "../cdn/shows/otvprim/pogoda.png",
+                    "китайская шкатулка": "../cdn/shows/otvprim/kitay.png",
+                    "знай свой край": "../cdn/shows/otvprim/kray.png",
+                    "автопатруль 112": "../cdn/shows/otvprim/112.png",
+                    "творческий автобус": "../cdn/shows/otvprim/auto.png",
+                    "д/с было-стало": "../cdn/shows/otvprim/bylo.png",
+                    "в центре внимания": "../cdn/shows/otvprim/center.png",
+                    "культурно": "../cdn/shows/otvprim/culture.png",
+                    "приморье безопасности": "../cdn/shows/otvprim/danger.png",
+                    "пойдем домой": "../cdn/shows/otvprim/domoy.png",
+                    "фейкам нет": "../cdn/shows/otvprim/fake.png",
+                    "финкод": "../cdn/shows/otvprim/finkod.png",
+                    "без галстуков": "../cdn/shows/otvprim/galstuk.png",
+                    "гороскоп": "../cdn/shows/otvprim/goroskop.png",
+                    "владивосток: инструкция": "../cdn/shows/otvprim/instruct.png",
+                    "итог недели": "../cdn/shows/otvprim/itogi.png",
+                    "квадратные метры": "../cdn/shows/otvprim/m2.png",
+                    "мегаполис": "../cdn/shows/otvprim/mega.png",
+                    "морская": "../cdn/shows/otvprim/morskaya.png",
+                    "сделано в приморье": "../cdn/shows/otvprim/prim.png",
+                    "разведка блогом": "../cdn/shows/otvprim/razvedka.png",
+                    "шестаков отвечает": "../cdn/shows/otvprim/shest.png",
+                    "морское собрание": "../cdn/shows/otvprim/sobr.png",
+                    "специальный репортаж": "../cdn/shows/otvprim/spec.png",
+                    "спортивное приморье": "../cdn/shows/otvprim/sport.png",
+                    "стесняюсь спросить": "../cdn/shows/otvprim/stesnyaus.png",
+                    "два туриста": "../cdn/shows/otvprim/turisty.png",
+                    "у камина": "../cdn/shows/otvprim/ukamina.png",
+                    "нужен ужин": "../cdn/shows/otvprim/uzhin.png",
+                    "дальний восток на связи": "../cdn/shows/otvprim/vostok.png",
+                    "в порядке": "../cdn/shows/otvprim/vporyadke.png",
+                    "земля приморская": "../cdn/shows/otvprim/zemlya.png",
+                    "т/с": "../cdn/shows/otvprim/ts.png",
+                    "х/ф": "../cdn/shows/otvprim/ts.png",
+                    "д/ф": "../cdn/shows/otvprim/ts.png",
+                    "д/с": "../cdn/shows/otvprim/ts.png",
+                    "м/ф": "../cdn/shows/otvprim/ts.png",
+                },
+  };
+  const DEFAULT_COVER = "../media/cover.png";
 
-        let xml;
-        try {
-            xml = await loadEPG(CHANNELS[channelKey]);
-        } catch (err) {
-            block.innerHTML = `
-                <div class='error'>
-                    <img style='height: 5em;' src='media/sad.svg'>
-                    <span class='loginto' data-key='error-no-epg'>Ошибка: канал отсутствует в базе EPG</span>
-                </div>`;
-            return;
-        }
+  function getShowInfo(channelKey, title) {
+    if (!title) return { id: null, img: DEFAULT_COVER };
+    const t = title.toLowerCase().trim();
+    const map = SHOW_IMAGES[channelKey];
+    if (!map) return { id: null, img: DEFAULT_COVER };
+    if (map[t]) return { id: t, img: map[t] };
+    for (const key in map) {
+      if (t.includes(key) || key.includes(t)) return { id: key, img: map[key] };
+    }
+    return { id: null, img: DEFAULT_COVER };
+  }
 
-        let programmes = Array.from(xml.getElementsByTagName("programme"));
+  function parseEPGTime(str) {
+    if (!str) return null;
+    const s = str.trim();
+    const base = s.substring(0, 14);
+    const year = parseInt(base.substring(0,4),10);
+    const month = parseInt(base.substring(4,6),10) - 1;
+    const day = parseInt(base.substring(6,8),10);
+    const hour = parseInt(base.substring(8,10),10);
+    const minute = parseInt(base.substring(10,12),10);
+    const second = parseInt(base.substring(12,14),10);
+    let date = new Date(Date.UTC(year, month, day, hour, minute, second));
+    const tzMatch = s.match(/([+\-]\d{4})$/);
+    if (tzMatch) {
+      const tz = tzMatch[1];
+      const sign = tz[0] === "+" ? 1 : -1;
+      const tzH = parseInt(tz.substring(1,3),10);
+      const tzM = parseInt(tz.substring(3,5),10);
+      const offsetMs = (tzH * 60 + tzM) * 60000;
+      date = new Date(date.getTime() - sign * offsetMs);
+    }
+    return date;
+  }
 
-        const m = CHANNELS[channelKey].match(/channel_id=(\d+)/);
-        if (m) {
-            const cid = m[1];
-            programmes = programmes.filter(p => p.getAttribute("channel") === cid || !p.getAttribute("channel"));
-        }
+  function getTitleFromProg(prog) {
+    const titles = Array.from(prog.getElementsByTagName("title"));
+    let t = titles.find(x => (x.getAttribute("lang") || "").toLowerCase() === "en");
+    if (!t) t = titles.find(x => (x.getAttribute("lang") || "").toLowerCase() === "ru");
+    if (!t) t = titles[0];
+    return t ? t.textContent.trim() : "Без названия";
+  }
 
-        const progs = programmes.map(p => ({
-            el: p,
-            start: parseEPGTime(p.getAttribute("start")),
-            stop: parseEPGTime(p.getAttribute("stop")),
-            title: getTitleFromProg(p)
-        })).filter(x => x.start && x.stop).sort((a,b) => a.start - b.start);
+  const epgCache = new Map();
+  async function loadEPG(url) {
+    if (epgCache.has(url)) return epgCache.get(url);
+    const p = fetch(url)
+      .then(r => r.text())
+      .then(txt => new DOMParser().parseFromString(txt, "application/xml"));
+    epgCache.set(url, p);
+    return p;
+  }
 
-        if (!progs.length) {
-            block.innerHTML = `
-                <div class='error'>
-                    <img style='height: 5em;' src='media/sad.svg'>
-                    <span class='loginto' data-key='error-no-epg'>Ошибка: канал отсутствует в базе EPG</span>
-                </div>`;
-            return;
-        }
+  const blocks = Array.from(document.querySelectorAll("[data-channel], [channel]"));
 
-        const now = new Date();
-        let idx = progs.findIndex(p => now >= p.start && now < p.stop);
-        if (idx === -1) idx = progs.findIndex(p => p.stop > now);
-        if (idx === -1) idx = 0;
+  blocks.forEach(async block => {
+    const channelKey = (block.getAttribute("data-channel") || block.getAttribute("channel") || "").trim();
+    if (!CHANNELS[channelKey]) return;
 
-        const display = progs.slice(idx, idx + 5);
+    const xml = await loadEPG(CHANNELS[channelKey]);
+    let programmes = Array.from(xml.getElementsByTagName("programme"));
 
-        // === tvnow ===
-        let tvNow = block.querySelector(".tvnow");
-        if (!tvNow) {
-            tvNow = document.createElement("div");
-            tvNow.className = "tvnow tventry";
-            block.insertBefore(tvNow, block.firstChild);
-        }
-        if (display[0]) {
-            const nowProg = display[0];
-            const info = getShowInfo(channelKey, nowProg.title);
-            const link = document.createElement("a");
-            link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}` : "#";
-            link.innerHTML = `
-                <img id="tventryimg" src="${info.img}">
-                <div class="tvtext">
-                    <span id="tvtitle">${nowProg.title}</span>
-                    <span id="tvtime">${nowProg.start.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</span>
-                </div>`;
-            tvNow.innerHTML = "";
-            tvNow.appendChild(link);
-        }
+    const m = CHANNELS[channelKey].match(/channel_id=(\d+)/);
+    if (m) {
+      const cid = m[1];
+      programmes = programmes.filter(p => p.getAttribute("channel") === cid || !p.getAttribute("channel"));
+    }
 
-        // === tvnext ===
-        let nextEls = Array.from(block.querySelectorAll(".tvnext"));
-        while (nextEls.length < 4) {
-            const div = document.createElement("div");
-            div.className = "tvnext tventry";
-            block.appendChild(div);
-            nextEls.push(div);
-        }
-        nextEls = nextEls.slice(0,4);
+    const progs = programmes.map(p => ({
+      el: p,
+      start: parseEPGTime(p.getAttribute("start")),
+      stop: parseEPGTime(p.getAttribute("stop")),
+      title: getTitleFromProg(p)
+    })).filter(x => x.start && x.stop).sort((a,b) => a.start - b.start);
 
-        for (let i=0; i<4; i++) {
-            const prog = display[i+1];
-            const el = nextEls[i];
-            if (prog) {
-                const info = getShowInfo(channelKey, prog.title);
-                const link = document.createElement("a");
-                link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}` : "#";
-                link.innerHTML = `
-                    <div class="tvtextnext">
-                        <span class="tvtime">${prog.start.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}</span>
-                        <span class="tvtitle">${prog.title}</span>
-                    </div>`;
-                el.innerHTML = "";
-                el.appendChild(link);
-            } else {
-                el.innerHTML = "";
-            }
-        }
-    });
+    const now = new Date();
+    let idx = progs.findIndex(p => now >= p.start && now < p.stop);
+    if (idx === -1) idx = progs.findIndex(p => p.stop > now);
+    if (idx === -1) idx = 0;
+
+    const display = progs.slice(idx, idx + 5);
+
+    // === tvnow ===
+    let tvNow = block.querySelector(".tvnow");
+    if (!tvNow) {
+      tvNow = document.createElement("div");
+      tvNow.className = "tvnow tventry";
+      block.insertBefore(tvNow, block.firstChild);
+    }
+    if (display[0]) {
+      const nowProg = display[0];
+      const info = getShowInfo(channelKey, nowProg.title);
+      const link = document.createElement("a");
+      link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}` : "#";
+      link.innerHTML = `
+        <img id="tventryimg" src="${info.img}">
+        <div class="tvtext">
+          <span id="tvtitle">${nowProg.title}</span>
+          <span id="tvtime">${nowProg.start.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</span>
+        </div>`;
+      tvNow.innerHTML = "";
+      tvNow.appendChild(link);
+    }
+
+    // === tvnext ===
+    let nextEls = Array.from(block.querySelectorAll(".tvnext"));
+    while (nextEls.length < 4) {
+      const div = document.createElement("div");
+      div.className = "tvnext tventry";
+      block.appendChild(div);
+      nextEls.push(div);
+    }
+    nextEls = nextEls.slice(0,4);
+
+    for (let i=0; i<4; i++) {
+      const prog = display[i+1];
+      const el = nextEls[i];
+      if (prog) {
+        const info = getShowInfo(channelKey, prog.title);
+        const link = document.createElement("a");
+        link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}` : "#";
+        link.innerHTML = `
+          <div class="tvtextnext">
+            <span class="tvtime">${prog.start.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}</span>
+            <span class="tvtitle">${prog.title}</span>
+          </div>`;
+        el.innerHTML = "";
+        el.appendChild(link);
+      } else {
+        el.innerHTML = "";
+      }
+    }
+  });
 });
     </script>
 </body>
