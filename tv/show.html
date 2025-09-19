@@ -936,8 +936,9 @@ async function loadEPG(url) {
     const xml = new DOMParser().parseFromString(text, "application/xml");
     return Array.from(xml.getElementsByTagName("programme")).map(p => ({
         start: parseEPGTime(p.getAttribute("start")),
+        stop: parseEPGTime(p.getAttribute("stop")),
         title: p.getElementsByTagName("title")[0]?.textContent || "Без названия"
-    })).filter(p => p.start);
+    })).filter(p => p.start && p.stop);
 }
 
 // Форматируем дату
@@ -957,8 +958,30 @@ async function showEPG() {
     const programmes = await loadEPG(CHANNELS[channelParam]);
     const now = new Date();
 
-    // Выводим ближайшие 5 передач
-    const upcoming = programmes.filter(p => p.start >= now).slice(0, 5);
+    // Ищем текущую передачу
+    let currentProg = programmes.find(p => now >= p.start && now < p.stop);
+
+    // Если нет текущей — берём ближайшую
+    if (!currentProg) {
+        currentProg = programmes.find(p => p.start > now);
+    }
+
+    if (currentProg) {
+        const divNow = document.createElement("div");
+        divNow.className = "timeentry";
+        divNow.id = "timenow";
+        divNow.innerHTML = `
+            <div class="timeentrytext">
+                <span class="date">${formatDate(currentProg.start)}</span>
+                <span class="time">${currentProg.start.getHours().toString().padStart(2,"0")}:${currentProg.start.getMinutes().toString().padStart(2,"0")}</span>
+            </div>`;
+        timeContainer.appendChild(divNow);
+    }
+
+    // Остальные ближайшие передачи (до 4)
+    const upcoming = programmes
+        .filter(p => p.start > now)
+        .slice(0, 4);
 
     upcoming.forEach(p => {
         const div = document.createElement("div");
