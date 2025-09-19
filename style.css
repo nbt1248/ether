@@ -1290,11 +1290,11 @@ iframe {
     gap: 0.5em;
 }
 
-.timeentrytext #time {
+.timeentrytext .time {
     font-size: 50px;
 }
 
-.timeentrytext #date {
+.timeentrytext .date {
     font-size: 45px;
 }
 
