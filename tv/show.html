@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title data-key="page_title">Ether - Смотреть телевидение онлайн</title>
+    <meta name="description" data-key="page_description" content="Ether - это бесплатный плеер IPTV, а теперь ещё и онлайн-телепрограмма. Доступно уже больше 60 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!">
+    <meta property="og:image" content="/../media/cover.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../media/etherfav.svg">
+    <link rel="apple-touch-icon" href="/../media/ethericon.png">
+    <meta name="theme-color" content="#4B4F9C" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#4B4F9C" media="(prefers-color-scheme: dark)">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104174553', 'ym');
+
+        ym(104174553, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/104174553" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+    <div class="header">
+            <div class="ttabs">
+                <a href="index.html" style="width: 100%;">
+                    <img class="logo" src="../media/etherw.svg">
+                </a>
+            </div>
+    </div>
+    <div class="box">
+        <div class="sidebar sleft">
+            <a href="tv/index.html" class="sbut sleft">
+                <img class="sbuticon" src="../media/list.svg">
+                <span data-lang="tvprogram">Телепрограмма</span>
+            </a>
+            <span class="sh sleft" data-key="sidebar_popular">Популярное</span>
+            <a href="watch.html?v=eu" class="sbut sleft">
+                <img class="sbuticon" src="../cdn/eu.svg">
+                <span>Euronews</span>
+            </a>
+            <a href="watch.html?v=m24" class="sbut sleft">
+                <img class="sbuticon" src="../cdn/m24w.svg">
+                <span data-key="moscow24">Москва 24</span>
+            </a>
+            <a href="watch.html?v=bbc" class="sbut sleft">
+                <img class="sbuticon" src="../cdn/bbc.svg">
+                <span>BBC</span>
+            </a>
+        </div>
+        <div class="content">
+            <h1 class="row3"><span id="show" style="text-transform: capitalize;"></span></h1>
+            <img src="../media/cover.png" id="cover" style="width: 50%;">
+            <p id="description"></p>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="langs">
+            <a href="#" onclick="changeLanguage('ru')"><img src="../media/ru.svg"></a>
+            <a href="#" onclick="changeLanguage('by')"><img src="../media/by.svg"></a>
+            <a href="#" onclick="changeLanguage('uk')"><img src="../media/uk.svg"></a>
+            <a href="#" onclick="changeLanguage('en')"><img src="../media/en.svg"></a>
+        </div>
+        <div class="row">
+            <a href="about.html" class="about" data-key="about_link">О сайте</a>
+            <span class="quickinfo">Ether, 2025</span>
+        </div>
+    </div>
+    <script>
+        // Словарь переводов
+        const translations = {
+            'ru': {
+                'title': 'Ether - Смотреть телевидение онлайн',
+                'description': 'Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!',
+                'popular': 'Популярное',
+                'watchtv': 'Смотреть телеканалы',
+                'tvprogramfortoday': 'Программа передач на сегодня',
+                'about_link': 'О сайте'
+            },
+            'by': {
+                'title': 'Ether - Глядзець тэлебачанне онлайн',
+                'description': 'Ether - гэта бясплатны плэер IPTV. Даступна ўжо больш за 40 каналаў. Усе трансляцыі выкарыстоўваюць афіцыйныя крыніцы. Глядзіце тэлебачанне? Ether лепш!',
+                'popular': 'Папулярнае',
+                'watchtv': 'Глядзець тэлеканалы',
+                'moscow24': 'Масква 24',
+                'tvprogramfortoday': 'Праграма перадач на сёння',
+                'about_link': "Пра сайт"
+            },
+            'uk': {
+                'title': 'Ether - Дивитися телебачення онлайн',
+                'description': 'Ether - це безкоштовний плеєр IPTV. Доступно вже понад 40 каналів. Всі трансляції використовують офіційні джерела. Дивитесь телебачення? Ether краще!',
+                'popular': 'Популярне',
+                'watchtv': 'Дивитися телеканали',
+                'moscow24': 'Москва 24',
+                'tvprogramfortoday': 'Програма передач на сьогодні',
+                'about_link': "Про сайт",
+            },
+            'en': {
+                'title': 'Ether - program TV online',
+                'description': 'Ether is a free IPTV player. Already more than 40 channels available. All broadcasts use official sources. program TV? Better program Ether!',
+                'popular': 'Popular',
+                'watchtv': 'Watch TV',
+                'moscow24': 'Moscow 24',
+                'tvprogramfortoday': 'TV Program for today',
+                'about_link': "About",
+            }
+        };
+
+        // Функция смены языка
+        function changeLanguage(lang) {
+            // Сохраняем выбор языка в localStorage
+            localStorage.setItem('selectedLanguage', lang);
+            
+            // Обновляем язык документа
+            document.documentElement.lang = lang;
+            
+            // Обновляем все элементы с атрибутом data-lang
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'META' && element.name === 'description') {
+                        element.content = translations[lang][key];
+                    } else if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Обновляем консольные сообщения
+            updateConsoleMessages(lang);
+        }
+
+        // Функция обновления сообщений в консоли
+        function updateConsoleMessages(lang) {
+            const consoleMessages = {
+                'ru': {
+                    'checking': 'Проверяю ваш IP-адрес...',
+                    'ip_found': 'Ваш IP-адрес: ',
+                    'ru_ip': 'Обнаружен российский IP-адрес. Элемент скрыт.',
+                    'by_ip': 'Обнаружен беларусский IP-адрес. Элемент скрыт.',
+                    'other_ip': 'Обнаружен IP-адрес из страны ',
+                    'error': 'Ошибка при определении IP. Элементы остаются видимыми.'
+                },
+                'by': {
+                    'checking': 'Правяраю ваш IP-адрас...',
+                    'ip_found': 'Ваш IP-адрас: ',
+                    'ru_ip': 'Знойдзены расійскі IP-адрас. Элемент схаваны.',
+                    'by_ip': 'Знойдзены беларускі IP-адрас. Элемент схаваны.',
+                    'other_ip': 'Знойдзены IP-адрас з краіны ',
+                    'error': 'Памылка пры вызначэнні IP. Элементы застаюцца бачнымі.'
+                },
+                'uk': {
+                    'checking': 'Перевіряю вашу IP-адресу...',
+                    'ip_found': 'Ваша IP-адреса: ',
+                    'ru_ip': 'Виявлено російську IP-адресу. Елемент приховано.',
+                    'by_ip': 'Виявлено білоруську IP-адресу. Елемент приховано.',
+                    'other_ip': 'Виявлено IP-адресу з країни ',
+                    'error': 'Помилка при визначенні IP. Елементи залишаються видимими.'
+                },
+                'en': {
+                    'checking': 'Checking your IP address...',
+                    'ip_found': 'Your IP address: ',
+                    'ru_ip': 'Russian IP address detected. Element hidden.',
+                    'by_ip': 'Belarusian IP address detected. Element hidden.',
+                    'other_ip': 'IP address from country detected: ',
+                    'error': 'Error determining IP. Elements remain visible.'
+                }
+            };
+            
+            window.consoleMessages = consoleMessages[lang] || consoleMessages['ru'];
+        }
+
+        // Инициализация языка при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            // Определяем язык по умолчанию (из localStorage или браузера)
+            const savedLanguage = localStorage.getItem('selectedLanguage');
+            const browserLanguage = navigator.language.substring(0, 2);
+            const defaultLanguage = savedLanguage || (['ru', 'by', 'uk', 'en'].includes(browserLanguage) ? browserLanguage : 'ru');
+            
+            // Устанавливаем язык
+            changeLanguage(defaultLanguage);
+            
+            // Оригинальный код для проверки геолокации
+            const elementsToHideRU = document.querySelectorAll('.geoban');
+            const elementsToHideBY = document.querySelectorAll('.geobanby');
+            
+            console.log(window.consoleMessages?.checking || 'Проверяю ваш IP-адрес...');
+            
+            // Шаг 1: Получение IP-адреса пользователя
+            fetch('https://api.ipify.org/?format=json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Не удалось получить IP-адрес.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const userIP = data.ip;
+                    console.log((window.consoleMessages?.ip_found || 'Ваш IP-адрес: ') + userIP);
+                    
+                    // Шаг 2: Получение кода страны по IP-адресу с использованием ipwhois.io
+                    return fetch(`https://ipwho.is/${userIP}`);
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Не удалось получить данные о местоположении.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const countryCode = data.country_code;
+                    
+                    // Шаг 3: Скрытие элементов на основе кода страны
+                    if (countryCode === 'RU') {
+                        elementsToHideRU.forEach(element => {
+                            element.classList.add('hidden');
+                        });
+                        console.log(window.consoleMessages?.ru_ip || 'Обнаружен российский IP-адрес. Элемент скрыт.');
+                    } else if (countryCode === 'BY') {
+                        elementsToHideBY.forEach(element => {
+                            element.classList.add('hidden');
+                        });
+                        console.log(window.consoleMessages?.by_ip || 'Обнаружен беларусский IP-адрес. Элемент скрыт.');
+                    } else {
+                        console.log((window.consoleMessages?.other_ip || 'Обнаружен IP-адрес из страны ') + countryCode + '. Элементы видны.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    console.log(window.consoleMessages?.error || 'Ошибка при определении IP. Элементы остаются видимыми.');
+                });
+        });
+    </script>
+<script>
+const SHOW_IMAGES = {
+    "crosstalk": "../cdn/shows/rt/crosstalk.png",
+    "news": "../cdn/shows/rt/news.png",
+    "sanchez Effect": "../cdn/shows/rt/sanchez.png",
+    "documentary": "../cdn/shows/rt/doc.png"
+};
+
+const urlParams = new URLSearchParams(window.location.search);
+const showParam = urlParams.get("v") || "undefined";
+
+// Название шоу
+const showElem = document.getElementById("show");
+showElem.textContent = showParam;
+
+// Картинка для шоу
+const coverElem = document.getElementById("cover");
+coverElem.src = SHOW_IMAGES[showParam] || "../media/cover.png";
+</script>
+</body>
+</html>

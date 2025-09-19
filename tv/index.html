@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title data-lang="title">Ether Телепрограмма - Что показывают по ТВ</title>
+    <meta name="description" data-lang="description" content="Ether - это бесплатный плеер IPTV, а теперь ещё и онлайн-телепрограмма. Доступно уже больше 60 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!">
+    <meta property="og:image" content="/../media/cover.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../media/etherfav.svg">
+    <link rel="apple-touch-icon" href="/../media/ethericon.png">
+    <meta name="theme-color" content="#4B4F9C" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#4B4F9C" media="(prefers-color-scheme: dark)">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=104174553', 'ym');
+
+        ym(104174553, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/program/104174553" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+    <div class="header">
+            <div class="ttabs">
+                <a href="index.html" style="width: 100%;">
+                    <img class="logo" src="../media/etherw.svg">
+                </a>
+            </div>
+    </div>
+    <div class="box">
+        <div class="sidebar sleft">
+            <a href="../index.html" class="sbut sleft">
+                <img class="sbuticon" src="../media/list.svg">
+                <span data-lang="watchtv">Смотреть телеканалы</span>
+            </a>
+        </div>
+        <div class="content">
+                <h2 data-lang="international">Международные</h2>
+                <div class="column">
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=rt" class="tvheader" id="rt">
+                                <img class="tvlogo" src="../cdn/rt.svg">
+                            </a>
+                            <div class="tventries" data-channel="rt">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=cnn" class="tvheader" id="cnn">
+                                <img class="tvlogo" src="../cdn/cnn.svg">
+                            </a>
+                            <div class="tventries" data-channel="cnn">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a href="show.html?v=">
+                                            <span id="tvtitle"></span>
+                                            <span id="tvtime"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=bbc" class="tvheader" id="bbc">
+                                <img class="tvlogo" src="../cdn/bbc.svg">
+                            </a>
+                            <div class="tventries" data-channel="bbc">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <span id="tvtitle"></span>
+                                        <span id="tvtime"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=eu" class="tvheader" id="eu">
+                                <img class="tvlogo" src="../cdn/eu2.svg">
+                            </a>
+                            <div class="tventries" data-channel="eu">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <span id="tvtitle"></span>
+                                        <span id="tvtime"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=alj" class="tvheader" id="alj">
+                                <img class="tvlogo" src="../cdn/alj2.svg">
+                            </a>
+                            <div class="tventries" data-channel="alj">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <span id="tvtitle"></span>
+                                        <span id="tvtime"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=cgtn" class="tvheader" id="cgtn">
+                                <img class="tvlogo" src="../cdn/cgtn.svg">
+                            </a>
+                            <div class="tventries" data-channel="cgtn">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <span id="tvtitle"></span>
+                                        <span id="tvtime"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 data-lang="russia">Россия</h2>
+                <div class="column">
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=ch1" class="tvheader" id="ch1">
+                                <img class="tvlogo" src="../cdn/1.svg">
+                            </a>
+                            <div class="tventries" data-channel="ch1">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=r1" class="tvheader" id="r1">
+                                <img class="tvlogo" src="../cdn/r12.svg">
+                            </a>
+                            <div class="tventries" data-channel="r1">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=match" class="tvheader" id="match">
+                                <img class="tvlogo" src="../cdn/match.svg">
+                            </a>
+                            <div class="tventries" data-channel="match">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=ntv" class="tvheader" id="ntv">
+                                <img class="tvlogo" src="../cdn/ntv.svg">
+                            </a>
+                            <div class="tventries" data-channel="ntv">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=m24" class="tvheader" id="m24">
+                                <img class="tvlogo" src="../cdn/m24.svg">
+                            </a>
+                            <div class="tventries" data-channel="m24">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=spb6" class="tvheader" id="spb6">
+                                <img class="tvlogo" src="../cdn/62.svg">
+                            </a>
+                            <div class="tventries" data-channel="spb6">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=tnt" class="tvheader" id="tnt">
+                                <img class="tvlogo" src="../cdn/tnt.svg">
+                            </a>
+                            <div class="tventries" data-channel="tnt">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=viva" class="tvheader" id="viva">
+                                <img class="tvlogo" src="../cdn/viva.svg">
+                            </a>
+                            <div class="tventries" data-channel="viva">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=per" class="tvheader" id="per">
+                                <img class="tvlogo" src="../cdn/per2.svg">
+                            </a>
+                            <div class="tventries" data-channel="per">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=tvrain" class="tvheader" id="tvrain">
+                                <img class="tvlogo" src="../cdn/tvrain.svg">
+                            </a>
+                            <div class="tventries" data-channel="tvrain">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 data-lang="cis">СНГ</h2>
+                <div class="column">
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=bel1" class="tvheader" id="bel1">
+                                <img class="tvlogo" src="../cdn/bel12.svg">
+                            </a>
+                            <div class="tventries" data-channel="bel1">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=bel2" class="tvheader" id="bel2">
+                                <img class="tvlogo" src="../cdn/bel22.svg">
+                            </a>
+                            <div class="tventries" data-channel="bel2">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=bel3" class="tvheader" id="bel3">
+                                <img class="tvlogo" src="../cdn/bel32.svg">
+                            </a>
+                            <div class="tventries" data-channel="bel3">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=bel4" class="tvheader" id="bel4">
+                                <img class="tvlogo" src="../cdn/bel42.svg">
+                            </a>
+                            <div class="tventries" data-channel="bel4">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=bel5" class="tvheader" id="bel5">
+                                <img class="tvlogo" src="../cdn/bel52.svg">
+                            </a>
+                            <div class="tventries" data-channel="bel5">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=bel24" class="tvheader" id="bel24">
+                                <img class="tvlogo" src="../cdn/bel242.svg">
+                            </a>
+                            <div class="tventries" data-channel="bel24">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=ont" class="tvheader" id="ont">
+                                <img class="tvlogo" src="../cdn/ont.svg">
+                            </a>
+                            <div class="tventries" data-channel="ont">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=stv" class="tvheader" id="stv">
+                                <img class="tvlogo" src="../cdn/stv2.svg">
+                            </a>
+                            <div class="tventries" data-channel="stv">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch geoban geobanby">
+                            <a href="program.html?v=belsat" class="tvheader" id="belsat">
+                                <img class="tvlogo" src="../cdn/belsat2.svg">
+                            </a>
+                            <div class="tventries" data-channel="belsat">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch geoban">
+                            <a href="program.html?v=fd" class="tvheader" id="fd">
+                                <img class="tvlogo" src="../cdn/fd.svg">
+                            </a>
+                            <div class="tventries" data-channel="fd">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch geoban">
+                            <a href="program.html?v=1p1" class="tvheader" id="ch1p1">
+                                <img class="tvlogo" src="../cdn/1p1.svg">
+                            </a>
+                            <div class="tventries" data-channel="1p1">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch geoban">
+                            <a href="program.html?v=2p2" class="tvheader" id="ch2p2">
+                                <img class="tvlogo" src="../cdn/2p2.svg">
+                            </a>
+                            <div class="tventries" data-channel="2p2">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch geoban">
+                            <a href="program.html?v=stb" class="tvheader" id="stb">
+                                <img class="tvlogo" src="../cdn/stb.svg">
+                            </a>
+                            <div class="tventries" data-channel="stb">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch geoban">
+                            <a href="program.html?v=ch24" class="tvheader" id="ch24">
+                                <img class="tvlogo" src="../cdn/ch242.svg">
+                            </a>
+                            <div class="tventries" data-channel="ch24">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 data-lang="europe">Европа</h2>
+                    <div class="column">
+                        <div class="row">
+                            <div class="tvch">
+                                <a href="program.html?v=etv" class="tvheader" id="etv">
+                                    <img class="tvlogo" src="../cdn/etv.svg">
+                                </a>
+                                <div class="tventries" data-channel="etv">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tvch">
+                                <a href="program.html?v=etv2" class="tvheader" id="etv2">
+                                    <img class="tvlogo" src="../cdn/etv22.svg">
+                                </a>
+                                <div class="tventries" data-channel="etv2">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tvch">
+                                <a href="program.html?v=etvplus" class="tvheader" id="etvplus">
+                                    <img class="tvlogo" src="../cdn/etvplus.svg">
+                                </a>
+                                <div class="tventries" data-channel="etvplus">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="tvch">
+                                <a href="program.html?v=lrt" class="tvheader" id="lrt">
+                                    <img class="tvlogo" src="../cdn/lrt2.svg">
+                                </a>
+                                <div class="tventries" data-channel="lrt">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tvch">
+                                <a href="program.html?v=tvp" class="tvheader" id="tvp">
+                                    <img class="tvlogo" src="../cdn/tvp.svg">
+                                </a>
+                                <div class="tventries" data-channel="tvp">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tvch">
+                                <a href="program.html?v=mold1" class="tvheader" id="mold1">
+                                    <img class="tvlogo" src="../cdn/mold12.svg">
+                                </a>
+                                <div class="tventries" data-channel="mold1">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="tvch">
+                                <a href="program.html?v=mtv" class="tvheader" id="mtv">
+                                    <img class="tvlogo" src="../cdn/mtv.svg">
+                                </a>
+                                <div class="tventries" data-channel="mtv">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tvch">
+                                <a href="program.html?v=ard" class="tvheader" id="ard">
+                                    <img class="tvlogo" src="../cdn/ard2.svg">
+                                </a>
+                                <div class="tventries" data-channel="ard">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tvch">
+                                <a href="program.html?v=zdf" class="tvheader" id="zdf">
+                                    <img class="tvlogo" src="../cdn/zdf2.svg">
+                                </a>
+                                <div class="tventries" data-channel="zdf">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="tvch">
+                                <a href="program.html?v=fr2" class="tvheader" id="fr2">
+                                    <img class="tvlogo" src="../cdn/fr2.svg">
+                                </a>
+                                <div class="tventries" data-channel="fr2">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tvch">
+                                <a href="program.html?v=ch4" class="tvheader" id="ch4">
+                                    <img class="tvlogo" src="../cdn/4.svg">
+                                </a>
+                                <div class="tventries" data-channel="ch4">
+                                    <div class="tvnow tventry">
+                                        <img id="tventryimg" src="../cdn/testcover.png">
+                                        <div class="tvtext">
+                                            <a id="tvtitle"></a>
+                                            <a id="tvtime"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <h1 data-lang="regional_channels">Региональные телеканалы</h1>
+                <h2 data-lang="cis">СНГ</h2>
+                <div class="column">
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=sar24" class="tvheader" id="sar24">
+                                <img class="tvlogo" src="../cdn/sar24.svg">
+                            </a>
+                            <div class="tventries" data-channel="sar24">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=seim" class="tvheader" id="seim">
+                                <img class="tvlogo" src="../cdn/seim.svg">
+                            </a>
+                            <div class="tventries" data-channel="seim">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=k24" class="tvheader" id="k24">
+                                <img class="tvlogo" src="../cdn/k242.svg">
+                            </a>
+                            <div class="tventries" data-channel="k24">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=chgtrk" class="tvheader" id="chgtrk">
+                                <img class="tvlogo" src="../cdn/chgtrk.svg">
+                            </a>
+                            <div class="tventries" data-channel="chgtrk">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=otv" class="tvheader" id="otv">
+                                <img class="tvlogo" src="../cdn/otv.svg">
+                            </a>
+                            <div class="tventries" data-channel="otv">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=aist" class="tvheader" id="aist">
+                                <img class="tvlogo" src="../cdn/aist.svg">
+                            </a>
+                            <div class="tventries" data-channel="aist">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=tvk" class="tvheader" id="tvk">
+                                <img class="tvlogo" src="../cdn/tvk.svg">
+                            </a>
+                            <div class="tventries" data-channel="tvk">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=otvprim" class="tvheader" id="otvprim">
+                                <img class="tvlogo" src="../cdn/otvprim.svg">
+                            </a>
+                            <div class="tventries" data-channel="otvprim">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=zahid" class="tvheader geoban" id="zahid">
+                                <img class="tvlogo" src="../cdn/zahid2.svg">
+                            </a>
+                            <div class="tventries" data-channel="zahid">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=ch11" class="tvheader geoban" id="ch11">
+                                <img class="tvlogo" src="../cdn/ch112.svg">
+                            </a>
+                            <div class="tventries" data-channel="ch11">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=mis" class="tvheader geoban" id="mis">
+                                <img class="tvlogo" src="../cdn/mis2.svg">
+                            </a>
+                            <div class="tventries" data-channel="mis">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 data-lang="germany">Германия</h2>
+                <div class="column">
+                    <div class="row">
+                        <div class="tvch">
+                            <a href="program.html?v=wdr" class="tvheader geoban" id="wdr">
+                                <img class="tvlogo" src="../cdn/wdr.svg">
+                            </a>
+                            <div class="tventries" data-channel="wdr">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=br" class="tvheader geoban" id="br">
+                                <img class="tvlogo" src="../cdn/br.svg">
+                            </a>
+                            <div class="tventries" data-channel="br">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tvch">
+                            <a href="program.html?v=rbb" class="tvheader geoban" id="rbb">
+                                <img class="tvlogo" src="../cdn/rbb.svg">
+                            </a>
+                            <div class="tventries" data-channel="rbb">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="tvch">
+                            <a href="program.html?v=swr" class="tvheader geoban" id="swr">
+                                <img class="tvlogo" src="../cdn/swr.svg">
+                            </a>
+                            <div class="tventries" data-channel="swr">
+                                <div class="tvnow tventry">
+                                    <img id="tventryimg" src="../cdn/testcover.png">
+                                    <div class="tvtext">
+                                        <a id="tvtitle"></a>
+                                        <a id="tvtime"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <a href="https://mailit.net.ru"><img class="mailit" src="../media/mailit.svg"></a>
+        <div class="socials row2 quickinfo">
+            <a href="https://t.me/mailitnetru"><img src="../media/tg.svg" class="social"></a>
+            <a href="https://x.com/mailitnetru"><img src="../media/tw.svg" class="social"></a>
+        </div>
+        <div class="langs">
+            <a href="#" onclick="changeLanguage('ru')"><img src="../media/ru.svg"></a>
+            <a href="#" onclick="changeLanguage('by')"><img src="../media/by.svg"></a>
+            <a href="#" onclick="changeLanguage('uk')"><img src="../media/uk.svg"></a>
+            <a href="#" onclick="changeLanguage('en')"><img src="../media/en.svg"></a>
+        </div>
+        <div class="row">
+            <a href="../about.html" class="about" data-lang="about_link">О сайте</a>
+            <span class="quickinfo">Ether, 2025</span>
+        </div>
+    </div>
+    <script>
+        // Словарь переводов
+        const translations = {
+            'ru': {
+                'title': 'Ether - Смотреть телевидение онлайн',
+                'description': 'Ether - это бесплатный плеер IPTV. Доступно уже больше 40 каналов. Все трансляции используют официальные источники. Смотрите телевидение? Ether лучше!',
+                'popular': 'Популярное',
+                'watchtv': 'Смотреть телеканалы',
+                'moscow24': 'Москва 24',
+                'international': 'Международные',
+                'regional_channels': 'Региональные телеканалы',
+                'russia': 'Россия',
+                'cis': 'СНГ',
+                'europe': 'Европа',
+                'about_link': 'О сайте'
+            },
+            'by': {
+                'title': 'Ether - Глядзець тэлебачанне онлайн',
+                'description': 'Ether - гэта бясплатны плэер IPTV. Даступна ўжо больш за 40 каналаў. Усе трансляцыі выкарыстоўваюць афіцыйныя крыніцы. Глядзіце тэлебачанне? Ether лепш!',
+                'popular': 'Папулярнае',
+                'watchtv': 'Глядзець тэлеканалы',
+                'moscow24': 'Масква 24',
+                'international': 'Міжнародныя',
+                'regional_channels': 'Рэгіянальныя тэлеканалы',
+                'russia': 'Расія',
+                'cis': 'СНД',
+                'europe': 'Еўропа',
+                'about_link': "Пра сайт"
+            },
+            'uk': {
+                'title': 'Ether - Дивитися телебачення онлайн',
+                'description': 'Ether - це безкоштовний плеєр IPTV. Доступно вже понад 40 каналів. Всі трансляції використовують офіційні джерела. Дивитесь телебачення? Ether краще!',
+                'popular': 'Популярне',
+                'watchtv': 'Дивитися телеканали',
+                'moscow24': 'Москва 24',
+                'other_languages': 'Міжнародні',
+                'other_channels': 'Інші канали',
+                'regional_channels': 'Регіональні телеканали',
+                'russia': 'Росія',
+                'cis': 'СНД',
+                'europe': 'Європа',
+                'poland': 'Польща',
+                'about_link': "Про сайт",
+            },
+            'en': {
+                'title': 'Ether - program TV online',
+                'description': 'Ether is a free IPTV player. Already more than 40 channels available. All broadcasts use official sources. program TV? Better program Ether!',
+                'popular': 'Popular',
+                'watchtv': 'Watch TV',
+                'moscow24': 'Moscow 24',
+                'international': 'International',
+                'other_channels': 'Other channels',
+                'regional_channels': 'Regional channels',
+                'russia': 'Russia',
+                'cis': 'CIS',
+                'europe': 'Europe',
+                'poland': 'Poland',
+                'germany': 'Germany',
+                'about_link': "About",
+            }
+        };
+
+        // Функция смены языка
+        function changeLanguage(lang) {
+            // Сохраняем выбор языка в localStorage
+            localStorage.setItem('selectedLanguage', lang);
+            
+            // Обновляем язык документа
+            document.documentElement.lang = lang;
+            
+            // Обновляем все элементы с атрибутом data-lang
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'META' && element.name === 'description') {
+                        element.content = translations[lang][key];
+                    } else if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Обновляем консольные сообщения
+            updateConsoleMessages(lang);
+        }
+
+        // Функция обновления сообщений в консоли
+        function updateConsoleMessages(lang) {
+            const consoleMessages = {
+                'ru': {
+                    'checking': 'Проверяю ваш IP-адрес...',
+                    'ip_found': 'Ваш IP-адрес: ',
+                    'ru_ip': 'Обнаружен российский IP-адрес. Элемент скрыт.',
+                    'by_ip': 'Обнаружен беларусский IP-адрес. Элемент скрыт.',
+                    'other_ip': 'Обнаружен IP-адрес из страны ',
+                    'error': 'Ошибка при определении IP. Элементы остаются видимыми.'
+                },
+                'by': {
+                    'checking': 'Правяраю ваш IP-адрас...',
+                    'ip_found': 'Ваш IP-адрас: ',
+                    'ru_ip': 'Знойдзены расійскі IP-адрас. Элемент схаваны.',
+                    'by_ip': 'Знойдзены беларускі IP-адрас. Элемент схаваны.',
+                    'other_ip': 'Знойдзены IP-адрас з краіны ',
+                    'error': 'Памылка пры вызначэнні IP. Элементы застаюцца бачнымі.'
+                },
+                'uk': {
+                    'checking': 'Перевіряю вашу IP-адресу...',
+                    'ip_found': 'Ваша IP-адреса: ',
+                    'ru_ip': 'Виявлено російську IP-адресу. Елемент приховано.',
+                    'by_ip': 'Виявлено білоруську IP-адресу. Елемент приховано.',
+                    'other_ip': 'Виявлено IP-адресу з країни ',
+                    'error': 'Помилка при визначенні IP. Елементи залишаються видимими.'
+                },
+                'en': {
+                    'checking': 'Checking your IP address...',
+                    'ip_found': 'Your IP address: ',
+                    'ru_ip': 'Russian IP address detected. Element hidden.',
+                    'by_ip': 'Belarusian IP address detected. Element hidden.',
+                    'other_ip': 'IP address from country detected: ',
+                    'error': 'Error determining IP. Elements remain visible.'
+                }
+            };
+            
+            window.consoleMessages = consoleMessages[lang] || consoleMessages['ru'];
+        }
+
+        // Инициализация языка при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            // Определяем язык по умолчанию (из localStorage или браузера)
+            const savedLanguage = localStorage.getItem('selectedLanguage');
+            const browserLanguage = navigator.language.substring(0, 2);
+            const defaultLanguage = savedLanguage || (['ru', 'by', 'uk', 'en'].includes(browserLanguage) ? browserLanguage : 'ru');
+            
+            // Устанавливаем язык
+            changeLanguage(defaultLanguage);
+            
+            // Оригинальный код для проверки геолокации
+            const elementsToHideRU = document.querySelectorAll('.geoban');
+            const elementsToHideBY = document.querySelectorAll('.geobanby');
+            
+            console.log(window.consoleMessages?.checking || 'Проверяю ваш IP-адрес...');
+            
+            // Шаг 1: Получение IP-адреса пользователя
+            fetch('https://api.ipify.org/?format=json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Не удалось получить IP-адрес.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const userIP = data.ip;
+                    console.log((window.consoleMessages?.ip_found || 'Ваш IP-адрес: ') + userIP);
+                    
+                    // Шаг 2: Получение кода страны по IP-адресу с использованием ipwhois.io
+                    return fetch(`https://ipwho.is/${userIP}`);
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Не удалось получить данные о местоположении.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const countryCode = data.country_code;
+                    
+                    // Шаг 3: Скрытие элементов на основе кода страны
+                    if (countryCode === 'RU') {
+                        elementsToHideRU.forEach(element => {
+                            element.classList.add('hidden');
+                        });
+                        console.log(window.consoleMessages?.ru_ip || 'Обнаружен российский IP-адрес. Элемент скрыт.');
+                    } else if (countryCode === 'BY') {
+                        elementsToHideBY.forEach(element => {
+                            element.classList.add('hidden');
+                        });
+                        console.log(window.consoleMessages?.by_ip || 'Обнаружен беларусский IP-адрес. Элемент скрыт.');
+                    } else {
+                        console.log((window.consoleMessages?.other_ip || 'Обнаружен IP-адрес из страны ') + countryCode + '. Элементы видны.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    console.log(window.consoleMessages?.error || 'Ошибка при определении IP. Элементы остаются видимыми.');
+                });
+        });
+    </script>
+    <script>
+const CHANNELS = {
+    // пример
+    "channel1": "https://epg.example.com/xml?channel_id=1",
+    "channel2": "https://epg.example.com/xml?channel_id=2",
+    // добавляйте свои каналы
+};
+
+async function loadEPG(url) {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("EPG не загружено");
+    const text = await response.text();
+    const parser = new DOMParser();
+    return parser.parseFromString(text, "application/xml");
+}
+
+function parseEPGTime(timeStr) {
+    if (!timeStr) return null;
+    // формат: YYYYMMDDHHMMSS + TZ
+    const y = parseInt(timeStr.substr(0,4));
+    const m = parseInt(timeStr.substr(4,2)) - 1;
+    const d = parseInt(timeStr.substr(6,2));
+    const h = parseInt(timeStr.substr(8,2));
+    const min = parseInt(timeStr.substr(10,2));
+    const s = parseInt(timeStr.substr(12,2));
+    return new Date(y,m,d,h,min,s);
+}
+
+function getTitleFromProg(prog) {
+    const titleEl = prog.getElementsByTagName("title")[0];
+    return titleEl ? titleEl.textContent : "";
+}
+
+// заглушка для получения информации о шоу
+function getShowInfo(channelKey, title) {
+    return {
+        id: title.replace(/\s+/g,"_"), // пример id
+        img: "media/default.png"
+    };
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const blocks = document.querySelectorAll(".epg-block");
+
+    blocks.forEach(async block => {
+        const channelKey = (block.getAttribute("data-channel") || block.getAttribute("channel") || "").trim();
+        if (!CHANNELS[channelKey]) return;
+
+        let xml;
+        try {
+            xml = await loadEPG(CHANNELS[channelKey]);
+        } catch (err) {
+            block.innerHTML = `
+                <div class='error'>
+                    <img style='height: 5em;' src='media/sad.svg'>
+                    <span class='loginto' data-key='error-no-epg'>Ошибка: канал отсутствует в базе EPG</span>
+                </div>`;
+            return;
+        }
+
+        let programmes = Array.from(xml.getElementsByTagName("programme"));
+
+        const m = CHANNELS[channelKey].match(/channel_id=(\d+)/);
+        if (m) {
+            const cid = m[1];
+            programmes = programmes.filter(p => p.getAttribute("channel") === cid || !p.getAttribute("channel"));
+        }
+
+        const progs = programmes.map(p => ({
+            el: p,
+            start: parseEPGTime(p.getAttribute("start")),
+            stop: parseEPGTime(p.getAttribute("stop")),
+            title: getTitleFromProg(p)
+        })).filter(x => x.start && x.stop).sort((a,b) => a.start - b.start);
+
+        if (!progs.length) {
+            block.innerHTML = `
+                <div class='error'>
+                    <img style='height: 5em;' src='media/sad.svg'>
+                    <span class='loginto' data-key='error-no-epg'>Ошибка: канал отсутствует в базе EPG</span>
+                </div>`;
+            return;
+        }
+
+        const now = new Date();
+        let idx = progs.findIndex(p => now >= p.start && now < p.stop);
+        if (idx === -1) idx = progs.findIndex(p => p.stop > now);
+        if (idx === -1) idx = 0;
+
+        const display = progs.slice(idx, idx + 5);
+
+        // === tvnow ===
+        let tvNow = block.querySelector(".tvnow");
+        if (!tvNow) {
+            tvNow = document.createElement("div");
+            tvNow.className = "tvnow tventry";
+            block.insertBefore(tvNow, block.firstChild);
+        }
+        if (display[0]) {
+            const nowProg = display[0];
+            const info = getShowInfo(channelKey, nowProg.title);
+            const link = document.createElement("a");
+            link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}` : "#";
+            link.innerHTML = `
+                <img id="tventryimg" src="${info.img}">
+                <div class="tvtext">
+                    <span id="tvtitle">${nowProg.title}</span>
+                    <span id="tvtime">${nowProg.start.toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}</span>
+                </div>`;
+            tvNow.innerHTML = "";
+            tvNow.appendChild(link);
+        }
+
+        // === tvnext ===
+        let nextEls = Array.from(block.querySelectorAll(".tvnext"));
+        while (nextEls.length < 4) {
+            const div = document.createElement("div");
+            div.className = "tvnext tventry";
+            block.appendChild(div);
+            nextEls.push(div);
+        }
+        nextEls = nextEls.slice(0,4);
+
+        for (let i=0; i<4; i++) {
+            const prog = display[i+1];
+            const el = nextEls[i];
+            if (prog) {
+                const info = getShowInfo(channelKey, prog.title);
+                const link = document.createElement("a");
+                link.href = info.id ? `show.html?v=${encodeURIComponent(info.id)}&c=${encodeURIComponent(channelKey)}` : "#";
+                link.innerHTML = `
+                    <div class="tvtextnext">
+                        <span class="tvtime">${prog.start.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"})}</span>
+                        <span class="tvtitle">${prog.title}</span>
+                    </div>`;
+                el.innerHTML = "";
+                el.appendChild(link);
+            } else {
+                el.innerHTML = "";
+            }
+        }
+    });
+});
+    </script>
+</body>
+</html>
